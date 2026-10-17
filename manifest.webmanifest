@@ -1,0 +1,17 @@
+{
+  "name": "Bar à cocktails",
+  "short_name": "Cocktails",
+  "description": "Ton bar, des centaines de recettes de cocktails et tes avis.",
+  "lang": "fr",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#15202b",
+  "theme_color": "#b3263a",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

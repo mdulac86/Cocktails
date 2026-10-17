@@ -1,0 +1,994 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Bar à cocktails</title>
+<meta name="theme-color" content="#b3263a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Cocktails">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<style>
+:root { color-scheme: light; padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; }
+img { max-width: 100%; }
+[hidden] { display: none !important; }
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700&family=Figtree:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap">
+<style>
+/* Concept : un carnet de bar. Deux onglets (Mon bar / Cocktails), recettes classées par niveau avec trois pastilles. Accent rouge Campari, neutres bleu-gris. */
+:root {
+  --bg: #edf0f3;
+  --surface: #ffffff;
+  --ink: #15202b;
+  --muted: #5b6875;
+  --line: #d3dae1;
+  --accent: #b3263a;
+  --on-accent: #ffffff;
+  --accent-soft: #f6dde1;
+  --ok: #1f7a55;
+  --ok-soft: #d9efe5;
+  --warn: #8f5a00;
+  --warn-soft: #f5e8cc;
+  --f-display: "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
+  --f-body: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-mono: "DM Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f161d; --surface: #172029; --ink: #e8edf2; --muted: #93a1ae; --line: #27333e;
+    --accent: #e0546a; --on-accent: #0f161d; --accent-soft: #3a1d25;
+    --ok: #62c79b; --ok-soft: #14382b; --warn: #e3b25a; --warn-soft: #3b2d10;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f161d; --surface: #172029; --ink: #e8edf2; --muted: #93a1ae; --line: #27333e;
+  --accent: #e0546a; --on-accent: #0f161d; --accent-soft: #3a1d25;
+  --ok: #62c79b; --ok-soft: #14382b; --warn: #e3b25a; --warn-soft: #3b2d10;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 16px; line-height: 1.45;
+  padding-block: 20px 48px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+main { max-width: 680px; margin: 0 auto; }
+h1 { font-family: var(--f-display); font-weight: 700; font-size: 2rem; line-height: 1.05; margin: 0 0 4px; text-wrap: balance; letter-spacing: -0.01em; }
+.sub { color: var(--muted); margin: 0 0 16px; font-size: 0.95rem; }
+button { font: inherit; color: inherit; cursor: pointer; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.tabs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; padding: 4px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; margin-bottom: 18px; position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); background: var(--bg); z-index: 10; }
+.tab { border: 0; background: transparent; padding: 10px 4px; font-size: 0.93rem; border-radius: 9px; font-weight: 600; color: var(--muted); }
+.tab[aria-selected="true"] { background: var(--accent); color: var(--on-accent); }
+.tab .n { font-family: var(--f-mono); font-weight: 500; font-size: 0.8rem; margin-left: 6px; opacity: 0.85; }
+
+.grp { margin: 0 0 22px; }
+.grp h2 { font-family: var(--f-display); font-size: 1.05rem; margin: 0 0 8px; display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+.grp h2 small { font-family: var(--f-mono); font-weight: 400; color: var(--muted); font-size: 0.78rem; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { border: 1px solid var(--line); background: var(--surface); border-radius: 999px; padding: 9px 14px; font-size: 0.95rem; line-height: 1.1; min-height: 40px; }
+.chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--on-accent); font-weight: 600; }
+.tools { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+.ghost { border: 1px solid var(--line); background: transparent; border-radius: 10px; padding: 9px 14px; color: var(--muted); }
+
+.filters { display: flex; flex-direction: column; gap: 10px; margin-bottom: 14px; }
+.row { display: flex; flex-wrap: wrap; gap: 8px; }
+.pill { border: 1px solid var(--line); background: var(--surface); border-radius: 10px; padding: 8px 12px; font-size: 0.92rem; min-height: 38px; }
+.pill[aria-pressed="true"] { border-color: var(--accent); background: var(--accent-soft); color: var(--ink); font-weight: 600; }
+.surprise { align-self: flex-start; border: 0; background: var(--ink); color: var(--bg); border-radius: 10px; padding: 10px 16px; font-weight: 600; }
+
+.list { display: flex; flex-direction: column; gap: 10px; }
+details.card { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; }
+details.card[open] { border-color: var(--accent); }
+details.card > summary { list-style: none; cursor: pointer; padding: 14px; display: grid; grid-template-columns: 1fr auto; gap: 4px 12px; align-items: start; }
+details.card > summary::-webkit-details-marker { display: none; }
+.name { font-family: var(--f-display); font-weight: 600; font-size: 1.15rem; line-height: 1.15; min-width: 0; }
+.meta { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 6px 12px; align-items: center; font-size: 0.85rem; color: var(--muted); }
+.pips { display: inline-flex; gap: 3px; vertical-align: middle; }
+.pips i { width: 8px; height: 8px; border-radius: 50%; background: var(--line); display: block; }
+.pips i.on { background: var(--accent); }
+.tag { font-size: 0.78rem; font-weight: 600; padding: 3px 9px; border-radius: 999px; white-space: nowrap; align-self: start; }
+.tag.ok { background: var(--ok-soft); color: var(--ok); }
+.tag.warn { background: var(--warn-soft); color: var(--warn); }
+.body { padding: 0 14px 16px; border-top: 1px solid var(--line); }
+.body h3 { font-family: var(--f-mono); font-weight: 500; font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin: 14px 0 6px; }
+.ing { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 2px; }
+.ing li { font-family: var(--f-mono); font-size: 0.88rem; }
+.ing li.miss { color: var(--warn); }
+.steps { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 4px; }
+.tip { margin: 10px 0 0; padding: 10px 12px; background: var(--bg); border-radius: 10px; font-size: 0.9rem; color: var(--muted); }
+
+.empty { background: var(--surface); border: 1px dashed var(--line); border-radius: 14px; padding: 20px 16px; }
+.empty b { font-family: var(--f-display); font-size: 1.1rem; display: block; margin-bottom: 4px; }
+.empty p { margin: 0 0 12px; color: var(--muted); }
+.foot { margin-top: 28px; color: var(--muted); font-size: 0.82rem; }
+[hidden] { display: none !important; }
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
+
+.finder { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 14px; margin-bottom: 22px; }
+.finder h2 { font-family: var(--f-display); font-size: 1.05rem; margin: 0 0 10px; }
+.frow { display: flex; flex-wrap: wrap; gap: 8px; }
+.finder input, .finder select, .search { font: inherit; color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; min-height: 42px; min-width: 0; }
+.finder input, .finder select { flex: 1 1 150px; }
+.search { width: 100%; }
+.add { background: var(--accent); color: var(--on-accent); border: 0; border-radius: 10px; padding: 10px 16px; font-weight: 600; min-height: 42px; }
+.hint { font-size: 0.85rem; color: var(--warn); margin: 8px 0 0; min-height: 1.2em; }
+.mybr { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+.br { display: inline-flex; align-items: center; gap: 4px; border: 1px solid var(--line); border-radius: 999px; padding: 4px 4px 4px 12px; font-size: 0.9rem; }
+.br button { border: 0; background: transparent; color: var(--muted); padding: 6px 9px; min-height: 30px; }
+.count { font-family: var(--f-mono); font-size: 0.8rem; color: var(--muted); margin: 0 0 10px; }
+.more { margin-top: 12px; width: 100%; border: 1px solid var(--line); background: var(--surface); border-radius: 12px; padding: 12px; font-weight: 600; }
+
+.rate { display: flex; flex-direction: column; gap: 8px; }
+.stars { display: flex; gap: 2px; margin-left: -6px; }
+.star { border: 0; background: transparent; font-size: 1.7rem; line-height: 1; padding: 4px 6px; min-height: 42px; color: var(--line); }
+.star.on { color: var(--accent); }
+.rrow { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.madecount { font-family: var(--f-mono); font-size: 0.82rem; color: var(--muted); }
+.note { font: inherit; color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; width: 100%; min-width: 0; resize: vertical; }
+.mine { color: var(--accent); font-weight: 600; }
+.mine:empty { display: none; }
+.act { margin-top: 12px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Bar à cocktails</h1>
+  <p class="sub">Coche ce qu’il y a dans ton bar. L’appli te propose des cocktails simples, normaux ou compliqués.</p>
+
+  <div class="tabs" role="tablist">
+    <button class="tab" role="tab" id="tab-bar" aria-selected="true">Mon bar<span class="n" id="n-bar">0</span></button>
+    <button class="tab" role="tab" id="tab-env" aria-selected="false">J’ai envie</button>
+    <button class="tab" role="tab" id="tab-rec" aria-selected="false">Cocktails<span class="n" id="n-rec">0</span></button>
+  </div>
+
+  <section id="view-bar"></section>
+  <section id="view-env" hidden></section>
+  <section id="view-rec" hidden></section>
+
+  <p class="foot">1 oz = 30 ml. Glace, sucre, sel et zeste sont considérés comme toujours disponibles.</p>
+</main>
+
+<script>
+(function () {
+  var GROUPS = [
+    ["Spiritueux", [
+      ["vodka", "Vodka"], ["gin", "Gin"], ["rhum_blanc", "Rhum blanc"], ["rhum_brun", "Rhum brun ou vieilli"],
+      ["rhum_epice", "Rhum épicé (Kraken, Captain Morgan)"], ["tequila", "Tequila blanco"], ["tequila_anejo", "Tequila reposado ou añejo"],
+      ["mezcal", "Mezcal"], ["bourbon", "Bourbon"], ["rye", "Whisky de seigle (rye)"], ["scotch", "Scotch"],
+      ["irlandais", "Whisky irlandais"], ["fireball", "Whisky à la cannelle (Fireball)"], ["cognac", "Cognac"],
+      ["brandy", "Brandy"], ["calvados", "Calvados"], ["pisco", "Pisco"], ["cachaca", "Cachaça"], ["absinthe", "Absinthe"]
+    ]],
+    ["Liqueurs et vins", [
+      ["triple_sec", "Triple sec ou Cointreau"], ["amaretto", "Amaretto"], ["kahlua", "Kahlúa ou liqueur de café"],
+      ["baileys", "Baileys"], ["campari", "Campari"], ["aperol", "Aperol"], ["vermouth_doux", "Vermouth doux"],
+      ["vermouth_sec", "Vermouth sec"], ["lillet", "Lillet"], ["chartreuse", "Chartreuse"], ["maraschino", "Marasquin"],
+      ["chambord", "Liqueur de framboise"], ["midori", "Midori"], ["st_germain", "St-Germain"], ["benedictine", "Bénédictine"],
+      ["drambuie", "Drambuie"], ["frangelico", "Frangelico"], ["limoncello", "Limoncello"], ["creme_cacao", "Crème de cacao"],
+      ["creme_menthe", "Crème de menthe"], ["creme_cassis", "Crème de cassis"], ["curacao_bleu", "Curaçao bleu"],
+      ["liqueur_peche", "Liqueur de pêche"], ["pimms", "Pimm’s"], ["fernet", "Fernet-Branca"], ["amaro", "Amaro (Averna, Montenegro)"],
+      ["sherry", "Xérès"], ["porto", "Porto"], ["prosecco", "Prosecco ou mousseux"], ["vin_rouge", "Vin rouge"], ["vin_blanc", "Vin blanc"],
+      ["biere", "Bière"], ["cidre", "Cidre"]
+    ]],
+    ["Mélangeurs", [
+      ["citron", "Jus de citron"], ["lime", "Lime"], ["orange", "Jus d’orange"], ["pamplemousse", "Jus de pamplemousse"],
+      ["canneberge", "Jus de canneberge"], ["ananas", "Jus d’ananas"], ["jus_pomme", "Jus de pomme"], ["tomate", "Clamato ou jus de tomate"],
+      ["cola", "Cola"], ["tonic", "Tonic"], ["soda", "Eau gazeuse"], ["ginger_beer", "Ginger beer"], ["gingerale", "Ginger ale"],
+      ["limonade", "Limonade ou 7Up"], ["sirop", "Sirop simple"], ["erable", "Sirop d’érable"], ["miel", "Miel"], ["grenadine", "Grenadine"],
+      ["orgeat", "Orgeat"], ["angostura", "Bitter Angostura"], ["peychaud", "Bitter Peychaud’s"], ["bitter_orange", "Bitter d’orange"],
+      ["menthe", "Menthe fraîche"], ["basilic", "Basilic frais"], ["concombre", "Concombre"], ["framboise", "Framboises"],
+      ["fraise", "Fraises"], ["peche", "Purée de pêche"], ["gingembre", "Gingembre frais"], ["creme", "Crème"], ["lait", "Lait"],
+      ["coco", "Crème de coco"], ["chocolat", "Sirop de chocolat"], ["espresso", "Espresso"], ["cafe", "Café filtre"],
+      ["oeuf", "Œuf (blanc ou entier)"]
+    ]]
+  ];
+  var LABEL = {};
+  GROUPS.forEach(function (g) { g[1].forEach(function (p) { LABEL[p[0]] = p[1]; }); });
+  function short(id) { return LABEL[id].replace(/ ou .*$/, "").replace(/ \(.*\)$/, "").toLowerCase(); }
+
+  var W = "bourbon|rye|scotch|irlandais", A = "bourbon|rye";
+  /* [nom, niveau 1-3, verre, ingrédients requis, ingrédients, étapes, astuce] */
+  var C = [
+    ["Gin tonic", 1, "Highball", ["gin", "tonic"], ["2 oz gin", "4 oz tonic", "1 quartier de lime"], ["Remplir le verre de glace.", "Verser le gin, puis le tonic.", "Presser le lime et le laisser dans le verre."], "Un bon tonic fait 80 % du résultat."],
+    ["Vodka soda", 1, "Highball", ["vodka", "soda"], ["2 oz vodka", "4 oz eau gazeuse", "1 tranche de citron"], ["Remplir de glace.", "Ajouter la vodka et l’eau gazeuse.", "Garnir de citron."], ""],
+    ["Cuba libre", 1, "Highball", ["rhum_blanc|rhum_brun", "cola", "lime"], ["2 oz rhum", "4 oz cola", "½ lime pressé"], ["Presser le lime dans le verre.", "Ajouter glace et rhum.", "Compléter de cola."], ""],
+    ["Moscow mule", 1, "Tasse en cuivre ou verre", ["vodka", "ginger_beer", "lime"], ["2 oz vodka", "4 oz ginger beer", "½ oz jus de lime"], ["Remplir de glace.", "Verser vodka et lime.", "Compléter de ginger beer."], ""],
+    ["Dark ’n’ Stormy", 1, "Highball", ["rhum_brun", "ginger_beer", "lime"], ["2 oz rhum brun", "4 oz ginger beer", "1 quartier de lime"], ["Remplir de glace, ajouter le ginger beer.", "Faire flotter le rhum sur le dessus.", "Garnir de lime."], "Le flotteur de rhum donne l’effet « orage »."],
+    ["Tournevis", 1, "Highball", ["vodka", "orange"], ["2 oz vodka", "4 oz jus d’orange"], ["Verser sur glace et remuer."], ""],
+    ["Cape Codder", 1, "Highball", ["vodka", "canneberge", "lime"], ["2 oz vodka", "4 oz jus de canneberge", "1 quartier de lime"], ["Verser vodka et canneberge sur glace.", "Presser le lime."], ""],
+    ["Paloma", 1, "Highball", ["tequila", "pamplemousse", "lime", "soda"], ["2 oz tequila", "3 oz jus de pamplemousse", "½ oz jus de lime", "Eau gazeuse", "Pincée de sel"], ["Saler le rebord si désiré.", "Mélanger tequila, pamplemousse et lime sur glace.", "Compléter d’eau gazeuse."], ""],
+    ["Whisky ginger", 1, "Highball", [W, "gingerale"], ["2 oz whisky", "4 oz ginger ale"], ["Verser sur glace et remuer une fois."], ""],
+    ["Black Russian", 1, "Verre à whisky", ["vodka", "kahlua"], ["2 oz vodka", "1 oz Kahlúa"], ["Verser sur glace.", "Remuer doucement."], ""],
+    ["White Russian", 1, "Verre à whisky", ["vodka", "kahlua", "creme"], ["2 oz vodka", "1 oz Kahlúa", "1 oz crème"], ["Verser vodka et Kahlúa sur glace.", "Faire flotter la crème."], ""],
+    ["Godfather", 1, "Verre à whisky", ["scotch", "amaretto"], ["2 oz scotch", "½ oz amaretto"], ["Verser sur un gros glaçon.", "Remuer 10 secondes."], "Plus d’amaretto pour un goût plus sucré."],
+    ["Mimosa", 1, "Flûte", ["prosecco", "orange"], ["3 oz prosecco", "3 oz jus d’orange"], ["Verser le jus d’orange froid.", "Compléter de prosecco."], ""],
+    ["Aperol spritz", 1, "Grand verre à vin", ["aperol", "prosecco", "soda"], ["3 oz prosecco", "2 oz Aperol", "1 oz eau gazeuse", "1 tranche d’orange"], ["Remplir de glace.", "Verser prosecco, Aperol, puis l’eau gazeuse.", "Garnir d’orange."], ""],
+    ["Americano", 1, "Highball", ["campari", "vermouth_doux", "soda"], ["1 ½ oz Campari", "1 ½ oz vermouth doux", "Eau gazeuse", "1 zeste d’orange"], ["Verser Campari et vermouth sur glace.", "Compléter d’eau gazeuse.", "Garnir de zeste."], ""],
+    ["Tequila sunrise", 1, "Highball", ["tequila", "orange", "grenadine"], ["2 oz tequila", "4 oz jus d’orange", "½ oz grenadine"], ["Verser tequila et jus d’orange sur glace.", "Laisser couler la grenadine le long du verre sans remuer."], ""],
+    ["Baileys sur glace", 1, "Verre à whisky", ["baileys"], ["2 oz Baileys"], ["Verser sur glace."], ""],
+    ["Toddy chaud", 1, "Tasse", [W, "miel", "citron"], ["1 ½ oz whisky", "1 c. à soupe de miel", "½ oz jus de citron", "4 oz eau chaude"], ["Dissoudre le miel dans l’eau chaude.", "Ajouter le whisky et le citron.", "Garnir d’un zeste."], "Parfait un soir d’octobre."],
+
+    ["Margarita", 2, "Coupe ou verre à whisky", ["tequila", "triple_sec", "lime"], ["2 oz tequila", "1 oz triple sec", "1 oz jus de lime", "Sel pour le rebord"], ["Givrer le rebord de sel.", "Agiter tous les ingrédients avec de la glace.", "Filtrer sur glace fraîche."], ""],
+    ["Daiquiri", 2, "Coupe", ["rhum_blanc", "lime", "sirop"], ["2 oz rhum blanc", "1 oz jus de lime", "¾ oz sirop simple"], ["Agiter fort avec de la glace, 10 secondes.", "Filtrer dans une coupe froide."], "Goûte et ajuste le sirop."],
+    ["Mojito", 2, "Highball", ["rhum_blanc", "lime", "menthe", "sirop", "soda"], ["2 oz rhum blanc", "1 oz jus de lime", "¾ oz sirop simple", "8 feuilles de menthe", "Eau gazeuse"], ["Écraser doucement la menthe avec sirop et lime.", "Ajouter rhum et glace pilée.", "Compléter d’eau gazeuse."], "Ne pas déchiqueter la menthe, juste la froisser."],
+    ["Old Fashioned", 2, "Verre à whisky", [A, "sirop|erable", "angostura"], ["2 oz bourbon ou rye", "¼ oz sirop simple ou d’érable", "2 traits d’Angostura", "1 zeste d’orange"], ["Mélanger sirop et bitter dans le verre.", "Ajouter le whisky et un gros glaçon.", "Remuer 20 secondes, presser le zeste."], ""],
+    ["Manhattan", 2, "Coupe", [A, "vermouth_doux", "angostura"], ["2 oz rye ou bourbon", "1 oz vermouth doux", "2 traits d’Angostura"], ["Remuer avec de la glace 30 secondes.", "Filtrer dans une coupe froide."], ""],
+    ["Negroni", 2, "Verre à whisky", ["gin", "campari", "vermouth_doux"], ["1 oz gin", "1 oz Campari", "1 oz vermouth doux", "1 zeste d’orange"], ["Remuer avec de la glace.", "Filtrer sur un gros glaçon.", "Garnir de zeste."], "Parts égales, facile à retenir."],
+    ["Boulevardier", 2, "Verre à whisky", [A, "campari", "vermouth_doux"], ["1 ½ oz bourbon ou rye", "1 oz Campari", "1 oz vermouth doux"], ["Remuer avec de la glace.", "Filtrer sur un gros glaçon."], "Le cousin du Negroni, plus chaud."],
+    ["Whisky sour", 2, "Verre à whisky", [W, "citron", "sirop"], ["2 oz whisky", "¾ oz jus de citron", "¾ oz sirop simple"], ["Agiter avec de la glace.", "Filtrer sur glace fraîche."], ""],
+    ["Sour à l’érable", 2, "Verre à whisky", [W, "erable", "citron"], ["2 oz whisky", "¾ oz sirop d’érable", "¾ oz jus de citron"], ["Agiter fort avec de la glace.", "Filtrer sur un gros glaçon."], "Le rye marche mieux ici."],
+    ["Cosmopolitan", 2, "Coupe", ["vodka", "triple_sec", "canneberge", "lime"], ["1 ½ oz vodka", "1 oz triple sec", "1 oz jus de canneberge", "½ oz jus de lime"], ["Agiter avec de la glace.", "Filtrer dans une coupe froide.", "Garnir de zeste d’orange."], ""],
+    ["Espresso martini", 2, "Coupe", ["vodka", "kahlua", "espresso"], ["1 ½ oz vodka", "1 oz Kahlúa", "1 oz espresso frais"], ["Agiter très fort avec de la glace.", "Filtrer dans une coupe froide.", "Garnir de 3 grains de café."], "L’espresso doit être chaud pour la mousse."],
+    ["Gimlet", 2, "Coupe", ["gin", "lime", "sirop"], ["2 oz gin", "¾ oz jus de lime", "¾ oz sirop simple"], ["Agiter avec de la glace.", "Filtrer dans une coupe."], ""],
+    ["Piña colada", 2, "Grand verre", ["rhum_blanc", "ananas", "coco"], ["2 oz rhum blanc", "3 oz jus d’ananas", "1 ½ oz crème de coco", "Glace"], ["Mélanger tous les ingrédients au mélangeur avec une tasse de glace.", "Verser dans un grand verre."], ""],
+    ["Martini", 2, "Coupe", ["gin|vodka", "vermouth_sec"], ["2 ½ oz gin ou vodka", "½ oz vermouth sec", "1 zeste de citron"], ["Remuer avec de la glace 30 secondes.", "Filtrer dans une coupe glacée.", "Presser le zeste."], ""],
+    ["Sidecar", 2, "Coupe", ["cognac", "triple_sec", "citron"], ["1 ½ oz cognac", "¾ oz triple sec", "¾ oz jus de citron"], ["Agiter avec de la glace.", "Filtrer dans une coupe."], ""],
+    ["Amaretto sour", 2, "Verre à whisky", ["amaretto", "citron"], ["1 ½ oz amaretto", "1 oz jus de citron", "Sirop simple au goût"], ["Agiter avec de la glace.", "Filtrer sur glace fraîche."], "Ajoute un blanc d’œuf pour une version soyeuse."],
+    ["Tom Collins", 2, "Collins", ["gin", "citron", "sirop", "soda"], ["2 oz gin", "1 oz jus de citron", "¾ oz sirop simple", "Eau gazeuse"], ["Agiter gin, citron et sirop.", "Filtrer sur glace.", "Compléter d’eau gazeuse."], ""],
+    ["French 75", 2, "Flûte", ["gin", "citron", "sirop", "prosecco"], ["1 oz gin", "½ oz jus de citron", "½ oz sirop simple", "3 oz prosecco"], ["Agiter gin, citron et sirop.", "Filtrer dans une flûte.", "Compléter de prosecco."], ""],
+    ["Bramble", 2, "Verre à whisky", ["gin", "citron", "sirop", "chambord"], ["2 oz gin", "1 oz jus de citron", "½ oz sirop simple", "½ oz liqueur de framboise"], ["Agiter gin, citron et sirop.", "Filtrer sur glace pilée.", "Faire couler la liqueur sur le dessus."], ""],
+    ["Bee’s Knees", 2, "Coupe", ["gin", "citron", "miel"], ["2 oz gin", "¾ oz jus de citron", "¾ oz miel dilué dans un peu d’eau tiède"], ["Agiter avec de la glace.", "Filtrer dans une coupe."], ""],
+    ["Caesar", 2, "Highball", ["vodka", "tomate"], ["1 ½ oz vodka", "4 oz Clamato", "Sauce Worcestershire et tabasco", "Sel de céleri", "1 branche de céleri"], ["Givrer le rebord de sel de céleri.", "Ajouter vodka, sauces et Clamato sur glace.", "Remuer et garnir de céleri."], "Le classique québécois."],
+    ["Long Island iced tea", 2, "Collins", ["vodka", "gin", "rhum_blanc", "tequila", "triple_sec", "citron", "cola"], ["½ oz vodka", "½ oz gin", "½ oz rhum blanc", "½ oz tequila", "½ oz triple sec", "1 oz jus de citron", "Cola"], ["Mélanger les alcools et le citron sur glace.", "Compléter d’un trait de cola."], "Plus fort qu’il n’en a l’air."],
+    ["Painkiller", 2, "Grand verre", ["rhum_brun", "ananas", "orange", "coco"], ["2 oz rhum brun", "2 oz jus d’ananas", "1 oz jus d’orange", "1 oz crème de coco", "Muscade râpée"], ["Agiter avec de la glace.", "Filtrer sur glace pilée.", "Garnir de muscade."], ""],
+    ["Caribou", 2, "Grand verre", ["vodka", "vin_rouge", "porto", "erable"], ["1 oz vodka", "3 oz vin rouge", "1 oz porto", "¼ oz sirop d’érable"], ["Mélanger tous les ingrédients dans un verre avec de la glace.", "Remuer doucement."], "Version simplifiée du classique du Carnaval."],
+
+    ["Whisky sour à l’œuf", 3, "Coupe ou verre à whisky", [W, "citron", "sirop", "oeuf"], ["2 oz whisky", "¾ oz jus de citron", "¾ oz sirop simple", "1 blanc d’œuf", "Quelques gouttes d’Angostura (facultatif)"], ["Agiter tous les ingrédients sans glace pendant 15 secondes.", "Ajouter de la glace et agiter 15 secondes de plus.", "Filtrer finement dans le verre.", "Déposer des gouttes de bitter sur la mousse."], "Le premier agitage sans glace crée la mousse."],
+    ["Clover Club", 3, "Coupe", ["gin", "citron", "chambord", "oeuf", "vermouth_sec"], ["1 ½ oz gin", "½ oz vermouth sec", "¾ oz jus de citron", "½ oz liqueur de framboise", "1 blanc d’œuf"], ["Agiter sans glace 15 secondes.", "Ajouter de la glace, agiter 15 secondes.", "Filtrer finement dans une coupe."], ""],
+    ["Penicillin", 3, "Verre à whisky", ["scotch", "citron", "miel", "gingembre"], ["2 oz scotch", "¾ oz jus de citron", "¾ oz sirop de miel-gingembre", "Un peu de scotch tourbé pour flotter"], ["Faire chauffer eau, miel et gingembre tranché 5 minutes, puis refroidir et filtrer.", "Agiter scotch, citron et sirop avec de la glace.", "Filtrer sur un gros glaçon.", "Faire flotter un peu de scotch tourbé."], "Le sirop peut se faire d’avance."],
+    ["The Last Word", 3, "Coupe", ["gin", "chartreuse", "maraschino", "lime"], ["¾ oz gin", "¾ oz Chartreuse verte", "¾ oz marasquin", "¾ oz jus de lime"], ["Agiter avec de la glace.", "Filtrer dans une coupe froide."], "Parts égales, pas de substitution possible."],
+    ["Jungle Bird", 3, "Verre à whisky", ["rhum_brun", "campari", "ananas", "lime", "sirop"], ["1 ½ oz rhum brun", "¾ oz Campari", "1 ½ oz jus d’ananas", "½ oz jus de lime", "½ oz sirop simple"], ["Agiter fort avec de la glace.", "Filtrer sur glace pilée.", "Garnir d’une feuille d’ananas ou de zeste."], ""],
+    ["Mai Tai", 3, "Verre à whisky", ["rhum_brun", "rhum_blanc", "triple_sec", "amaretto", "lime"], ["1 oz rhum brun", "1 oz rhum blanc", "½ oz triple sec", "½ oz amaretto (remplace l’orgeat)", "1 oz jus de lime"], ["Agiter tous les ingrédients avec de la glace.", "Filtrer sur glace pilée.", "Garnir de menthe."], "L’amaretto fait office d’orgeat."],
+    ["Ramos gin fizz", 3, "Collins", ["gin", "citron", "lime", "sirop", "creme", "oeuf", "soda"], ["2 oz gin", "½ oz jus de citron", "½ oz jus de lime", "1 oz sirop simple", "1 oz crème", "1 blanc d’œuf", "Eau gazeuse"], ["Agiter tout sans glace pendant 1 minute.", "Ajouter de la glace et agiter 1 minute.", "Filtrer dans un verre sans glace.", "Compléter lentement d’eau gazeuse pour faire monter la mousse."], "Le cocktail qui fatigue le bras."],
+    ["Hemingway daiquiri", 3, "Coupe", ["rhum_blanc", "pamplemousse", "lime", "maraschino"], ["2 oz rhum blanc", "½ oz marasquin", "¾ oz jus de pamplemousse", "¾ oz jus de lime"], ["Agiter fort avec de la glace.", "Filtrer finement dans une coupe froide."], ""],
+    ["Corpse reviver n° 2", 3, "Coupe", ["gin", "triple_sec", "vermouth_sec", "citron"], ["¾ oz gin", "¾ oz triple sec", "¾ oz vermouth sec", "¾ oz jus de citron"], ["Agiter avec de la glace.", "Filtrer dans une coupe froide.", "Garnir d’un zeste de citron."], "Le classique utilise du Lillet et un rinçage d’absinthe, facultatifs."],
+    ["Old Fashioned fumé à l’érable", 3, "Verre à whisky", [A, "erable", "angostura"], ["2 oz bourbon ou rye", "¼ oz sirop d’érable", "3 traits d’Angostura", "1 zeste d’orange", "1 bâton de cannelle ou romarin"], ["Faire flamber le bâton de cannelle, le renverser et couvrir d’un verre pour piéger la fumée.", "Remuer whisky, érable et bitter avec de la glace 30 secondes.", "Retourner le verre fumé, ajouter un gros glaçon et filtrer dessus.", "Presser le zeste d’orange sur le dessus."], "Fais la fumée avant de remuer, elle se dissipe vite."],
+    ["Vieux Carré simplifié", 3, "Verre à whisky", ["rye", "cognac", "vermouth_doux", "angostura"], ["¾ oz rye", "¾ oz cognac", "¾ oz vermouth doux", "2 traits d’Angostura"], ["Remuer avec de la glace 30 secondes.", "Filtrer sur un gros glaçon."], "Sans la Bénédictine du classique."]
+  ];
+
+  var SUB = { rhum_brun: ["rhum_epice"], tequila: ["tequila_anejo"] };
+  var EXTRA = String.raw`Gin fizz|2|Collins|gin,citron,sirop,soda|2 oz gin;¾ oz jus de citron;¾ oz sirop simple;Eau gazeuse|Agiter gin, citron et sirop avec de la glace;Filtrer dans le verre;Compléter d’eau gazeuse|
+Gin rickey|1|Highball|gin,lime,soda|2 oz gin;½ lime pressé;Eau gazeuse|Presser le lime sur de la glace;Ajouter le gin;Compléter d’eau gazeuse|Aucun sucre, très sec.
+Gin & It|1|Verre à whisky|gin,vermouth_doux|1 ½ oz gin;1 ½ oz vermouth doux|Verser sur glace;Remuer 10 secondes|
+Gin basil smash|2|Verre à whisky|gin,citron,sirop,basilic|2 oz gin;¾ oz jus de citron;¾ oz sirop simple;8 feuilles de basilic|Écraser le basilic avec le sirop et le citron;Ajouter gin et glace, agiter;Filtrer finement sur glace fraîche|
+Southside|2|Coupe|gin,citron,sirop,menthe|2 oz gin;¾ oz jus de citron;¾ oz sirop simple;6 feuilles de menthe|Agiter avec de la glace;Filtrer finement dans une coupe|Un mojito au gin, sans soda.
+Aviation simplifié|2|Coupe|gin,maraschino,citron|2 oz gin;½ oz marasquin;¾ oz jus de citron|Agiter avec de la glace;Filtrer dans une coupe|Le classique ajoute de la crème de violette.
+Martinez|2|Coupe|gin,vermouth_doux,maraschino,angostura|1 ½ oz gin;1 ½ oz vermouth doux;¼ oz marasquin;2 traits d’Angostura|Remuer avec de la glace;Filtrer dans une coupe;Presser un zeste d’orange|L’ancêtre du martini.
+Gibson|2|Coupe|gin,vermouth_sec|2 ½ oz gin;½ oz vermouth sec;1 oignon cocktail|Remuer avec de la glace;Filtrer dans une coupe;Garnir de l’oignon|Un martini garni d’un oignon.
+Vesper|2|Coupe|gin,vodka,lillet|3 oz gin;1 oz vodka;½ oz Lillet|Agiter avec de la glace;Filtrer dans une coupe;Presser un zeste de citron|Le martini de James Bond.
+White Lady|2|Coupe|gin,triple_sec,citron|1 ½ oz gin;1 oz triple sec;¾ oz jus de citron|Agiter avec de la glace;Filtrer dans une coupe|
+Pink gin|1|Coupe|gin,angostura|2 ½ oz gin bien froid;3 traits d’Angostura|Rincer la coupe avec le bitter;Verser le gin|
+Singapore sling|3|Highball|gin,benedictine,triple_sec,ananas,lime,grenadine,angostura|1 ½ oz gin;¼ oz Bénédictine;¼ oz triple sec;3 oz jus d’ananas;½ oz jus de lime;¼ oz grenadine;1 trait d’Angostura|Agiter tous les ingrédients avec de la glace;Filtrer sur glace fraîche;Garnir d’un morceau d’ananas|Version simplifiée, sans liqueur de cerise.
+Sbagliato|1|Verre à whisky|campari,vermouth_doux,prosecco|1 oz Campari;1 oz vermouth doux;2 oz prosecco|Verser Campari et vermouth sur glace;Compléter de prosecco|Un Negroni « par erreur ».
+Gin daisy|2|Coupe|gin,citron,grenadine|2 oz gin;¾ oz jus de citron;½ oz grenadine|Agiter avec de la glace;Filtrer sur glace pilée|
+Gin buck|1|Highball|gin,ginger_beer,citron|2 oz gin;4 oz ginger beer;½ oz jus de citron|Remplir de glace;Verser gin et citron;Compléter de ginger beer|
+Orange blossom|2|Coupe|gin,orange,vermouth_doux|1 ½ oz gin;1 ½ oz jus d’orange;½ oz vermouth doux|Agiter avec de la glace;Filtrer dans une coupe|
+Pegu club|2|Coupe|gin,triple_sec,lime,angostura|2 oz gin;¾ oz triple sec;¾ oz jus de lime;1 trait d’Angostura|Agiter avec de la glace;Filtrer dans une coupe|
+Bijou|3|Coupe|gin,chartreuse,vermouth_doux,angostura|1 oz gin;1 oz Chartreuse verte;1 oz vermouth doux;1 trait d’Angostura|Remuer longuement avec de la glace;Filtrer dans une coupe froide;Garnir d’une cerise|Un cocktail dense et herbacé.
+Hanky panky|2|Coupe|gin,vermouth_doux,fernet|1 ½ oz gin;1 ½ oz vermouth doux;2 traits de Fernet|Remuer avec de la glace;Filtrer dans une coupe;Presser un zeste d’orange|
+Monkey gland|2|Coupe|gin,orange,grenadine,absinthe|2 oz gin;1 oz jus d’orange;¼ oz grenadine;1 trait d’absinthe|Agiter avec de la glace;Filtrer dans une coupe|
+Bronx|2|Coupe|gin,vermouth_doux,vermouth_sec,orange|2 oz gin;½ oz vermouth doux;½ oz vermouth sec;1 oz jus d’orange|Agiter avec de la glace;Filtrer dans une coupe|
+Fitzgerald|2|Coupe|gin,citron,sirop,angostura|2 oz gin;¾ oz jus de citron;½ oz sirop simple;2 traits d’Angostura|Agiter avec de la glace;Filtrer sur glace|
+Cucumber cooler|2|Highball|gin,concombre,citron,sirop,soda|2 oz gin;4 tranches de concombre;¾ oz jus de citron;½ oz sirop simple;Eau gazeuse|Écraser le concombre avec le sirop;Ajouter gin, citron et glace, agiter;Filtrer sur glace, compléter d’eau gazeuse|
+Alaska|2|Coupe|gin,chartreuse,bitter_orange|2 oz gin;½ oz Chartreuse;2 traits de bitter d’orange|Remuer avec de la glace;Filtrer dans une coupe|
+Cardinale|2|Verre à whisky|gin,campari,vermouth_sec|1 oz gin;1 oz Campari;1 oz vermouth sec|Remuer avec de la glace;Filtrer sur un gros glaçon|
+Gin ginger|1|Highball|gin,gingerale|2 oz gin;4 oz ginger ale|Verser sur glace;Remuer une fois|
+Salty dog|1|Highball|gin,pamplemousse|2 oz gin;4 oz jus de pamplemousse;Sel pour le rebord|Saler le rebord du verre;Verser sur glace|
+Gin sour|2|Coupe|gin,citron,sirop|2 oz gin;¾ oz jus de citron;¾ oz sirop simple|Agiter avec de la glace;Filtrer dans une coupe|
+Gin tonic pamplemousse|1|Ballon|gin,tonic,pamplemousse|2 oz gin;1 oz jus de pamplemousse;4 oz tonic|Remplir de glace;Verser gin et jus;Compléter de tonic|
+Gin tonic concombre|1|Ballon|gin,tonic,concombre|2 oz gin;4 oz tonic;3 tranches de concombre|Placer le concombre dans le verre avec de la glace;Verser gin et tonic|
+Gin tonic framboise|1|Ballon|gin,tonic,framboise|2 oz gin;4 oz tonic;6 framboises|Écraser légèrement 3 framboises;Ajouter glace, gin et tonic;Garnir du reste|
+Raspberry gin fizz|2|Collins|gin,framboise,citron,sirop,soda|2 oz gin;6 framboises;¾ oz jus de citron;½ oz sirop simple;Eau gazeuse|Écraser les framboises avec le sirop;Ajouter gin, citron et glace, agiter;Filtrer et compléter d’eau gazeuse|
+Elderflower Collins|2|Collins|gin,st_germain,citron,soda|1 ½ oz gin;¾ oz St-Germain;¾ oz jus de citron;Eau gazeuse|Agiter gin, St-Germain et citron;Filtrer sur glace;Compléter d’eau gazeuse|
+Vodka tonic|1|Highball|vodka,tonic|2 oz vodka;4 oz tonic;1 quartier de lime|Remplir de glace;Verser vodka et tonic;Presser le lime|
+Sea breeze|1|Highball|vodka,canneberge,pamplemousse|1 ½ oz vodka;3 oz jus de canneberge;1 oz jus de pamplemousse|Verser sur glace;Remuer|
+Bay breeze|1|Highball|vodka,canneberge,ananas|1 ½ oz vodka;2 oz jus de canneberge;2 oz jus d’ananas|Verser sur glace;Remuer|
+Madras|1|Highball|vodka,canneberge,orange|1 ½ oz vodka;3 oz jus de canneberge;1 oz jus d’orange|Verser sur glace;Remuer|
+Greyhound|1|Highball|vodka,pamplemousse|2 oz vodka;4 oz jus de pamplemousse|Verser sur glace;Remuer|
+Woo woo|1|Highball|vodka,liqueur_peche,canneberge|1 oz vodka;1 oz liqueur de pêche;3 oz jus de canneberge|Verser sur glace;Remuer|
+Sex on the beach|2|Highball|vodka,liqueur_peche,orange,canneberge|1 ½ oz vodka;1 oz liqueur de pêche;2 oz jus d’orange;2 oz jus de canneberge|Verser sur glace;Remuer doucement|
+Fuzzy navel|1|Highball|liqueur_peche,orange|1 ½ oz liqueur de pêche;4 oz jus d’orange|Verser sur glace;Remuer|
+Kamikaze|2|Coupe|vodka,triple_sec,lime|1 oz vodka;1 oz triple sec;1 oz jus de lime|Agiter avec de la glace;Filtrer dans une coupe|
+Lemon drop|2|Coupe|vodka,triple_sec,citron,sirop|2 oz vodka;½ oz triple sec;¾ oz jus de citron;½ oz sirop simple|Givrer le rebord de sucre;Agiter avec de la glace;Filtrer dans la coupe|
+Vodka gimlet|2|Coupe|vodka,lime,sirop|2 oz vodka;¾ oz jus de lime;¾ oz sirop simple|Agiter avec de la glace;Filtrer dans une coupe|
+Vodka martini|2|Coupe|vodka,vermouth_sec|2 ½ oz vodka;½ oz vermouth sec|Remuer avec de la glace;Filtrer dans une coupe;Presser un zeste de citron|Agité ou remué, selon ton humeur.
+Dirty martini|2|Coupe|gin/vodka,vermouth_sec|2 ½ oz gin ou vodka;½ oz vermouth sec;½ oz saumure d’olives;Olives|Remuer ou agiter avec de la glace;Filtrer dans une coupe;Garnir d’olives|
+Appletini maison|2|Coupe|vodka,jus_pomme,triple_sec,citron|2 oz vodka;1 oz jus de pomme;½ oz triple sec;½ oz jus de citron|Agiter avec de la glace;Filtrer dans une coupe;Garnir d’une tranche de pomme|
+Bloody Mary|2|Highball|vodka,tomate,citron|1 ½ oz vodka;4 oz jus de tomate;½ oz jus de citron;Sauce Worcestershire, tabasco, sel, poivre;1 branche de céleri|Verser tous les ingrédients sur glace;Remuer doucement;Garnir de céleri|Le Caesar sans le clam.
+Blue lagoon|1|Highball|vodka,curacao_bleu,limonade|1 ½ oz vodka;1 oz curaçao bleu;4 oz limonade|Verser sur glace;Remuer|
+French martini|2|Coupe|vodka,ananas,chambord|1 ½ oz vodka;½ oz liqueur de framboise;1 ½ oz jus d’ananas|Agiter fort avec de la glace;Filtrer dans une coupe|
+Mudslide|1|Verre à whisky|vodka,kahlua,baileys|1 oz vodka;1 oz Kahlúa;1 oz Baileys|Agiter avec de la glace;Filtrer sur glace|
+Colorado bulldog|1|Verre à whisky|vodka,kahlua,creme,cola|1 oz vodka;1 oz Kahlúa;1 oz crème;Un trait de cola|Verser vodka, Kahlúa et crème sur glace;Compléter d’un trait de cola|
+Chocolate martini|2|Coupe|vodka,creme_cacao|2 oz vodka;1 oz crème de cacao|Agiter avec de la glace;Filtrer dans une coupe|Ajoute du Baileys pour plus de douceur.
+Vodka sour|2|Verre à whisky|vodka,citron,sirop|2 oz vodka;¾ oz jus de citron;¾ oz sirop simple|Agiter avec de la glace;Filtrer sur glace|
+Vodka collins|2|Collins|vodka,citron,sirop,soda|2 oz vodka;1 oz jus de citron;¾ oz sirop simple;Eau gazeuse|Agiter vodka, citron et sirop;Filtrer sur glace;Compléter d’eau gazeuse|
+Godmother|1|Verre à whisky|vodka,amaretto|1 ½ oz vodka;¾ oz amaretto|Verser sur glace;Remuer|
+Framboise smash|2|Verre à whisky|vodka,framboise,citron,sirop|2 oz vodka;8 framboises;¾ oz jus de citron;½ oz sirop simple|Écraser les framboises avec le sirop;Ajouter vodka, citron et glace, agiter;Filtrer sur glace pilée|
+Cranberry mule|1|Highball|vodka,ginger_beer,canneberge|1 ½ oz vodka;1 oz jus de canneberge;4 oz ginger beer|Remplir de glace;Verser vodka et canneberge;Compléter de ginger beer|
+Chi chi|2|Grand verre|vodka,ananas,coco|1 ½ oz vodka;3 oz jus d’ananas;1 ½ oz crème de coco|Mélanger avec de la glace;Verser dans un grand verre|Une piña colada à la vodka.
+French 76|2|Flûte|vodka,citron,sirop,prosecco|1 oz vodka;½ oz jus de citron;½ oz sirop simple;3 oz prosecco|Agiter vodka, citron et sirop;Filtrer dans une flûte;Compléter de prosecco|
+Planter’s punch|2|Highball|rhum_brun,lime,sirop,angostura|2 oz rhum brun;1 oz jus de lime;1 oz sirop simple;3 traits d’Angostura;Eau gazeuse|Agiter rhum, lime et sirop;Filtrer sur glace;Compléter d’eau gazeuse et de bitter|
+Ti’ punch|1|Verre à whisky|rhum_blanc,lime,sirop|2 oz rhum blanc;1 rondelle de lime;1 c. à thé de sirop|Presser la lime dans le verre;Ajouter sirop et rhum;Remuer, glace au goût|Idéalement un rhum agricole.
+Caipirinha|2|Verre à whisky|cachaca,lime,sirop|2 oz cachaça;1 lime coupé en morceaux;2 c. à thé de sucre|Écraser le lime et le sucre;Ajouter la cachaça et de la glace pilée;Remuer|
+Caipiroska|2|Verre à whisky|vodka,lime,sirop|2 oz vodka;1 lime coupé en morceaux;2 c. à thé de sucre|Écraser le lime et le sucre;Ajouter vodka et glace pilée;Remuer|
+Rum punch|1|Highball|rhum_brun,orange,ananas,grenadine|2 oz rhum brun;2 oz jus d’orange;2 oz jus d’ananas;¼ oz grenadine|Verser sur glace;Remuer;Garnir d’orange|
+Hurricane simplifié|2|Grand verre|rhum_brun,rhum_blanc,orange,lime,grenadine|1 oz rhum brun;1 oz rhum blanc;2 oz jus d’orange;1 oz jus de lime;½ oz grenadine|Agiter avec de la glace;Filtrer sur glace pilée|Le classique utilise du fruit de la passion.
+Zombie|3|Grand verre|rhum_blanc,rhum_brun,lime,ananas,grenadine,angostura|1 oz rhum blanc;1 oz rhum brun;¾ oz jus de lime;1 oz jus d’ananas;½ oz grenadine;2 traits d’Angostura|Agiter fort avec de la glace;Filtrer sur glace pilée;Garnir de menthe|Version simplifiée du classique tiki.
+Blue Hawaii|2|Grand verre|rhum_blanc,curacao_bleu,ananas,citron|1 oz rhum blanc;1 oz curaçao bleu;3 oz jus d’ananas;1 oz jus de citron|Agiter avec de la glace;Filtrer sur glace;Garnir d’ananas|
+Mary Pickford|2|Coupe|rhum_blanc,ananas,grenadine,maraschino|1 ½ oz rhum blanc;1 ½ oz jus d’ananas;1 c. à thé de grenadine;1 c. à thé de marasquin|Agiter avec de la glace;Filtrer dans une coupe|
+El Presidente|3|Coupe|rhum_blanc,vermouth_sec,triple_sec,grenadine|1 ½ oz rhum blanc;1 oz vermouth sec;¼ oz triple sec;1 c. à thé de grenadine|Remuer avec de la glace;Filtrer dans une coupe;Presser un zeste d’orange|
+Rum old fashioned|2|Verre à whisky|rhum_brun,sirop,angostura|2 oz rhum brun;¼ oz sirop simple;2 traits d’Angostura|Remuer avec de la glace;Filtrer sur un gros glaçon;Presser un zeste d’orange|
+Rum swizzle|2|Verre à whisky|rhum_brun,lime,sirop,angostura|2 oz rhum brun;1 oz jus de lime;¾ oz sirop simple;3 traits d’Angostura|Verser sur glace pilée;Remuer vigoureusement jusqu’à ce que le verre givre|
+Bahama mama|2|Grand verre|rhum_brun,rhum_blanc,coco,ananas,orange,grenadine|1 oz rhum brun;1 oz rhum blanc;1 oz crème de coco;2 oz jus d’ananas;1 oz jus d’orange;¼ oz grenadine|Agiter avec de la glace;Filtrer sur glace pilée|
+Strawberry daiquiri|2|Coupe|rhum_blanc,fraise,lime,sirop|2 oz rhum blanc;5 fraises;1 oz jus de lime;¾ oz sirop simple|Mélanger au mélangeur avec une tasse de glace;Verser dans une coupe|
+Between the sheets|2|Coupe|rhum_blanc,cognac,triple_sec,citron|¾ oz rhum blanc;¾ oz cognac;¾ oz triple sec;¾ oz jus de citron|Agiter avec de la glace;Filtrer dans une coupe|
+Rum sour|2|Verre à whisky|rhum_brun,citron,sirop|2 oz rhum brun;¾ oz jus de citron;¾ oz sirop simple|Agiter avec de la glace;Filtrer sur glace|
+Navy grog|3|Verre à whisky|rhum_brun,rhum_blanc,lime,pamplemousse,miel|1 oz rhum brun;1 oz rhum blanc;¾ oz jus de lime;¾ oz jus de pamplemousse;¾ oz miel dilué|Agiter avec de la glace;Filtrer sur glace pilée|Version simplifiée du classique tiki.
+Hot buttered rum|2|Tasse|rhum_brun,erable|2 oz rhum brun;1 c. à soupe de sirop d’érable;1 noix de beurre;1 bâton de cannelle;Eau chaude|Mélanger érable, beurre et eau chaude;Ajouter le rhum;Garnir de cannelle|
+Grog|1|Tasse|rhum_brun,citron,miel|2 oz rhum brun;1 c. à soupe de miel;½ oz jus de citron;Eau chaude|Dissoudre le miel dans l’eau chaude;Ajouter rhum et citron|
+Rhum tonic|1|Highball|rhum_blanc,tonic,lime|2 oz rhum blanc;4 oz tonic;1 quartier de lime|Verser sur glace;Presser le lime|
+Rum runner|2|Grand verre|rhum_brun,rhum_blanc,ananas,orange,grenadine|1 oz rhum brun;1 oz rhum blanc;2 oz jus d’ananas;1 oz jus d’orange;½ oz grenadine|Agiter avec de la glace;Filtrer sur glace|
+Bacardi cocktail|2|Coupe|rhum_blanc,lime,grenadine|2 oz rhum blanc;1 oz jus de lime;½ oz grenadine|Agiter avec de la glace;Filtrer dans une coupe|
+Mojito à la fraise|2|Highball|rhum_blanc,fraise,menthe,lime,sirop,soda|2 oz rhum blanc;4 fraises;8 feuilles de menthe;1 oz jus de lime;½ oz sirop simple;Eau gazeuse|Écraser fraises, menthe, lime et sirop;Ajouter rhum et glace pilée;Compléter d’eau gazeuse|
+Mojito à la framboise|2|Highball|rhum_blanc,framboise,menthe,lime,sirop,soda|2 oz rhum blanc;8 framboises;8 feuilles de menthe;1 oz jus de lime;½ oz sirop simple;Eau gazeuse|Écraser framboises, menthe, lime et sirop;Ajouter rhum et glace pilée;Compléter d’eau gazeuse|
+Daiquiri à la framboise|2|Coupe|rhum_blanc,framboise,lime,sirop|2 oz rhum blanc;8 framboises;1 oz jus de lime;¾ oz sirop simple|Écraser les framboises;Agiter avec le reste et de la glace;Filtrer finement|
+Old Cuban|3|Coupe|rhum_brun,lime,sirop,angostura,prosecco,menthe|1 ½ oz rhum brun;¾ oz jus de lime;1 oz sirop simple;2 traits d’Angostura;6 feuilles de menthe;2 oz prosecco|Agiter rhum, lime, sirop, bitter et menthe avec de la glace;Filtrer finement dans une coupe;Compléter de prosecco|
+Fog cutter|3|Grand verre|rhum_blanc,cognac,gin,orange,citron,orgeat|1 ½ oz rhum blanc;½ oz cognac;½ oz gin;2 oz jus d’orange;1 oz jus de citron;½ oz orgeat|Agiter avec de la glace;Filtrer sur glace pilée|
+Rum flip|3|Coupe|rhum_brun,erable,oeuf,creme|2 oz rhum brun;½ oz sirop d’érable;1 œuf;1 oz crème|Agiter sans glace 15 secondes;Ajouter la glace, agiter encore;Filtrer finement et râper de la muscade|
+Eggnog|3|Verre à punch|rhum_brun/cognac,oeuf,lait,creme|2 oz rhum brun ou cognac;1 œuf;3 oz lait;1 oz crème;1 c. à soupe de sucre;Muscade|Agiter tout sans glace pour dissoudre le sucre;Ajouter de la glace et agiter;Filtrer et râper de la muscade|Un lait de poule rapide.
+Rhum orange|1|Highball|rhum_brun,orange|2 oz rhum brun;4 oz jus d’orange|Verser sur glace;Remuer|
+Rhum ginger ale|1|Highball|rhum_brun,gingerale|2 oz rhum brun;4 oz ginger ale|Verser sur glace;Presser un quartier de lime|
+Tequila tonic|1|Highball|tequila,tonic,lime|2 oz tequila;4 oz tonic;1 quartier de lime|Verser sur glace;Compléter de tonic;Presser le lime|
+Ranch water|1|Highball|tequila,lime,soda|2 oz tequila;1 oz jus de lime;Eau gazeuse|Verser tequila et lime sur glace;Compléter d’eau gazeuse|
+El Diablo|2|Highball|tequila,creme_cassis,lime,ginger_beer|1 ½ oz tequila;½ oz crème de cassis;½ oz jus de lime;3 oz ginger beer|Agiter tequila, cassis et lime;Filtrer sur glace;Compléter de ginger beer|
+Mexican mule|1|Highball|tequila,ginger_beer,lime|2 oz tequila;4 oz ginger beer;½ oz jus de lime|Remplir de glace;Verser tequila et lime;Compléter de ginger beer|
+Tommy’s margarita|2|Verre à whisky|tequila,lime,sirop|2 oz tequila;1 oz jus de lime;½ oz sirop simple|Agiter avec de la glace;Filtrer sur glace|Sans triple sec, plus net.
+Margarita aux fraises|2|Coupe|tequila,triple_sec,lime,fraise|2 oz tequila;1 oz triple sec;1 oz jus de lime;5 fraises|Écraser les fraises;Agiter avec le reste et de la glace;Filtrer finement|
+Matador|2|Coupe|tequila,ananas,lime|2 oz tequila;3 oz jus d’ananas;½ oz jus de lime|Agiter avec de la glace;Filtrer sur glace|
+Tequila sour|2|Verre à whisky|tequila,citron,sirop|2 oz tequila;¾ oz jus de citron;¾ oz sirop simple|Agiter avec de la glace;Filtrer sur glace|
+Tequila old fashioned|2|Verre à whisky|tequila,sirop,angostura|2 oz tequila vieillie;¼ oz sirop simple;2 traits d’Angostura|Remuer avec de la glace;Filtrer sur un gros glaçon;Presser un zeste d’orange|Meilleur avec une tequila reposado ou añejo.
+Brave bull|1|Verre à whisky|tequila,kahlua|1 ½ oz tequila;1 oz Kahlúa|Verser sur glace;Remuer|
+Oaxaca old fashioned|2|Verre à whisky|tequila,mezcal,sirop,angostura|1 ½ oz tequila;½ oz mezcal;¼ oz sirop simple;2 traits d’Angostura|Remuer avec de la glace;Filtrer sur un gros glaçon|
+Margarita au mezcal|2|Coupe|mezcal,triple_sec,lime|2 oz mezcal;1 oz triple sec;1 oz jus de lime|Agiter avec de la glace;Filtrer sur glace|
+Naked and Famous|3|Coupe|mezcal,chartreuse,aperol,lime|¾ oz mezcal;¾ oz Chartreuse jaune ou verte;¾ oz Aperol;¾ oz jus de lime|Agiter avec de la glace;Filtrer finement dans une coupe|Parts égales.
+Division bell|3|Coupe|mezcal,aperol,maraschino,lime|¾ oz mezcal;¾ oz Aperol;¾ oz marasquin;¾ oz jus de lime|Agiter avec de la glace;Filtrer finement dans une coupe|
+Mezcal negroni|2|Verre à whisky|mezcal,campari,vermouth_doux|1 oz mezcal;1 oz Campari;1 oz vermouth doux|Remuer avec de la glace;Filtrer sur un gros glaçon|
+Mezcal mule|1|Highball|mezcal,ginger_beer,lime|2 oz mezcal;4 oz ginger beer;½ oz jus de lime|Verser sur glace;Compléter de ginger beer|
+Bloody Maria|2|Highball|tequila,tomate,citron|1 ½ oz tequila;4 oz jus de tomate;½ oz jus de citron;Sauce piquante, sel, poivre|Verser sur glace;Remuer doucement|
+Batanga|1|Highball|tequila,cola,lime|2 oz tequila;4 oz cola;½ lime pressé|Saler le rebord;Verser sur glace;Remuer avec un couteau|
+Rosita|2|Verre à whisky|tequila,campari,vermouth_doux,vermouth_sec|1 ½ oz tequila;½ oz Campari;½ oz vermouth doux;½ oz vermouth sec|Remuer avec de la glace;Filtrer sur un gros glaçon|
+Tequila mockingbird|2|Coupe|tequila,creme_menthe,lime|1 ½ oz tequila;¾ oz crème de menthe;¾ oz jus de lime|Agiter avec de la glace;Filtrer dans une coupe|
+Mexican firing squad|2|Coupe|tequila,lime,grenadine,angostura|2 oz tequila;¾ oz jus de lime;½ oz grenadine;4 traits d’Angostura|Agiter avec de la glace;Filtrer sur glace|
+Margarita à l’ananas|2|Coupe|tequila,triple_sec,lime,ananas|1 ½ oz tequila;¾ oz triple sec;¾ oz jus de lime;1 oz jus d’ananas|Agiter avec de la glace;Filtrer sur glace|
+Mint julep|2|Gobelet|bourbon,menthe,sirop|2 ½ oz bourbon;¾ oz sirop simple;8 feuilles de menthe|Froisser la menthe avec le sirop;Ajouter le bourbon et de la glace pilée;Remuer jusqu’à ce que le gobelet givre|
+Sazerac|3|Verre à whisky|rye/cognac,absinthe,sirop,peychaud/angostura|2 oz rye ou cognac;¼ oz sirop simple;3 traits de Peychaud ou d’Angostura;Rinçage d’absinthe|Rincer un verre froid à l’absinthe et jeter l’excédent;Remuer le reste avec de la glace;Filtrer dans le verre;Presser un zeste de citron|
+Rob Roy|2|Coupe|scotch,vermouth_doux,angostura|2 oz scotch;1 oz vermouth doux;2 traits d’Angostura|Remuer avec de la glace;Filtrer dans une coupe|Un Manhattan au scotch.
+Rusty nail|1|Verre à whisky|scotch,drambuie|2 oz scotch;¾ oz Drambuie|Verser sur un gros glaçon;Remuer|
+Blood and sand simplifié|3|Coupe|scotch,vermouth_doux,orange|¾ oz scotch;¾ oz vermouth doux;¾ oz jus d’orange;¾ oz liqueur de cerise|Agiter avec de la glace;Filtrer dans une coupe|Le classique utilise du Cherry Heering.
+Bobby Burns|2|Coupe|scotch,vermouth_doux,benedictine|2 oz scotch;1 oz vermouth doux;¼ oz Bénédictine|Remuer avec de la glace;Filtrer dans une coupe|
+Irish coffee|2|Verre à pied|irlandais,cafe,sirop,creme|1 ½ oz whisky irlandais;4 oz café chaud;1 c. à thé de sucre;Crème fouettée légère|Réchauffer le verre;Dissoudre le sucre dans le café, ajouter le whisky;Faire flotter la crème sans remuer|
+Irish mule|1|Highball|irlandais,ginger_beer,lime|2 oz whisky irlandais;4 oz ginger beer;½ oz jus de lime|Verser sur glace;Compléter de ginger beer|
+Kentucky mule|1|Highball|bourbon,ginger_beer,lime|2 oz bourbon;4 oz ginger beer;½ oz jus de lime|Verser sur glace;Compléter de ginger beer|
+Whisky soda|1|Highball|W,soda|2 oz whisky;4 oz eau gazeuse|Verser sur glace;Remuer une fois|
+John Collins|2|Collins|bourbon,citron,sirop,soda|2 oz bourbon;1 oz jus de citron;¾ oz sirop simple;Eau gazeuse|Agiter bourbon, citron et sirop;Filtrer sur glace;Compléter d’eau gazeuse|
+Whiskey smash|2|Verre à whisky|bourbon,citron,sirop,menthe|2 oz bourbon;¾ oz jus de citron;¾ oz sirop simple;6 feuilles de menthe|Froisser la menthe avec le sirop;Ajouter bourbon, citron et glace, agiter;Filtrer sur glace pilée|
+Gold rush|2|Verre à whisky|bourbon,miel,citron|2 oz bourbon;¾ oz jus de citron;¾ oz sirop de miel|Agiter avec de la glace;Filtrer sur un gros glaçon|Sirop de miel : parts égales de miel et d’eau chaude.
+Brown derby|2|Coupe|bourbon,pamplemousse,miel|2 oz bourbon;1 oz jus de pamplemousse;½ oz sirop de miel|Agiter avec de la glace;Filtrer dans une coupe|
+New York sour|3|Verre à whisky|rye/bourbon,citron,sirop,vin_rouge|2 oz whisky;¾ oz jus de citron;¾ oz sirop simple;½ oz vin rouge|Agiter whisky, citron et sirop;Filtrer sur glace;Faire flotter le vin rouge avec une cuillère|
+Ward eight|3|Coupe|rye,citron,orange,grenadine|2 oz rye;½ oz jus de citron;½ oz jus d’orange;1 c. à thé de grenadine|Agiter avec de la glace;Filtrer dans une coupe|
+Presbyterian|1|Highball|W,gingerale,soda|2 oz whisky;2 oz ginger ale;2 oz eau gazeuse|Verser sur glace;Remuer|
+Seven and seven|1|Highball|W,limonade|2 oz whisky;4 oz limonade (7Up)|Verser sur glace;Remuer|
+Lynchburg lemonade|2|Collins|bourbon,triple_sec,citron,limonade|1 ½ oz bourbon;½ oz triple sec;1 oz jus de citron;Limonade|Agiter bourbon, triple sec et citron;Filtrer sur glace;Compléter de limonade|
+Tipperary|2|Coupe|irlandais,vermouth_doux,chartreuse|1 ½ oz whisky irlandais;1 ½ oz vermouth doux;¼ oz Chartreuse|Remuer avec de la glace;Filtrer dans une coupe|
+Paper plane|3|Coupe|bourbon,aperol,amaro,citron|¾ oz bourbon;¾ oz Aperol;¾ oz amaro;¾ oz jus de citron|Agiter avec de la glace;Filtrer finement dans une coupe|Parts égales.
+Brooklyn simplifié|2|Coupe|rye,vermouth_doux,maraschino,amaro|2 oz rye;1 oz vermouth doux;¼ oz marasquin;¼ oz amaro|Remuer avec de la glace;Filtrer dans une coupe|
+Red Hook|2|Coupe|rye,vermouth_doux,maraschino|2 oz rye;½ oz vermouth doux;½ oz marasquin|Remuer avec de la glace;Filtrer dans une coupe|
+Monte Carlo|2|Verre à whisky|rye,benedictine,angostura|2 oz rye;½ oz Bénédictine;2 traits d’Angostura|Remuer avec de la glace;Filtrer sur glace|
+Remember the Maine|3|Coupe|rye,vermouth_doux,maraschino,absinthe,angostura|2 oz rye;¾ oz vermouth doux;1 c. à thé de marasquin;Rinçage d’absinthe;1 trait d’Angostura|Rincer la coupe à l’absinthe;Remuer le reste avec de la glace;Filtrer dans la coupe|
+Algonquin|2|Coupe|rye,vermouth_sec,ananas|2 oz rye;1 oz vermouth sec;1 oz jus d’ananas|Agiter avec de la glace;Filtrer dans une coupe|
+Scofflaw|3|Coupe|rye,vermouth_sec,citron,grenadine,bitter_orange|1 ½ oz rye;1 oz vermouth sec;¾ oz jus de citron;¾ oz grenadine;1 trait de bitter d’orange|Agiter avec de la glace;Filtrer dans une coupe|
+Bourbon renewal|3|Verre à whisky|bourbon,citron,creme_cassis,sirop,angostura|2 oz bourbon;¾ oz jus de citron;½ oz crème de cassis;¼ oz sirop simple;1 trait d’Angostura|Agiter avec de la glace;Filtrer sur glace|
+Black Manhattan|2|Coupe|rye,amaro,angostura|2 oz rye;1 oz amaro;2 traits d’Angostura|Remuer avec de la glace;Filtrer dans une coupe|
+Manhattan parfait|2|Coupe|rye,vermouth_doux,vermouth_sec,angostura|2 oz rye;½ oz vermouth doux;½ oz vermouth sec;2 traits d’Angostura|Remuer avec de la glace;Filtrer dans une coupe|
+Bourbon milk punch|2|Verre à whisky|bourbon,lait,sirop|2 oz bourbon;3 oz lait;½ oz sirop simple;Muscade|Agiter avec de la glace;Filtrer sur glace;Râper de la muscade|
+Affinity|2|Coupe|scotch,vermouth_doux,vermouth_sec,angostura|1 ½ oz scotch;¾ oz vermouth doux;¾ oz vermouth sec;2 traits d’Angostura|Remuer avec de la glace;Filtrer dans une coupe|
+Horse’s neck|1|Highball|bourbon/cognac,gingerale,angostura|2 oz bourbon ou cognac;4 oz ginger ale;2 traits d’Angostura|Verser sur glace;Garnir d’un long zeste de citron|
+Mamie Taylor|1|Highball|scotch,ginger_beer,lime|2 oz scotch;4 oz ginger beer;½ oz jus de lime|Verser sur glace;Compléter de ginger beer|
+Old pal|2|Coupe|rye,vermouth_sec,campari|1 oz rye;1 oz vermouth sec;1 oz Campari|Remuer avec de la glace;Filtrer dans une coupe|
+Revolver|2|Coupe|bourbon,kahlua,bitter_orange|2 ½ oz bourbon;½ oz Kahlúa;2 traits de bitter d’orange|Remuer avec de la glace;Filtrer dans une coupe;Flamber un zeste d’orange|
+Churchill|2|Coupe|scotch,triple_sec,vermouth_doux,lime|1 ½ oz scotch;½ oz triple sec;½ oz vermouth doux;½ oz jus de lime|Agiter avec de la glace;Filtrer dans une coupe|
+Whisky tonic|1|Highball|W,tonic|2 oz whisky;4 oz tonic|Verser sur glace;Presser un zeste de citron|
+Whisky à l’érable chaud|1|Tasse|W,erable|2 oz whisky;1 c. à soupe de sirop d’érable;Eau chaude;1 tranche de citron|Dissoudre l’érable dans l’eau chaude;Ajouter le whisky|
+Pisco sour|3|Verre à whisky|pisco,lime,sirop,oeuf,angostura|2 oz pisco;1 oz jus de lime;¾ oz sirop simple;1 blanc d’œuf;3 gouttes d’Angostura|Agiter sans glace 15 secondes;Ajouter de la glace et agiter;Filtrer finement et déposer le bitter sur la mousse|
+Chilcano|1|Highball|pisco,ginger_beer,lime|2 oz pisco;4 oz ginger beer;½ oz jus de lime|Verser sur glace;Compléter de ginger beer|
+Pisco tonic|1|Ballon|pisco,tonic|2 oz pisco;4 oz tonic|Verser sur glace;Presser un zeste de citron|
+Brandy Alexander|2|Coupe|cognac/brandy,creme_cacao,creme|1 ½ oz cognac;1 oz crème de cacao;1 oz crème|Agiter avec de la glace;Filtrer dans une coupe;Râper de la muscade|
+Stinger|2|Coupe|cognac/brandy,creme_menthe|2 oz cognac;¾ oz crème de menthe|Agiter ou remuer avec de la glace;Filtrer dans une coupe|
+Jack Rose|2|Coupe|calvados,citron,grenadine|2 oz calvados;¾ oz jus de citron;½ oz grenadine|Agiter avec de la glace;Filtrer dans une coupe|
+French connection|1|Verre à whisky|cognac,amaretto|1 ½ oz cognac;¾ oz amaretto|Verser sur glace;Remuer|
+Brandy crusta|3|Coupe|cognac,triple_sec,citron,maraschino,angostura|2 oz cognac;¼ oz triple sec;½ oz jus de citron;¼ oz marasquin;2 traits d’Angostura|Givrer la coupe de sucre avec un long zeste;Agiter le reste avec de la glace;Filtrer dans la coupe|
+Brandy sour|2|Verre à whisky|cognac/brandy,citron,sirop|2 oz cognac;¾ oz jus de citron;¾ oz sirop simple|Agiter avec de la glace;Filtrer sur glace|
+Cognac old fashioned|2|Verre à whisky|cognac,sirop,angostura|2 oz cognac;¼ oz sirop simple;2 traits d’Angostura|Remuer avec de la glace;Filtrer sur un gros glaçon;Presser un zeste d’orange|
+Harvard|2|Coupe|cognac,vermouth_doux,angostura|1 ½ oz cognac;¾ oz vermouth doux;2 traits d’Angostura|Remuer avec de la glace;Filtrer dans une coupe|
+Corpse reviver n° 1|2|Coupe|cognac,calvados,vermouth_doux|1 ½ oz cognac;¾ oz calvados;¾ oz vermouth doux|Remuer avec de la glace;Filtrer dans une coupe|
+Champagne cocktail|2|Flûte|prosecco,angostura|1 morceau de sucre;3 traits d’Angostura;5 oz prosecco ou champagne|Imbiber le sucre de bitter dans la flûte;Compléter de mousseux;Presser un zeste|Ajoute ½ oz de cognac pour la version classique.
+Rabo de galo|1|Verre à whisky|cachaca,vermouth_doux|1 ½ oz cachaça;1 ½ oz vermouth doux|Verser sur glace;Remuer|
+Normandy mule|1|Highball|calvados,ginger_beer,lime|2 oz calvados;4 oz ginger beer;½ oz jus de lime|Verser sur glace;Compléter de ginger beer|
+Calvados tonic|1|Ballon|calvados,tonic|2 oz calvados;4 oz tonic|Verser sur glace;Garnir d’une tranche de pomme|
+Brandy milk punch|2|Verre à whisky|cognac/brandy,lait,sirop|2 oz cognac;3 oz lait;½ oz sirop simple;Muscade|Agiter avec de la glace;Filtrer sur glace;Râper de la muscade|
+Cognac tonic|1|Ballon|cognac,tonic|2 oz cognac;4 oz tonic|Verser sur glace;Presser un zeste d’orange|
+Cognac ginger|1|Highball|cognac,gingerale|2 oz cognac;4 oz ginger ale|Verser sur glace;Presser un quartier de citron|
+Brandy daisy|2|Coupe|cognac/brandy,citron,grenadine,triple_sec|2 oz cognac;¾ oz jus de citron;½ oz triple sec;¼ oz grenadine|Agiter avec de la glace;Filtrer sur glace pilée|
+Vieux Carré classique|3|Verre à whisky|rye,cognac,vermouth_doux,benedictine,angostura,peychaud|¾ oz rye;¾ oz cognac;¾ oz vermouth doux;1 c. à thé de Bénédictine;2 traits d’Angostura;2 traits de Peychaud|Remuer avec de la glace;Filtrer sur un gros glaçon;Presser un zeste de citron|
+Fireball cola|1|Highball|fireball,cola|2 oz Fireball;4 oz cola|Verser sur glace;Remuer|
+Fireball cidre|1|Verre à pied|fireball,cidre|1 ½ oz Fireball;4 oz cidre de pomme|Verser sur glace;Remuer|Aussi très bon chaud.
+Fireball pomme|1|Verre à whisky|fireball,jus_pomme|1 ½ oz Fireball;4 oz jus de pomme|Verser sur glace;Remuer|Un goût de tarte aux pommes.
+Fireball mule|1|Highball|fireball,ginger_beer,lime|2 oz Fireball;4 oz ginger beer;½ oz jus de lime|Verser sur glace;Compléter de ginger beer|
+Fireball sour|2|Verre à whisky|fireball,citron,sirop|1 ½ oz Fireball;¾ oz jus de citron;½ oz sirop simple|Agiter avec de la glace;Filtrer sur glace|
+Fireball ginger ale|1|Highball|fireball,gingerale|2 oz Fireball;4 oz ginger ale|Verser sur glace;Remuer|
+Chocolat chaud au Fireball|1|Tasse|fireball,lait,chocolat|1 ½ oz Fireball;6 oz lait chaud;1 c. à soupe de sirop de chocolat|Réchauffer le lait avec le chocolat;Ajouter le Fireball|
+Rhum épicé et pomme|1|Verre à whisky|rhum_epice,jus_pomme|2 oz rhum épicé;4 oz jus de pomme|Verser sur glace;Remuer|
+Rhum épicé et cidre|1|Verre à pied|rhum_epice,cidre|1 ½ oz rhum épicé;4 oz cidre|Verser sur glace;Remuer|
+Rhum épicé et cola|1|Highball|rhum_epice,cola,lime|2 oz rhum épicé;4 oz cola;1 quartier de lime|Verser sur glace;Presser le lime|
+Kraken mule|1|Highball|rhum_epice,ginger_beer,lime|2 oz rhum épicé;4 oz ginger beer;½ oz jus de lime|Verser sur glace;Compléter de ginger beer|
+Rhum épicé et orange|1|Highball|rhum_epice,orange|2 oz rhum épicé;4 oz jus d’orange|Verser sur glace;Remuer|
+Rhum épicé sour|2|Verre à whisky|rhum_epice,citron,sirop|2 oz rhum épicé;¾ oz jus de citron;½ oz sirop simple|Agiter avec de la glace;Filtrer sur glace|
+Rhum épicé chaud|1|Tasse|rhum_epice,miel,citron|2 oz rhum épicé;1 c. à soupe de miel;½ oz jus de citron;Eau chaude|Dissoudre le miel dans l’eau chaude;Ajouter rhum et citron|
+Chocolat chaud au rhum|1|Tasse|rhum_brun,lait,chocolat|1 ½ oz rhum brun;6 oz lait chaud;1 c. à soupe de sirop de chocolat|Réchauffer le lait avec le chocolat;Ajouter le rhum|
+Midori sour|2|Verre à whisky|midori,citron,sirop|2 oz Midori;1 oz jus de citron;¼ oz sirop simple|Agiter avec de la glace;Filtrer sur glace|
+Melon ball|1|Highball|midori,vodka,orange|1 oz Midori;1 oz vodka;3 oz jus d’orange|Verser sur glace;Remuer|
+Japanese slipper|2|Coupe|midori,triple_sec,citron|1 oz Midori;1 oz triple sec;1 oz jus de citron|Agiter avec de la glace;Filtrer dans une coupe|
+Midori tonic|1|Highball|midori,tonic|1 ½ oz Midori;4 oz tonic|Verser sur glace;Presser un quartier de lime|
+Midori limonade|1|Highball|midori,limonade|1 ½ oz Midori;4 oz limonade|Verser sur glace;Remuer|
+Grasshopper|2|Coupe|creme_menthe,creme_cacao,creme|1 oz crème de menthe;1 oz crème de cacao;1 oz crème|Agiter avec de la glace;Filtrer dans une coupe|
+Baileys café|1|Tasse|baileys,cafe|1 ½ oz Baileys;5 oz café chaud|Verser le café sur le Baileys|
+B-52|3|Verre à shooter|kahlua,baileys,triple_sec|½ oz Kahlúa;½ oz Baileys;½ oz triple sec|Verser le Kahlúa;Superposer le Baileys avec le dos d’une cuillère;Superposer le triple sec|Chaque couche doit couler doucement.
+Baby Guinness|2|Verre à shooter|kahlua,baileys|1 oz Kahlúa;½ oz Baileys|Verser le Kahlúa;Faire flotter le Baileys sur le dessus|
+Nutty Irishman|1|Verre à whisky|baileys,frangelico|1 oz Baileys;1 oz Frangelico|Verser sur glace;Remuer|
+Peppermint patty|1|Verre à whisky|creme_menthe,creme_cacao|1 oz crème de menthe;1 oz crème de cacao|Verser sur glace;Remuer|
+Limoncello spritz|1|Grand verre à vin|limoncello,prosecco,soda|2 oz limoncello;3 oz prosecco;1 oz eau gazeuse|Verser sur glace;Garnir de citron|
+Limoncello tonic|1|Highball|limoncello,tonic|2 oz limoncello;4 oz tonic|Verser sur glace;Garnir de menthe|
+Amaretto cola|1|Highball|amaretto,cola|2 oz amaretto;4 oz cola|Verser sur glace;Remuer|
+Pimm’s cup|1|Highball|pimms,limonade,concombre|2 oz Pimm’s;4 oz limonade;3 tranches de concombre|Remplir de glace;Verser Pimm’s et limonade;Garnir de concombre|
+Kir|1|Verre à vin|vin_blanc,creme_cassis|4 oz vin blanc sec;½ oz crème de cassis|Verser le cassis;Compléter de vin blanc|
+Kir royal|1|Flûte|prosecco,creme_cassis|4 oz prosecco ou champagne;½ oz crème de cassis|Verser le cassis;Compléter de mousseux|
+Chambord royale|1|Flûte|chambord,prosecco|½ oz liqueur de framboise;4 oz prosecco|Verser la liqueur;Compléter de mousseux|
+Hugo spritz|1|Grand verre à vin|prosecco,st_germain,soda,menthe|3 oz prosecco;1 oz St-Germain;1 oz eau gazeuse;6 feuilles de menthe|Remplir de glace;Verser prosecco et St-Germain;Compléter d’eau gazeuse et garnir de menthe|
+St-Germain spritz|1|Grand verre à vin|st_germain,prosecco,soda|1 ½ oz St-Germain;3 oz prosecco;1 oz eau gazeuse|Verser sur glace;Garnir d’un zeste de citron|
+Fernet et cola|1|Highball|fernet,cola|1 ½ oz Fernet-Branca;4 oz cola|Verser sur glace;Remuer|
+Amaro tonic|1|Highball|amaro,tonic|2 oz amaro;4 oz tonic|Verser sur glace;Presser un zeste d’orange|
+Amaro spritz|1|Grand verre à vin|amaro,prosecco,soda|2 oz amaro;3 oz prosecco;1 oz eau gazeuse|Verser sur glace;Garnir d’orange|
+Campari soda|1|Highball|campari,soda|2 oz Campari;4 oz eau gazeuse|Verser sur glace;Garnir d’orange|
+Garibaldi|1|Highball|campari,orange|1 ½ oz Campari;4 oz jus d’orange|Verser sur glace;Remuer|Fait avec un jus d’orange pressé frais, c’est mieux.
+Campari tonic|1|Highball|campari,tonic|1 ½ oz Campari;4 oz tonic|Verser sur glace;Garnir d’orange|
+Spritz Campari|1|Grand verre à vin|campari,prosecco,soda|2 oz Campari;3 oz prosecco;1 oz eau gazeuse|Verser sur glace;Garnir d’orange|
+Bicicletta|1|Grand verre à vin|campari,vin_blanc,soda|1 ½ oz Campari;3 oz vin blanc;Eau gazeuse|Verser sur glace;Compléter d’eau gazeuse|
+Lillet tonic|1|Ballon|lillet,tonic|2 oz Lillet;4 oz tonic|Verser sur glace;Garnir d’orange|
+Sherry tonic|1|Ballon|sherry,tonic|2 oz xérès;4 oz tonic|Verser sur glace;Garnir de citron|
+Bamboo|2|Coupe|sherry,vermouth_sec,angostura|1 ½ oz xérès;1 ½ oz vermouth sec;2 traits d’Angostura|Remuer avec de la glace;Filtrer dans une coupe|
+Adonis|2|Coupe|sherry,vermouth_doux,angostura|2 oz xérès;1 oz vermouth doux;2 traits d’Angostura|Remuer avec de la glace;Filtrer dans une coupe|
+Sherry cobbler|2|Verre à whisky|sherry,orange,sirop|3 oz xérès;1 tranche d’orange;½ oz sirop simple|Écraser l’orange avec le sirop;Ajouter xérès et glace pilée, remuer|
+Porto tonic|1|Ballon|porto,tonic|2 oz porto blanc;4 oz tonic|Verser sur glace;Garnir de menthe|
+Vermouth tonic|1|Ballon|vermouth_doux/vermouth_sec,tonic|2 oz vermouth;4 oz tonic|Verser sur glace;Garnir d’un zeste|
+Sangria rouge|2|Pichet|vin_rouge,orange,brandy|1 bouteille de vin rouge;3 oz brandy;1 tasse de jus d’orange;Fruits coupés;2 c. à soupe de sucre|Mélanger tout dans un pichet;Laisser reposer 2 heures au froid;Servir sur glace|
+Sangria blanche|2|Pichet|vin_blanc,brandy,orange|1 bouteille de vin blanc;3 oz brandy;1 tasse de jus d’orange;Fruits coupés|Mélanger tout dans un pichet;Laisser reposer 2 heures au froid|
+Vin chaud|1|Casserole|vin_rouge,miel|1 bouteille de vin rouge;3 c. à soupe de miel;Cannelle, clou de girofle, orange|Chauffer doucement sans bouillir 15 minutes;Servir chaud|
+Spritz au vin blanc|1|Grand verre à vin|vin_blanc,soda|4 oz vin blanc;2 oz eau gazeuse|Verser sur glace;Garnir de citron|
+Bellini|1|Flûte|prosecco,peche|2 oz purée de pêche;4 oz prosecco|Verser la purée;Compléter de prosecco doucement|
+Rossini|1|Flûte|prosecco,fraise|2 oz purée de fraises;4 oz prosecco|Verser la purée;Compléter de prosecco|
+Poinsettia|1|Flûte|prosecco,canneberge,triple_sec|½ oz triple sec;2 oz jus de canneberge;3 oz prosecco|Verser triple sec et canneberge;Compléter de mousseux|
+Death in the afternoon|1|Flûte|prosecco,absinthe|1 oz absinthe;4 oz prosecco ou champagne|Verser l’absinthe;Compléter de mousseux|
+Seelbach|3|Flûte|bourbon,triple_sec,angostura,prosecco|1 oz bourbon;½ oz triple sec;7 traits d’Angostura;3 oz prosecco|Mélanger bourbon, triple sec et bitters dans la flûte;Compléter de mousseux|
+Panaché|1|Verre à bière|biere,limonade|4 oz bière blonde;4 oz limonade|Verser la bière;Compléter de limonade|
+Shandy au gingembre|1|Verre à bière|biere,gingerale|6 oz bière blonde;4 oz ginger ale|Verser la bière;Compléter de ginger ale|
+Michelada|2|Verre à bière|biere,lime,tomate|1 bière légère;1 oz jus de lime;3 oz jus de tomate;Sauce piquante, sel|Saler le rebord;Verser lime, tomate et sauces;Compléter de bière|
+Cider mule|1|Highball|cidre,ginger_beer|3 oz cidre;3 oz ginger beer|Verser sur glace;Presser un quartier de lime|
+Cidre à l’érable|1|Verre à whisky|cidre,erable|5 oz cidre;¼ oz sirop d’érable|Remuer le sirop dans le cidre;Servir sur glace|
+Cidre chaud épicé|1|Tasse|cidre,miel|6 oz cidre;1 c. à thé de miel;Cannelle, clou de girofle|Chauffer doucement;Servir chaud|
+Café amaretto|1|Tasse|amaretto,cafe|1 ½ oz amaretto;5 oz café chaud|Verser le café sur l’amaretto|
+Café Kahlúa|1|Tasse|kahlua,cafe,creme|1 ½ oz Kahlúa;5 oz café chaud;Crème fouettée|Verser le café sur le Kahlúa;Garnir de crème|
+Café calypso|1|Tasse|rhum_brun,kahlua,cafe|1 oz rhum brun;1 oz Kahlúa;5 oz café chaud|Verser le café sur les alcools|
+Cidre chaud au calvados|1|Tasse|calvados,cidre|1 ½ oz calvados;5 oz cidre chaud|Chauffer le cidre;Ajouter le calvados|
+Rhum chaud à l’érable|1|Tasse|rhum_brun,erable|2 oz rhum brun;1 c. à soupe de sirop d’érable;Eau chaude;1 bâton de cannelle|Dissoudre l’érable dans l’eau chaude;Ajouter le rhum|
+Cacao chaud au Baileys|1|Tasse|baileys,lait,chocolat|1 ½ oz Baileys;6 oz lait chaud;1 c. à soupe de sirop de chocolat|Réchauffer le lait avec le chocolat;Ajouter le Baileys|
+Bloody Caesar à la tequila|2|Highball|tequila,tomate|1 ½ oz tequila;4 oz Clamato;Sauces, sel de céleri|Givrer le rebord;Verser sur glace;Remuer|
+Margarita à la framboise|2|Coupe|tequila,triple_sec,lime,framboise|2 oz tequila;1 oz triple sec;1 oz jus de lime;8 framboises|Écraser les framboises;Agiter avec le reste;Filtrer finement|
+Daiquiri à l’érable|2|Coupe|rhum_brun,lime,erable|2 oz rhum brun;1 oz jus de lime;¾ oz sirop d’érable|Agiter avec de la glace;Filtrer dans une coupe|
+Mojito à l’ananas|2|Highball|rhum_blanc,ananas,menthe,lime,soda|2 oz rhum blanc;2 oz jus d’ananas;8 feuilles de menthe;½ oz jus de lime;Eau gazeuse|Froisser la menthe avec la lime;Ajouter rhum, ananas et glace;Compléter d’eau gazeuse|
+Cosmopolitan blanc|2|Coupe|vodka,triple_sec,lime|1 ½ oz vodka;1 oz triple sec;¾ oz jus de lime;1 oz jus de canneberge blanc ou d’eau gazeuse|Agiter avec de la glace;Filtrer dans une coupe|
+Paloma au mezcal|1|Highball|mezcal,pamplemousse,lime,soda|2 oz mezcal;3 oz jus de pamplemousse;½ oz jus de lime;Eau gazeuse|Verser sur glace;Compléter d’eau gazeuse|
+Gin pomme|1|Highball|gin,jus_pomme,citron|2 oz gin;3 oz jus de pomme;½ oz jus de citron|Verser sur glace;Remuer|
+Vodka pomme|1|Highball|vodka,jus_pomme|2 oz vodka;4 oz jus de pomme|Verser sur glace;Remuer|
+Vodka ananas|1|Highball|vodka,ananas|2 oz vodka;4 oz jus d’ananas|Verser sur glace;Remuer|
+Vodka limonade|1|Highball|vodka,limonade|2 oz vodka;4 oz limonade|Verser sur glace;Remuer|
+Vodka gingerale|1|Highball|vodka,gingerale|2 oz vodka;4 oz ginger ale|Verser sur glace;Remuer|
+Rhum ananas|1|Highball|rhum_blanc/rhum_brun,ananas|2 oz rhum;4 oz jus d’ananas|Verser sur glace;Remuer|
+Rhum coco ananas|1|Highball|rhum_blanc,coco,ananas|2 oz rhum blanc;2 oz crème de coco;3 oz jus d’ananas|Mélanger avec de la glace;Verser dans un grand verre|
+Tequila ananas|1|Highball|tequila,ananas|2 oz tequila;4 oz jus d’ananas|Verser sur glace;Presser un quartier de lime|
+Tequila canneberge|1|Highball|tequila,canneberge,lime|2 oz tequila;4 oz jus de canneberge;½ lime pressé|Verser sur glace;Remuer|
+Gin orange|1|Highball|gin,orange|2 oz gin;4 oz jus d’orange|Verser sur glace;Remuer|
+Gin canneberge|1|Highball|gin,canneberge,lime|2 oz gin;4 oz jus de canneberge;½ lime pressé|Verser sur glace;Remuer|
+Whisky canneberge|1|Highball|W,canneberge|2 oz whisky;4 oz jus de canneberge|Verser sur glace;Presser un quartier de lime|
+Whisky cola|1|Highball|W,cola|2 oz whisky;4 oz cola|Verser sur glace;Remuer|
+Whisky pomme|1|Highball|W,jus_pomme|2 oz whisky;4 oz jus de pomme|Verser sur glace;Remuer|
+Amaretto jus d’orange|1|Highball|amaretto,orange|2 oz amaretto;4 oz jus d’orange|Verser sur glace;Remuer|
+Amaretto tonic|1|Highball|amaretto,tonic|2 oz amaretto;4 oz tonic|Verser sur glace;Presser un quartier de citron|
+Baileys lait glacé|1|Verre à whisky|baileys,lait|2 oz Baileys;2 oz lait|Verser sur glace;Remuer|
+Cognac et jus d’orange|1|Highball|cognac,orange|2 oz cognac;4 oz jus d’orange|Verser sur glace;Remuer|
+Triple sec tonic|1|Highball|triple_sec,tonic|2 oz triple sec;4 oz tonic|Verser sur glace;Garnir d’orange|
+Aperol tonic|1|Highball|aperol,tonic|2 oz Aperol;4 oz tonic|Verser sur glace;Garnir d’orange|
+Aperol orange|1|Highball|aperol,orange|2 oz Aperol;4 oz jus d’orange|Verser sur glace;Remuer|
+Chambord soda|1|Highball|chambord,soda,citron|1 ½ oz liqueur de framboise;4 oz eau gazeuse;½ oz jus de citron|Verser sur glace;Remuer|
+Kahlúa lait|1|Verre à whisky|kahlua,lait|2 oz Kahlúa;3 oz lait|Verser sur glace;Remuer|
+Kahlúa cola|1|Highball|kahlua,cola|2 oz Kahlúa;4 oz cola|Verser sur glace;Remuer|
+`;
+  EXTRA.split("\n").forEach(function (ln) {
+    if (!ln.trim()) return;
+    var p = ln.split("|");
+    var needs = p[3].split(",").map(function (r) { return r === "W" ? W : r === "A" ? A : r.replace(/\//g, "|"); });
+    C.push([p[0], +p[1], p[2], needs, p[4].split(";"), p[5].split(";"), p[6] || ""]);
+  });
+  var have = new Set();
+  var brands = [];
+  var ratings = {};
+  var ui = { tab: "bar", level: 0, avail: "ok", mine: "all", q: "", limit: 40 };
+  var env = { base: "", level: 1, newOnly: false, allowOne: false, queue: [], pos: 0, wrapped: false };
+  var STORE_KEY = "bar-cocktails-v1";
+  var dbDoc = null, saveTimer = null, saving = false, dirty = false;
+
+  function norm(s) { return String(s).toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^a-z0-9 ]/g, " ").replace(/\s+/g, " ").trim(); }
+  function met(req) {
+    return req.split("|").some(function (id) {
+      return have.has(id) || (SUB[id] || []).some(function (s) { return have.has(s); });
+    });
+  }
+  function missing(c) {
+    return c[3].filter(function (r) { return !met(r); }).map(function (r) {
+      return r.split("|").map(short).join(" ou ");
+    });
+  }
+  function counts() {
+    var ok = 0, one = 0;
+    C.forEach(function (c) { var m = missing(c).length; if (m === 0) ok++; else if (m === 1) one++; });
+    return { ok: ok, one: one };
+  }
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (m) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[m]; }); }
+
+  /* Marques connues : le nom tapé choisit la catégorie */
+  var BRANDS = [
+    ["Fireball", "fireball"], ["Kraken", "rhum_epice"], ["Captain Morgan épicé", "rhum_epice"], ["Captain Morgan blanc", "rhum_blanc"],
+    ["Sailor Jerry", "rhum_epice"], ["Bumbu", "rhum_brun"], ["Bacardi", "rhum_blanc"], ["Appleton Estate", "rhum_brun"],
+    ["Diplomático", "rhum_brun"], ["Mount Gay", "rhum_brun"], ["Lamb’s Navy", "rhum_brun"],
+    ["Patrón Añejo", "tequila_anejo"], ["Patrón Reposado", "tequila_anejo"], ["Patrón Silver", "tequila"], ["Don Julio Blanco", "tequila"],
+    ["Don Julio Reposado", "tequila_anejo"], ["Don Julio Añejo", "tequila_anejo"], ["Jose Cuervo", "tequila"], ["Espolòn", "tequila"],
+    ["Casamigos Blanco", "tequila"], ["Casamigos Reposado", "tequila_anejo"],
+    ["Absolut", "vodka"], ["Smirnoff", "vodka"], ["Grey Goose", "vodka"], ["Belvedere", "vodka"], ["Ketel One", "vodka"], ["Tito’s", "vodka"],
+    ["Bombay Sapphire", "gin"], ["Tanqueray", "gin"], ["Hendrick’s", "gin"], ["Beefeater", "gin"], ["Gordon’s", "gin"],
+    ["Jack Daniel’s", "bourbon"], ["Jim Beam", "bourbon"], ["Maker’s Mark", "bourbon"], ["Wild Turkey", "bourbon"], ["Buffalo Trace", "bourbon"],
+    ["Crown Royal", "rye"], ["Wiser’s", "rye"], ["Canadian Club", "rye"],
+    ["Glenfiddich", "scotch"], ["Johnnie Walker", "scotch"], ["Macallan", "scotch"], ["Jameson", "irlandais"], ["Bushmills", "irlandais"],
+    ["Hennessy", "cognac"], ["Rémy Martin", "cognac"], ["Courvoisier", "cognac"],
+    ["Cointreau", "triple_sec"], ["Grand Marnier", "triple_sec"], ["Kahlúa", "kahlua"], ["Baileys", "baileys"], ["Disaronno", "amaretto"],
+    ["Campari", "campari"], ["Aperol", "aperol"], ["Midori", "midori"], ["St-Germain", "st_germain"], ["Chambord", "chambord"],
+    ["Frangelico", "frangelico"], ["Drambuie", "drambuie"], ["Limoncello", "limoncello"], ["Pimm’s", "pimms"], ["Fernet-Branca", "fernet"],
+    ["Chartreuse", "chartreuse"], ["Martini Rosso", "vermouth_doux"], ["Martini Extra Dry", "vermouth_sec"], ["Cinzano Rosso", "vermouth_doux"],
+    ["Noilly Prat", "vermouth_sec"], ["Lillet", "lillet"], ["Averna", "amaro"], ["Montenegro", "amaro"], ["Bénédictine", "benedictine"]
+  ];
+  function guess(name) {
+    var n = norm(name), best = "", len = 0;
+    if (n.length < 3) return "";
+    BRANDS.forEach(function (b) {
+      var k = norm(b[0]);
+      if ((n.indexOf(k) > -1 || (n.length >= 4 && k.indexOf(n) > -1)) && k.length > len) { best = b[1]; len = k.length; }
+    });
+    return best;
+  }
+
+  /* Persistance : db privé si disponible, sinon stockage du navigateur */
+  function snapshot() { return { have: Array.from(have), brands: brands, ratings: ratings }; }
+  function lsGet() { try { var v = localStorage.getItem(STORE_KEY); return v ? JSON.parse(v) : null; } catch (e) { return null; } }
+  function lsSet(o) { try { localStorage.setItem(STORE_KEY, JSON.stringify(o)); } catch (e) {} }
+  function applySaved(o) {
+    if (!o) return;
+    var arr = Array.isArray(o) ? o : (Array.isArray(o.have) ? o.have : []);
+    have = new Set(arr.filter(function (i) { return LABEL[i]; }));
+    var bs = (!Array.isArray(o) && Array.isArray(o.brands)) ? o.brands : [];
+    brands = bs.filter(function (b) { return b && typeof b.n === "string" && LABEL[b.id]; }).slice(0, 200);
+    var rt = (!Array.isArray(o) && o.ratings && typeof o.ratings === "object") ? o.ratings : {};
+    ratings = {};
+    Object.keys(rt).slice(0, 500).forEach(function (k) {
+      var v = rt[k];
+      if (v && typeof v === "object") ratings[k] = {
+        s: Math.max(0, Math.min(5, v.s | 0)), n: typeof v.n === "string" ? v.n.slice(0, 500) : "",
+        m: Math.max(0, Math.min(999, v.m | 0)), d: typeof v.d === "string" ? v.d.slice(0, 10) : ""
+      };
+    });
+  }
+  function queueSave() {
+    lsSet(snapshot());
+    if (!dbDoc) return;
+    dirty = true;
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(flush, 500);
+  }
+  function flush() {
+    if (saving || !dbDoc || !dirty) return;
+    saving = true; dirty = false;
+    dbDoc.set(snapshot()).catch(function () {}).then(function () {
+      saving = false;
+      if (dirty) flush();
+    });
+  }
+
+  /* Rendu */
+  var elBar = document.getElementById("view-bar"), elRec = document.getElementById("view-rec"), elEnv = document.getElementById("view-env");
+  var tabBar = document.getElementById("tab-bar"), tabRec = document.getElementById("tab-rec"), tabEnv = document.getElementById("tab-env");
+
+  function renderBar() {
+    var html = "";
+    if (have.size === 0) {
+      html += '<div class="empty" style="margin-bottom:22px"><b>Ton bar est vide</b><p>Touche les bouteilles que tu possèdes, ou tape une marque ci-dessous. Les cocktails possibles s’affichent dans l’onglet Cocktails.</p><button class="pill" id="sample">Essayer avec un bar d’exemple</button></div>';
+    }
+    var opts = "";
+    GROUPS.slice(0, 2).forEach(function (g) {
+      opts += '<optgroup label="' + g[0] + '">';
+      g[1].forEach(function (p) { opts += '<option value="' + p[0] + '">' + esc(p[1]) + '</option>'; });
+      opts += '</optgroup>';
+    });
+    html += '<div class="finder"><h2>Ajouter une marque</h2><div class="frow">' +
+      '<input id="brandIn" list="brandList" placeholder="Kraken, Patrón Añejo, Kepler…" autocomplete="off" maxlength="60">' +
+      '<select id="brandCat"><option value="">Catégorie…</option>' + opts + '</select>' +
+      '<button class="add" id="brandAdd">Ajouter</button></div><p class="hint" id="hint"></p>';
+    html += '<datalist id="brandList">' + BRANDS.map(function (b) { return '<option value="' + esc(b[0]) + '"></option>'; }).join("") + '</datalist>';
+    if (brands.length) {
+      html += '<div class="mybr">' + brands.map(function (b, i) {
+        return '<span class="br">' + esc(b.n) + ' · ' + esc(LABEL[b.id].replace(/ \(.*\)$/, "")) + '<button data-rm="' + i + '" aria-label="Retirer ' + esc(b.n) + '">✕</button></span>';
+      }).join("") + '</div>';
+    }
+    html += '</div>';
+    GROUPS.forEach(function (g) {
+      var n = g[1].filter(function (p) { return have.has(p[0]); }).length;
+      html += '<div class="grp"><h2>' + g[0] + '<small>' + n + ' / ' + g[1].length + '</small></h2><div class="chips">';
+      g[1].forEach(function (p) {
+        html += '<button class="chip" data-id="' + p[0] + '" aria-pressed="' + have.has(p[0]) + '">' + esc(p[1]) + '</button>';
+      });
+      html += '</div></div>';
+    });
+    html += '<div class="tools"><button class="ghost" id="clear">Tout décocher</button></div>';
+    elBar.innerHTML = html;
+  }
+
+  function pips(n) { return '<span class="pips" aria-hidden="true"><i class="' + (n > 0 ? "on" : "") + '"></i><i class="' + (n > 1 ? "on" : "") + '"></i><i class="' + (n > 2 ? "on" : "") + '"></i></span>'; }
+  var LV = ["", "Simple", "Normal", "Compliqué"];
+
+  function filtered() {
+    var q = norm(ui.q);
+    var list = C.map(function (c, i) { return { c: c, i: i, m: missing(c) }; }).filter(function (x) {
+      if (ui.level && x.c[1] !== ui.level) return false;
+      if (ui.avail === "ok" && x.m.length !== 0) return false;
+      if (ui.avail === "one" && x.m.length > 1) return false;
+      if (q && norm(x.c[0] + " " + x.c[4].join(" ")).indexOf(q) === -1) return false;
+      var r = ratings[x.c[0]], made = !!(r && (r.m > 0 || r.s > 0));
+      if (ui.mine === "made" && !made) return false;
+      if (ui.mine === "fav" && !(r && r.s >= 4)) return false;
+      if (ui.mine === "new" && made) return false;
+      return true;
+    });
+    list.sort(function (a, b) { return a.m.length - b.m.length || a.c[1] - b.c[1] || a.c[0].localeCompare(b.c[0], "fr"); });
+    return list;
+  }
+
+  /* Avis */
+  function ensure(name) { return ratings[name] || (ratings[name] = { s: 0, n: "", m: 0, d: "" }); }
+  function mineText(r) {
+    var a = [];
+    if (r && r.s) a.push("★ " + r.s);
+    if (r && r.m) a.push("fait " + r.m + "×");
+    return a.join(" · ");
+  }
+  function paintRate(det, i) {
+    if (!det) return;
+    var r = ratings[C[i][0]] || { s: 0, m: 0 };
+    det.querySelectorAll(".star").forEach(function (b) {
+      var k = +b.getAttribute("data-star");
+      b.classList.toggle("on", k <= r.s);
+      b.setAttribute("aria-pressed", String(k === r.s));
+    });
+    var mine = det.querySelector(".mine"); if (mine) mine.textContent = mineText(r);
+    var mc = det.querySelector(".madecount"); if (mc) mc.textContent = r.m ? "Fait " + r.m + " fois" : "";
+  }
+  function handleRate(e) {
+    var el = e.target.closest("[data-star],[data-made]");
+    if (!el) return false;
+    var i = +el.getAttribute("data-i"), r = ensure(C[i][0]);
+    if (el.hasAttribute("data-star")) {
+      var n = +el.getAttribute("data-star");
+      r.s = r.s === n ? 0 : n;
+    } else {
+      r.m = Math.min(999, r.m + 1);
+      r.d = new Date().toISOString().slice(0, 10);
+    }
+    queueSave(); paintRate(el.closest("details"), i);
+    return true;
+  }
+  function handleNote(e) {
+    var el = e.target.closest("[data-note]");
+    if (!el) return;
+    ensure(C[+el.getAttribute("data-i")][0]).n = el.value.slice(0, 500);
+    queueSave();
+  }
+
+  function card(x, open) {
+    var c = x.c, m = x.m, r = ratings[c[0]] || { s: 0, n: "", m: 0 };
+    var tag = m.length === 0 ? '<span class="tag ok">Prêt</span>' : '<span class="tag warn">Manque ' + m.length + '</span>';
+    var ing = c[4].map(function (l) { return "<li>" + esc(l) + "</li>"; }).join("");
+    var steps = c[5].map(function (s) { return "<li>" + esc(s) + "</li>"; }).join("");
+    var miss = m.length ? '<div class="tip" style="color:var(--warn)">Il te manque : ' + esc(m.join(", ")) + '.</div>' : "";
+    var stars = [1, 2, 3, 4, 5].map(function (k) {
+      return '<button class="star' + (k <= r.s ? " on" : "") + '" data-star="' + k + '" data-i="' + x.i + '" aria-label="' + k + ' étoile' + (k > 1 ? "s" : "") + '" aria-pressed="' + (k === r.s) + '">★</button>';
+    }).join("");
+    var rate = '<h3>Mon avis</h3><div class="rate"><div class="stars">' + stars + '</div><div class="rrow"><button class="pill" data-made="1" data-i="' + x.i + '">Je l’ai fait</button><span class="madecount">' + (r.m ? "Fait " + r.m + " fois" : "") + '</span></div>' +
+      '<textarea class="note" data-note="1" data-i="' + x.i + '" rows="2" maxlength="500" placeholder="Ma note : plus de lime, moins sucré…">' + esc(r.n) + '</textarea></div>';
+    return '<details class="card"' + (open ? " open" : "") + '><summary><span class="name">' + esc(c[0]) + '</span>' + tag +
+      '<span class="meta">' + pips(c[1]) + '<span>' + LV[c[1]] + '</span><span>' + esc(c[2]) + '</span><span class="mine">' + esc(mineText(r)) + '</span></span></summary>' +
+      '<div class="body">' + miss + '<h3>Ingrédients</h3><ul class="ing">' + ing + '</ul><h3>Préparation</h3><ol class="steps">' + steps + '</ol>' +
+      (c[6] ? '<p class="tip">' + esc(c[6]) + '</p>' : "") + rate + '</div></details>';
+  }
+
+  function fillList(openName) {
+    var el = document.getElementById("recList");
+    if (!el) return;
+    var list = filtered();
+    if (openName) {
+      for (var i = 0; i < list.length; i++) if (list[i].c[0] === openName && i >= ui.limit) ui.limit = i + 1;
+    }
+    document.getElementById("recCount").textContent = list.length + " recette" + (list.length > 1 ? "s" : "");
+    var html = "";
+    if (have.size === 0 && ui.avail !== "all") {
+      html = '<div class="empty"><b>Aucun article dans ton bar</b><p>Ajoute tes bouteilles dans l’onglet Mon bar pour voir ce que tu peux préparer.</p><button class="pill" id="goBar">Aller à Mon bar</button></div>';
+    } else if (!list.length) {
+      html = '<div class="empty"><b>Aucun résultat</b><p>Essaie un autre niveau ou une autre recherche, ou affiche les cocktails où il manque un seul article.</p></div>';
+    } else {
+      html = list.slice(0, ui.limit).map(function (x) { return card(x, x.c[0] === openName); }).join("");
+      if (list.length > ui.limit) html += '<button class="more" id="more">Afficher plus (' + (list.length - ui.limit) + ' restantes)</button>';
+    }
+    el.innerHTML = html;
+  }
+
+  function renderRec(openName) {
+    var cnt = counts();
+    var html = '<div class="filters"><div class="row" id="lv">';
+    ["Tous", "Simple", "Normal", "Compliqué"].forEach(function (l, i) {
+      html += '<button class="pill" data-lv="' + i + '" aria-pressed="' + (ui.level === i) + '">' + l + '</button>';
+    });
+    html += '</div><div class="row" id="av">';
+    [["ok", "Je peux les faire (" + cnt.ok + ")"], ["one", "Il manque 1 article (" + (cnt.ok + cnt.one) + ")"], ["all", "Tous (" + C.length + ")"]].forEach(function (a) {
+      html += '<button class="pill" data-av="' + a[0] + '" aria-pressed="' + (ui.avail === a[0]) + '">' + a[1] + '</button>';
+    });
+    html += '</div><div class="row" id="mn">';
+    [["all", "Tous"], ["made", "Déjà faits"], ["fav", "Favoris (4★ et +)"], ["new", "À essayer"]].forEach(function (a) {
+      html += '<button class="pill" data-mn="' + a[0] + '" aria-pressed="' + (ui.mine === a[0]) + '">' + a[1] + '</button>';
+    });
+    html += '</div><input type="search" id="q" class="search" placeholder="Chercher un cocktail ou un ingrédient" value="' + esc(ui.q) + '" autocomplete="off">' +
+      '<div class="row"><button class="surprise" id="rand">Surprends-moi</button></div></div>' +
+      '<p class="count" id="recCount"></p><div class="list" id="recList"></div>';
+    elRec.innerHTML = html;
+    fillList(openName);
+  }
+
+
+  /* J'ai envie : choisir une bouteille et une vitesse, puis tourner les propositions */
+  function usesBase(c, id) {
+    return c[3].some(function (r) { return r.split("|").some(function (x) { return x === id || (SUB[x] || []).indexOf(id) > -1; }); });
+  }
+  function envPool() {
+    return C.map(function (c, i) { return { c: c, i: i, m: missing(c) }; }).filter(function (x) {
+      if (env.level && x.c[1] !== env.level) return false;
+      if (x.m.length > (env.allowOne ? 1 : 0)) return false;
+      if (env.base && !usesBase(x.c, env.base)) return false;
+      if (env.newOnly) { var r = ratings[x.c[0]]; if (r && (r.m > 0 || r.s > 0)) return false; }
+      return true;
+    });
+  }
+  function rebuildQueue() {
+    var q = envPool();
+    for (var i = q.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)), tmp = q[i]; q[i] = q[j]; q[j] = tmp; }
+    function low(x) { var r = ratings[x.c[0]]; return r && r.s > 0 && r.s <= 2 ? 1 : 0; }
+    q.sort(function (a, b) { return low(a) - low(b); });
+    env.queue = q; env.pos = 0; env.wrapped = false;
+  }
+  function baseChips() {
+    var out = [], covered = {};
+    brands.forEach(function (b) { covered[b.id] = true; out.push([b.id, b.n]); });
+    GROUPS.slice(0, 2).forEach(function (g) {
+      g[1].forEach(function (p) {
+        if (have.has(p[0]) && !covered[p[0]]) out.push([p[0], p[1].replace(/ \(.*\)$/, "")]);
+      });
+    });
+    return out;
+  }
+  function renderEnv() {
+    var html = '<div class="grp"><h2>Je veux boire</h2><div class="chips"><button class="chip" data-eb="" aria-pressed="' + (env.base === "") + '">Peu importe</button>';
+    baseChips().forEach(function (b, i) {
+      html += '<button class="chip" data-eb="' + b[0] + '" aria-pressed="' + (env.base === b[0]) + '">' + esc(b[1]) + '</button>';
+    });
+    html += '</div></div><div class="grp"><h2>Vitesse</h2><div class="row">';
+    [[1, "Rapide"], [2, "Normal"], [3, "Élaboré"], [0, "Peu importe"]].forEach(function (l) {
+      html += '<button class="pill" data-el="' + l[0] + '" aria-pressed="' + (env.level === l[0]) + '">' + l[1] + '</button>';
+    });
+    html += '</div></div><div class="grp"><div class="row">' +
+      '<button class="pill" id="envNew" aria-pressed="' + env.newOnly + '">Seulement des nouveautés</button>' +
+      '<button class="pill" id="envOne" aria-pressed="' + env.allowOne + '">Accepter 1 article manquant</button></div></div>' +
+      '<div id="envRes"></div>';
+    elEnv.innerHTML = html;
+    fillEnv();
+  }
+  function fillEnv() {
+    var el = document.getElementById("envRes");
+    if (!el) return;
+    var html = "";
+    if (have.size === 0) {
+      html = '<div class="empty"><b>Ton bar est vide</b><p>Ajoute tes bouteilles pour que je te propose quelque chose.</p><button class="pill" id="goBar">Aller à Mon bar</button></div>';
+    } else if (!env.queue.length) {
+      html = '<div class="empty"><b>Rien ne correspond</b><p>Essaie une autre vitesse, une autre bouteille, ou accepte un article manquant.</p></div>';
+    } else {
+      var x = env.queue[env.pos];
+      html = '<p class="count">Proposition ' + (env.pos + 1) + ' sur ' + env.queue.length + (env.wrapped ? " · on recommence" : "") + '</p>' + card(x, true) +
+        '<div class="row act"><button class="surprise" id="envNext">Un autre choix</button></div>';
+    }
+    el.innerHTML = html;
+  }
+  function nextChoice() {
+    if (!env.queue.length) return;
+    if (env.pos + 1 >= env.queue.length) {
+      var last = env.queue[env.pos];
+      rebuildQueue();
+      if (env.queue.length > 1 && env.queue[0] === last) env.queue.push(env.queue.shift());
+      env.wrapped = true;
+    } else { env.pos++; env.wrapped = false; }
+    fillEnv();
+  }
+
+  function updateCounts() {
+    document.getElementById("n-bar").textContent = have.size;
+    document.getElementById("n-rec").textContent = counts().ok;
+  }
+  function setTab(t) {
+    ui.tab = t;
+    tabBar.setAttribute("aria-selected", t === "bar");
+    tabEnv.setAttribute("aria-selected", t === "env");
+    tabRec.setAttribute("aria-selected", t === "rec");
+    elBar.hidden = t !== "bar"; elEnv.hidden = t !== "env"; elRec.hidden = t !== "rec";
+    if (t === "env") { rebuildQueue(); renderEnv(); }
+    if (t === "rec") { ui.limit = 40; renderRec(); }
+    window.scrollTo(0, 0);
+  }
+  function refresh() {
+    updateCounts(); renderBar();
+    if (ui.tab === "rec") renderRec();
+    if (ui.tab === "env") { rebuildQueue(); renderEnv(); }
+  }
+
+  tabBar.onclick = function () { setTab("bar"); };
+  tabEnv.onclick = function () { setTab("env"); };
+  tabRec.onclick = function () { setTab("rec"); };
+
+  function addBrand() {
+    var inp = document.getElementById("brandIn"), cat = document.getElementById("brandCat"), hint = document.getElementById("hint");
+    var name = inp.value.trim().slice(0, 60);
+    if (!name) { hint.textContent = "Entre un nom de marque."; return; }
+    if (!cat.value) { hint.textContent = "Choisis une catégorie pour cette bouteille."; return; }
+    have.add(cat.value);
+    brands.push({ n: name, id: cat.value });
+    queueSave(); refresh();
+  }
+
+  elBar.addEventListener("input", function (e) {
+    if (e.target.id === "brandIn") {
+      var g = guess(e.target.value);
+      if (g) document.getElementById("brandCat").value = g;
+      document.getElementById("hint").textContent = "";
+    }
+  });
+  elBar.addEventListener("keydown", function (e) {
+    if (e.key === "Enter" && e.target.id === "brandIn") { e.preventDefault(); addBrand(); }
+  });
+  elBar.addEventListener("click", function (e) {
+    var chip = e.target.closest(".chip");
+    if (chip) {
+      var id = chip.getAttribute("data-id");
+      if (have.has(id)) have.delete(id); else have.add(id);
+      chip.setAttribute("aria-pressed", have.has(id));
+      var h = chip.closest(".grp");
+      var g = GROUPS.filter(function (x) { return h.querySelector("h2").firstChild.textContent === x[0]; })[0];
+      if (g) h.querySelector("small").textContent = g[1].filter(function (p) { return have.has(p[0]); }).length + " / " + g[1].length;
+      updateCounts(); queueSave();
+      var empty = elBar.querySelector(".empty");
+      if (empty && have.size) empty.remove();
+      return;
+    }
+    var rm = e.target.closest("[data-rm]");
+    if (rm) { brands.splice(+rm.getAttribute("data-rm"), 1); queueSave(); refresh(); return; }
+    if (e.target.id === "brandAdd") { addBrand(); return; }
+    if (e.target.id === "clear") { have.clear(); brands = []; queueSave(); refresh(); }
+    if (e.target.id === "sample") {
+      ["vodka", "gin", "rhum_blanc", "bourbon", "tequila", "triple_sec", "vermouth_doux", "campari", "citron", "lime", "sirop", "soda", "tonic", "cola", "orange", "angostura"].forEach(function (i) { have.add(i); });
+      queueSave(); refresh();
+    }
+  });
+
+  elRec.addEventListener("input", function (e) {
+    if (e.target.id === "q") { ui.q = e.target.value; ui.limit = 40; fillList(); }
+  });
+  elRec.addEventListener("click", function (e) {
+    if (handleRate(e)) return;
+    var lv = e.target.closest("[data-lv]"), av = e.target.closest("[data-av]"), mn = e.target.closest("[data-mn]");
+    if (mn) { ui.mine = mn.getAttribute("data-mn"); ui.limit = 40; renderRec(); }
+    else if (lv) { ui.level = +lv.getAttribute("data-lv"); ui.limit = 40; renderRec(); }
+    else if (av) { ui.avail = av.getAttribute("data-av"); ui.limit = 40; renderRec(); }
+    else if (e.target.id === "goBar") setTab("bar");
+    else if (e.target.id === "more") { ui.limit += 40; fillList(); }
+    else if (e.target.id === "rand") {
+      var pool = filtered().filter(function (x) { return x.m.length === 0; });
+      if (!pool.length) pool = filtered();
+      if (!pool.length) return;
+      var pick = pool[Math.floor(Math.random() * pool.length)];
+      fillList(pick.c[0]);
+      var open = elRec.querySelector("details[open]");
+      if (open) open.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  });
+
+  elRec.addEventListener("change", handleNote);
+  elEnv.addEventListener("change", handleNote);
+  elEnv.addEventListener("click", function (e) {
+    if (handleRate(e)) return;
+    var eb = e.target.closest("[data-eb]"), el = e.target.closest("[data-el]");
+    if (eb) { env.base = eb.getAttribute("data-eb"); rebuildQueue(); renderEnv(); }
+    else if (el) { env.level = +el.getAttribute("data-el"); rebuildQueue(); renderEnv(); }
+    else if (e.target.id === "envNew") { env.newOnly = !env.newOnly; rebuildQueue(); renderEnv(); }
+    else if (e.target.id === "envOne") { env.allowOne = !env.allowOne; rebuildQueue(); renderEnv(); }
+    else if (e.target.id === "envNext") nextChoice();
+    else if (e.target.id === "goBar") setTab("bar");
+  });
+
+  /* Démarrage : affichage immédiat, puis chargement du bar enregistré */
+  applySaved(lsGet());
+  refresh();
+
+  (async function () {
+    try {
+      var db = await claude.use("db"), user = await claude.use("user");
+      if (!db || !user) return;
+      var uid = await user.id();
+      if (!uid) return;
+      dbDoc = db.doc("data/users/" + uid + "/bar");
+      var snap = await dbDoc.get();
+      if (snap.exists && snap.data()) {
+        applySaved(snap.data());
+        lsSet(snapshot());
+        refresh();
+      } else if (have.size || brands.length) {
+        dirty = true; flush();
+      }
+    } catch (e) { dbDoc = null; }
+  })();
+
+})();
+</script>
+<script>
+if ("serviceWorker" in navigator) { window.addEventListener("load", function () { navigator.serviceWorker.register("sw.js").catch(function () {}); }); }
+</script>
+</body>
+</html>
