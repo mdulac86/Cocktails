@@ -4,100 +4,118 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Bar à cocktails</title>
-<meta name="theme-color" content="#b3263a">
+<meta name="theme-color" content="#150a22">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Cocktails">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icon-192.png" type="image/png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <style>
-:root { color-scheme: light; padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
-html { -webkit-text-size-adjust: 100%; }
+:root { padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
+html { -webkit-text-size-adjust: 100%; background: #150a22; }
 body { margin: 0; }
 img { max-width: 100%; }
 [hidden] { display: none !important; }
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700&family=Figtree:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700&family=Figtree:wght@400;500;600&family=Pacifico&family=DM+Mono:wght@400;500&display=swap">
 <style>
-/* Concept : un carnet de bar. Deux onglets (Mon bar / Cocktails), recettes classées par niveau avec trois pastilles. Accent rouge Campari, neutres bleu-gris. */
+/* Concept : un bar de soirée. Fond nuit prune, enseigne néon en script, guirlande d’ampoules, verres au trait lumineux.
+   Un seul univers sombre et festif : rose néon (action), or (étoiles, niveaux), turquoise (prêt). */
 :root {
-  --bg: #edf0f3;
-  --surface: #ffffff;
-  --ink: #15202b;
-  --muted: #5b6875;
-  --line: #d3dae1;
-  --accent: #b3263a;
-  --on-accent: #ffffff;
-  --accent-soft: #f6dde1;
-  --ok: #1f7a55;
-  --ok-soft: #d9efe5;
-  --warn: #8f5a00;
-  --warn-soft: #f5e8cc;
+  --bg: #150a22;
+  --bg2: #1e1030;
+  --surface: #26143c;
+  --ink: #f7efff;
+  --muted: #b9a7cf;
+  --line: #43296a;
+  --accent: #ff3d8b;
+  --on-accent: #1a0620;
+  --accent-soft: rgba(255, 61, 139, 0.16);
+  --gold: #ffc046;
+  --cyan: #35e3d2;
+  --ok: #35e3d2;
+  --ok-soft: rgba(53, 227, 210, 0.14);
+  --warn: #ffc046;
+  --warn-soft: rgba(255, 192, 70, 0.14);
   --f-display: "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
+  --f-sign: "Pacifico", "Brush Script MT", cursive;
   --f-body: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
   --f-mono: "DM Mono", ui-monospace, Menlo, monospace;
-}
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg: #0f161d; --surface: #172029; --ink: #e8edf2; --muted: #93a1ae; --line: #27333e;
-    --accent: #e0546a; --on-accent: #0f161d; --accent-soft: #3a1d25;
-    --ok: #62c79b; --ok-soft: #14382b; --warn: #e3b25a; --warn-soft: #3b2d10;
-    color-scheme: dark;
-  }
-}
-:root[data-theme="dark"] {
-  --bg: #0f161d; --surface: #172029; --ink: #e8edf2; --muted: #93a1ae; --line: #27333e;
-  --accent: #e0546a; --on-accent: #0f161d; --accent-soft: #3a1d25;
-  --ok: #62c79b; --ok-soft: #14382b; --warn: #e3b25a; --warn-soft: #3b2d10;
   color-scheme: dark;
 }
 * { box-sizing: border-box; }
 body {
-  background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 16px; line-height: 1.45;
-  padding-block: 20px 48px;
+  background-color: var(--bg);
+  background-image:
+    radial-gradient(60vmax 42vmax at 95% -8%, rgba(255, 61, 139, 0.30), transparent 60%),
+    radial-gradient(50vmax 40vmax at -12% 34%, rgba(53, 227, 210, 0.14), transparent 62%),
+    radial-gradient(62vmax 50vmax at 85% 112%, rgba(255, 192, 70, 0.14), transparent 60%);
+  background-attachment: fixed;
+  color: var(--ink); font-family: var(--f-body); font-size: 16px; line-height: 1.45;
+  padding-block: 8px 56px;
   padding-left: max(16px, env(safe-area-inset-left, 0px));
   padding-right: max(16px, env(safe-area-inset-right, 0px));
 }
 main { max-width: 680px; margin: 0 auto; }
-h1 { font-family: var(--f-display); font-weight: 700; font-size: 2rem; line-height: 1.05; margin: 0 0 4px; text-wrap: balance; letter-spacing: -0.01em; }
-.sub { color: var(--muted); margin: 0 0 16px; font-size: 0.95rem; }
 button { font: inherit; color: inherit; cursor: pointer; }
-:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
 
-.tabs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; padding: 4px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; margin-bottom: 18px; position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; }
+/* guirlande */
+.lights { position: relative; height: 58px; display: flex; justify-content: space-between; padding: 0 2px; margin-bottom: 4px; }
+.lights svg { position: absolute; left: 0; top: 0; width: 100%; height: 40px; }
+.lights path { fill: none; stroke: var(--line); stroke-width: 2; vector-effect: non-scaling-stroke; }
+.lights i { position: relative; display: block; width: 11px; height: 16px; border-radius: 50% 50% 55% 55%; background: var(--c); box-shadow: 0 0 12px 3px var(--c); margin-top: calc(var(--y) * 1px); animation: twinkle 2.6s ease-in-out infinite; animation-delay: calc(var(--d) * -0.37s); }
+@keyframes twinkle { 0%, 100% { opacity: 1; } 50% { opacity: 0.45; } }
+
+/* enseigne néon */
+h1 { font-family: var(--f-sign); font-weight: 400; font-size: clamp(2.2rem, 11vw, 3.1rem); line-height: 1.15; margin: 0 0 2px; text-wrap: balance; color: #fff0f7;
+  text-shadow: 0 0 3px #fff, 0 0 10px var(--accent), 0 0 24px var(--accent), 0 0 44px var(--accent); }
+h1 .hot { color: #e9fffb; text-shadow: 0 0 3px #fff, 0 0 10px var(--cyan), 0 0 24px var(--cyan), 0 0 44px var(--cyan); animation: flick 7s linear infinite; }
+@keyframes flick { 0%, 90%, 94%, 100% { opacity: 1; } 92% { opacity: 0.55; } 93% { opacity: 1; } 96% { opacity: 0.7; } 97% { opacity: 1; } }
+.glasses { display: block; width: 100%; max-width: 360px; height: auto; margin: 2px 0 6px; overflow: visible; }
+.glasses g { fill: none; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; stroke: var(--c); filter: drop-shadow(0 0 3px var(--c)) drop-shadow(0 0 8px var(--c)); }
+.glasses .fill { fill: var(--c); stroke: none; filter: drop-shadow(0 0 5px var(--c)); }
+.sub { color: var(--muted); margin: 0 0 16px; font-size: 0.95rem; }
+
+.tabs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; padding: 4px; background: var(--bg2); border: 1px solid var(--line); border-radius: 14px; margin-bottom: 18px; position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; }
 body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); background: var(--bg); z-index: 10; }
-.tab { border: 0; background: transparent; padding: 10px 4px; font-size: 0.93rem; border-radius: 9px; font-weight: 600; color: var(--muted); }
-.tab[aria-selected="true"] { background: var(--accent); color: var(--on-accent); }
+.tab { border: 0; background: transparent; padding: 10px 4px; font-size: 0.93rem; border-radius: 10px; font-weight: 600; color: var(--muted); }
+.tab[aria-selected="true"] { background: var(--accent); color: var(--on-accent); box-shadow: 0 0 18px rgba(255, 61, 139, 0.55); }
 .tab .n { font-family: var(--f-mono); font-weight: 500; font-size: 0.8rem; margin-left: 6px; opacity: 0.85; }
 
 .grp { margin: 0 0 22px; }
-.grp h2 { font-family: var(--f-display); font-size: 1.05rem; margin: 0 0 8px; display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
-.grp h2 small { font-family: var(--f-mono); font-weight: 400; color: var(--muted); font-size: 0.78rem; }
+.grp h2 { font-family: var(--f-display); font-size: 1.05rem; margin: 0 0 8px; display: flex; align-items: center; gap: 9px; }
+.grp h2::before { content: ""; flex: none; width: 9px; height: 13px; border-radius: 50% 50% 55% 55%; background: var(--c, var(--accent)); box-shadow: 0 0 9px 2px var(--c, var(--accent)); }
+.grp:nth-of-type(4n+1) { --c: #ff3d8b; }
+.grp:nth-of-type(4n+2) { --c: #ffc046; }
+.grp:nth-of-type(4n+3) { --c: #35e3d2; }
+.grp:nth-of-type(4n+4) { --c: #a78bfa; }
+.grp h2 small { margin-left: auto; font-family: var(--f-mono); font-weight: 400; color: var(--muted); font-size: 0.78rem; }
 .chips { display: flex; flex-wrap: wrap; gap: 8px; }
 .chip { border: 1px solid var(--line); background: var(--surface); border-radius: 999px; padding: 9px 14px; font-size: 0.95rem; line-height: 1.1; min-height: 40px; }
-.chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--on-accent); font-weight: 600; }
+.chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--on-accent); font-weight: 600; box-shadow: 0 0 14px rgba(255, 61, 139, 0.5); }
 .tools { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
 .ghost { border: 1px solid var(--line); background: transparent; border-radius: 10px; padding: 9px 14px; color: var(--muted); }
 
 .filters { display: flex; flex-direction: column; gap: 10px; margin-bottom: 14px; }
 .row { display: flex; flex-wrap: wrap; gap: 8px; }
 .pill { border: 1px solid var(--line); background: var(--surface); border-radius: 10px; padding: 8px 12px; font-size: 0.92rem; min-height: 38px; }
-.pill[aria-pressed="true"] { border-color: var(--accent); background: var(--accent-soft); color: var(--ink); font-weight: 600; }
-.surprise { align-self: flex-start; border: 0; background: var(--ink); color: var(--bg); border-radius: 10px; padding: 10px 16px; font-weight: 600; }
+.pill[aria-pressed="true"] { border-color: var(--accent); background: var(--accent-soft); color: var(--ink); font-weight: 600; box-shadow: 0 0 10px rgba(255, 61, 139, 0.35); }
+.surprise { align-self: flex-start; border: 0; background: var(--gold); color: #2a1500; border-radius: 10px; padding: 11px 18px; font-weight: 700; box-shadow: 0 0 18px rgba(255, 192, 70, 0.45); }
 
 .list { display: flex; flex-direction: column; gap: 10px; }
-details.card { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; }
-details.card[open] { border-color: var(--accent); }
+details.card { background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02)), var(--surface); border: 1px solid var(--line); border-radius: 16px; }
+details.card[open] { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent), 0 10px 32px rgba(255, 61, 139, 0.2); }
 details.card > summary { list-style: none; cursor: pointer; padding: 14px; display: grid; grid-template-columns: 1fr auto; gap: 4px 12px; align-items: start; }
 details.card > summary::-webkit-details-marker { display: none; }
 .name { font-family: var(--f-display); font-weight: 600; font-size: 1.15rem; line-height: 1.15; min-width: 0; }
 .meta { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 6px 12px; align-items: center; font-size: 0.85rem; color: var(--muted); }
 .pips { display: inline-flex; gap: 3px; vertical-align: middle; }
 .pips i { width: 8px; height: 8px; border-radius: 50%; background: var(--line); display: block; }
-.pips i.on { background: var(--accent); }
+.pips i.on { background: var(--gold); box-shadow: 0 0 7px var(--gold); }
 .tag { font-size: 0.78rem; font-weight: 600; padding: 3px 9px; border-radius: 999px; white-space: nowrap; align-self: start; }
 .tag.ok { background: var(--ok-soft); color: var(--ok); }
 .tag.warn { background: var(--warn-soft); color: var(--warn); }
@@ -105,27 +123,25 @@ details.card > summary::-webkit-details-marker { display: none; }
 .body h3 { font-family: var(--f-mono); font-weight: 500; font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin: 14px 0 6px; }
 .ing { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 2px; }
 .ing li { font-family: var(--f-mono); font-size: 0.88rem; }
-.ing li.miss { color: var(--warn); }
 .steps { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 4px; }
-.tip { margin: 10px 0 0; padding: 10px 12px; background: var(--bg); border-radius: 10px; font-size: 0.9rem; color: var(--muted); }
+.tip { margin: 10px 0 0; padding: 10px 12px; background: rgba(255, 255, 255, 0.05); border-radius: 10px; font-size: 0.9rem; color: var(--muted); }
 
-.empty { background: var(--surface); border: 1px dashed var(--line); border-radius: 14px; padding: 20px 16px; }
+.empty { background: rgba(255, 255, 255, 0.04); border: 1px dashed var(--line); border-radius: 14px; padding: 20px 16px; }
 .empty b { font-family: var(--f-display); font-size: 1.1rem; display: block; margin-bottom: 4px; }
 .empty p { margin: 0 0 12px; color: var(--muted); }
 .foot { margin-top: 28px; color: var(--muted); font-size: 0.82rem; }
 [hidden] { display: none !important; }
-@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
 
-.finder { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 14px; margin-bottom: 22px; }
+.finder { background: var(--bg2); border: 1px solid var(--line); border-radius: 16px; padding: 14px; margin-bottom: 22px; }
 .finder h2 { font-family: var(--f-display); font-size: 1.05rem; margin: 0 0 10px; }
 .frow { display: flex; flex-wrap: wrap; gap: 8px; }
 .finder input, .finder select, .search { font: inherit; color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; min-height: 42px; min-width: 0; }
 .finder input, .finder select { flex: 1 1 150px; }
 .search { width: 100%; }
-.add { background: var(--accent); color: var(--on-accent); border: 0; border-radius: 10px; padding: 10px 16px; font-weight: 600; min-height: 42px; }
+.add { background: var(--accent); color: var(--on-accent); border: 0; border-radius: 10px; padding: 10px 16px; font-weight: 700; min-height: 42px; box-shadow: 0 0 14px rgba(255, 61, 139, 0.45); }
 .hint { font-size: 0.85rem; color: var(--warn); margin: 8px 0 0; min-height: 1.2em; }
 .mybr { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
-.br { display: inline-flex; align-items: center; gap: 4px; border: 1px solid var(--line); border-radius: 999px; padding: 4px 4px 4px 12px; font-size: 0.9rem; }
+.br { display: inline-flex; align-items: center; gap: 4px; border: 1px solid var(--line); border-radius: 999px; padding: 4px 4px 4px 12px; font-size: 0.9rem; background: var(--surface); }
 .br button { border: 0; background: transparent; color: var(--muted); padding: 6px 9px; min-height: 30px; }
 .count { font-family: var(--f-mono); font-size: 0.8rem; color: var(--muted); margin: 0 0 10px; }
 .more { margin-top: 12px; width: 100%; border: 1px solid var(--line); background: var(--surface); border-radius: 12px; padding: 12px; font-weight: 600; }
@@ -133,18 +149,28 @@ details.card > summary::-webkit-details-marker { display: none; }
 .rate { display: flex; flex-direction: column; gap: 8px; }
 .stars { display: flex; gap: 2px; margin-left: -6px; }
 .star { border: 0; background: transparent; font-size: 1.7rem; line-height: 1; padding: 4px 6px; min-height: 42px; color: var(--line); }
-.star.on { color: var(--accent); }
+.star.on { color: var(--gold); text-shadow: 0 0 10px rgba(255, 192, 70, 0.7); }
 .rrow { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
 .madecount { font-family: var(--f-mono); font-size: 0.82rem; color: var(--muted); }
 .note { font: inherit; color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; width: 100%; min-width: 0; resize: vertical; }
-.mine { color: var(--accent); font-weight: 600; }
+.mine { color: var(--gold); font-weight: 600; }
 .mine:empty { display: none; }
 .act { margin-top: 12px; }
+@media (prefers-reduced-motion: reduce) { .lights i, h1 .hot { animation: none; } }
 </style>
+
 </head>
 <body>
 <main>
-  <h1>Bar à cocktails</h1>
+  <div class="lights" aria-hidden="true"><svg viewBox="0 0 360 40" preserveAspectRatio="none"><path d="M0 6 Q180 36 360 6"/></svg><i style="--c:#ff3d8b;--y:4;--d:0"></i><i style="--c:#ffc046;--y:9;--d:1"></i><i style="--c:#35e3d2;--y:13;--d:2"></i><i style="--c:#a78bfa;--y:16;--d:3"></i><i style="--c:#ff3d8b;--y:18;--d:4"></i><i style="--c:#ffc046;--y:19;--d:5"></i><i style="--c:#35e3d2;--y:19;--d:6"></i><i style="--c:#a78bfa;--y:18;--d:7"></i><i style="--c:#ff3d8b;--y:16;--d:8"></i><i style="--c:#ffc046;--y:13;--d:9"></i><i style="--c:#35e3d2;--y:9;--d:10"></i><i style="--c:#a78bfa;--y:4;--d:11"></i></div>
+  <h1>Bar à <span class="hot">cocktails</span></h1>
+  <svg class="glasses" viewBox="0 0 330 70" aria-hidden="true">
+  <g style="--c:#ff3d8b"><path d="M10 10 H54 L32 38 Z"/><path d="M32 38 V60 M20 60 H44"/><path d="M46 4 L30 26"/><circle class="fill" cx="30" cy="26" r="3.6" style="--c:#35e3d2"/></g>
+  <g style="--c:#35e3d2"><path d="M86 10 H116 L113 60 H89 Z"/><path d="M90 30 H112"/><path d="M108 2 L102 40"/></g>
+  <g style="--c:#ffc046"><path d="M146 12 H186 C186 30 166 36 166 36 C166 36 146 30 146 12 Z"/><path d="M166 36 V60 M154 60 H178"/></g>
+  <g style="--c:#a78bfa"><path d="M214 14 H250 V56 H214 Z"/><path d="M250 22 H260 C268 22 268 46 260 46 H250"/><path d="M220 14 C220 6 232 4 232 14"/></g>
+  <g style="--c:#ff3d8b"><path d="M284 8 H314 L310 40 C309 48 289 48 288 40 Z"/><path d="M299 46 V62 M289 62 H309"/></g>
+</svg>
   <p class="sub">Coche ce qu’il y a dans ton bar. L’appli te propose des cocktails simples, normaux ou compliqués.</p>
 
   <div class="tabs" role="tablist">
@@ -162,25 +188,45 @@ details.card > summary::-webkit-details-marker { display: none; }
 
 <script>
 (function () {
+  /* [famille, articles, type] — sp : spiritueux, li : liqueurs, vins et amers, mx : mélangeurs */
   var GROUPS = [
-    ["Spiritueux", [
-      ["vodka", "Vodka"], ["gin", "Gin"], ["rhum_blanc", "Rhum blanc"], ["rhum_brun", "Rhum brun ou vieilli"],
-      ["rhum_epice", "Rhum épicé (Kraken, Captain Morgan)"], ["tequila", "Tequila blanco"], ["tequila_anejo", "Tequila reposado ou añejo"],
-      ["mezcal", "Mezcal"], ["bourbon", "Bourbon"], ["rye", "Whisky de seigle (rye)"], ["scotch", "Scotch"],
-      ["irlandais", "Whisky irlandais"], ["fireball", "Whisky à la cannelle (Fireball)"], ["cognac", "Cognac"],
-      ["brandy", "Brandy"], ["calvados", "Calvados"], ["pisco", "Pisco"], ["cachaca", "Cachaça"], ["absinthe", "Absinthe"]
-    ]],
-    ["Liqueurs et vins", [
+    ["Rhum", [
+      ["rhum_blanc", "Rhum blanc"], ["rhum_agricole", "Rhum agricole blanc"], ["rhum_ambre", "Rhum ambré ou doré (Bumbu)"],
+      ["rhum_brun", "Rhum brun ou vieilli"], ["rhum_noir", "Rhum noir (blackstrap)"], ["rhum_epice", "Rhum épicé (Kraken, Captain Morgan)"],
+      ["rhum_coco", "Rhum à la noix de coco (Malibu)"], ["cachaca", "Cachaça"]
+    ], "sp"],
+    ["Whisky", [
+      ["bourbon", "Bourbon ou Tennessee"], ["rye", "Whisky de seigle (rye)"], ["canadien", "Whisky canadien"],
+      ["scotch", "Scotch (blended)"], ["single_malt", "Scotch single malt"], ["scotch_tourbe", "Scotch tourbé (Islay)"],
+      ["irlandais", "Whisky irlandais"], ["fireball", "Whisky à la cannelle (Fireball)"]
+    ], "sp"],
+    ["Tequila et mezcal", [
+      ["tequila", "Tequila (blanco)"], ["tequila_reposado", "Tequila reposado"], ["tequila_anejo", "Tequila añejo"], ["mezcal", "Mezcal"]
+    ], "sp"],
+    ["Gin", [
+      ["gin", "Gin (London dry)"], ["gin_aromatise", "Gin aux fruits ou aromatisé (Kepler)"]
+    ], "sp"],
+    ["Vodka", [
+      ["vodka", "Vodka (nature)"], ["vodka_aromatisee", "Vodka aromatisée"]
+    ], "sp"],
+    ["Cognac et eaux-de-vie", [
+      ["cognac", "Cognac"], ["armagnac", "Armagnac"], ["brandy", "Brandy"], ["calvados", "Calvados"], ["pisco", "Pisco"], ["absinthe", "Absinthe"]
+    ], "sp"],
+    ["Liqueurs", [
       ["triple_sec", "Triple sec ou Cointreau"], ["amaretto", "Amaretto"], ["kahlua", "Kahlúa ou liqueur de café"],
-      ["baileys", "Baileys"], ["campari", "Campari"], ["aperol", "Aperol"], ["vermouth_doux", "Vermouth doux"],
-      ["vermouth_sec", "Vermouth sec"], ["lillet", "Lillet"], ["chartreuse", "Chartreuse"], ["maraschino", "Marasquin"],
-      ["chambord", "Liqueur de framboise"], ["midori", "Midori"], ["st_germain", "St-Germain"], ["benedictine", "Bénédictine"],
-      ["drambuie", "Drambuie"], ["frangelico", "Frangelico"], ["limoncello", "Limoncello"], ["creme_cacao", "Crème de cacao"],
-      ["creme_menthe", "Crème de menthe"], ["creme_cassis", "Crème de cassis"], ["curacao_bleu", "Curaçao bleu"],
-      ["liqueur_peche", "Liqueur de pêche"], ["pimms", "Pimm’s"], ["fernet", "Fernet-Branca"], ["amaro", "Amaro (Averna, Montenegro)"],
-      ["sherry", "Xérès"], ["porto", "Porto"], ["prosecco", "Prosecco ou mousseux"], ["vin_rouge", "Vin rouge"], ["vin_blanc", "Vin blanc"],
-      ["biere", "Bière"], ["cidre", "Cidre"]
-    ]],
+      ["baileys", "Baileys"], ["chambord", "Liqueur de framboise"], ["midori", "Midori"], ["st_germain", "St-Germain"],
+      ["benedictine", "Bénédictine"], ["drambuie", "Drambuie"], ["frangelico", "Frangelico"], ["limoncello", "Limoncello"],
+      ["creme_cacao", "Crème de cacao"], ["creme_menthe", "Crème de menthe"], ["creme_cassis", "Crème de cassis"],
+      ["curacao_bleu", "Curaçao bleu"], ["liqueur_peche", "Liqueur de pêche"], ["chartreuse", "Chartreuse"], ["maraschino", "Marasquin"]
+    ], "li"],
+    ["Apéritifs et amers", [
+      ["campari", "Campari"], ["aperol", "Aperol"], ["vermouth_doux", "Vermouth doux"], ["vermouth_sec", "Vermouth sec"],
+      ["lillet", "Lillet"], ["fernet", "Fernet-Branca"], ["amaro", "Amaro (Averna, Montenegro)"], ["pimms", "Pimm’s"],
+      ["sherry", "Xérès"], ["porto", "Porto"]
+    ], "li"],
+    ["Vins, bière et cidre", [
+      ["prosecco", "Prosecco ou mousseux"], ["vin_rouge", "Vin rouge"], ["vin_blanc", "Vin blanc"], ["biere", "Bière"], ["cidre", "Cidre"]
+    ], "li"],
     ["Mélangeurs", [
       ["citron", "Jus de citron"], ["lime", "Lime"], ["orange", "Jus d’orange"], ["pamplemousse", "Jus de pamplemousse"],
       ["canneberge", "Jus de canneberge"], ["ananas", "Jus d’ananas"], ["jus_pomme", "Jus de pomme"], ["tomate", "Clamato ou jus de tomate"],
@@ -191,7 +237,7 @@ details.card > summary::-webkit-details-marker { display: none; }
       ["fraise", "Fraises"], ["peche", "Purée de pêche"], ["gingembre", "Gingembre frais"], ["creme", "Crème"], ["lait", "Lait"],
       ["coco", "Crème de coco"], ["chocolat", "Sirop de chocolat"], ["espresso", "Espresso"], ["cafe", "Café filtre"],
       ["oeuf", "Œuf (blanc ou entier)"]
-    ]]
+    ], "mx"]
   ];
   var LABEL = {};
   GROUPS.forEach(function (g) { g[1].forEach(function (p) { LABEL[p[0]] = p[1]; }); });
@@ -257,7 +303,11 @@ details.card > summary::-webkit-details-marker { display: none; }
     ["Vieux Carré simplifié", 3, "Verre à whisky", ["rye", "cognac", "vermouth_doux", "angostura"], ["¾ oz rye", "¾ oz cognac", "¾ oz vermouth doux", "2 traits d’Angostura"], ["Remuer avec de la glace 30 secondes.", "Filtrer sur un gros glaçon."], "Sans la Bénédictine du classique."]
   ];
 
-  var SUB = { rhum_brun: ["rhum_epice"], tequila: ["tequila_anejo"] };
+  var SUB = {
+    rhum_brun: ["rhum_epice", "rhum_ambre", "rhum_noir"], rhum_blanc: ["rhum_agricole"],
+    tequila: ["tequila_reposado", "tequila_anejo"], rye: ["canadien"], scotch: ["single_malt", "scotch_tourbe"],
+    gin: ["gin_aromatise"], vodka: ["vodka_aromatisee"], cognac: ["armagnac"]
+  };
   var EXTRA = String.raw`Gin fizz|2|Collins|gin,citron,sirop,soda|2 oz gin;¾ oz jus de citron;¾ oz sirop simple;Eau gazeuse|Agiter gin, citron et sirop avec de la glace;Filtrer dans le verre;Compléter d’eau gazeuse|
 Gin rickey|1|Highball|gin,lime,soda|2 oz gin;½ lime pressé;Eau gazeuse|Presser le lime sur de la glace;Ajouter le gin;Compléter d’eau gazeuse|Aucun sucre, très sec.
 Gin & It|1|Verre à whisky|gin,vermouth_doux|1 ½ oz gin;1 ½ oz vermouth doux|Verser sur glace;Remuer 10 secondes|
@@ -532,6 +582,45 @@ Aperol orange|1|Highball|aperol,orange|2 oz Aperol;4 oz jus d’orange|Verser su
 Chambord soda|1|Highball|chambord,soda,citron|1 ½ oz liqueur de framboise;4 oz eau gazeuse;½ oz jus de citron|Verser sur glace;Remuer|
 Kahlúa lait|1|Verre à whisky|kahlua,lait|2 oz Kahlúa;3 oz lait|Verser sur glace;Remuer|
 Kahlúa cola|1|Highball|kahlua,cola|2 oz Kahlúa;4 oz cola|Verser sur glace;Remuer|
+Gin aux fruits tonic|1|Ballon|gin_aromatise,tonic|2 oz gin aux fruits;4 oz tonic;Fruits frais ou zeste|Remplir de glace;Verser le gin, puis le tonic;Garnir de fruits|Le gin fruité se suffit à lui-même, pas besoin de sucre.
+Gin aux fruits et soda citron|1|Highball|gin_aromatise,soda,citron|2 oz gin aux fruits;4 oz eau gazeuse;½ oz jus de citron|Verser sur glace;Compléter d’eau gazeuse|
+Gin aux fruits et limonade|1|Highball|gin_aromatise,limonade|2 oz gin aux fruits;4 oz limonade|Verser sur glace;Garnir d’un quartier de citron|
+Spritz au gin aux fruits|1|Grand verre à vin|gin_aromatise,prosecco,soda|1 ½ oz gin aux fruits;3 oz prosecco;1 oz eau gazeuse|Remplir de glace;Verser gin et prosecco;Compléter d’eau gazeuse|
+Gin aux fruits et ginger ale|1|Highball|gin_aromatise,gingerale|2 oz gin aux fruits;4 oz ginger ale|Verser sur glace;Remuer une fois|
+Gin aux fruits et canneberge|1|Highball|gin_aromatise,canneberge,lime|2 oz gin aux fruits;4 oz jus de canneberge;½ lime pressé|Verser sur glace;Remuer|
+Gin fruité fizz|2|Collins|gin_aromatise,citron,sirop,soda|2 oz gin aux fruits;¾ oz jus de citron;½ oz sirop simple;Eau gazeuse|Agiter gin, citron et sirop;Filtrer sur glace;Compléter d’eau gazeuse|
+Gimlet au gin aux fruits|2|Coupe|gin_aromatise,lime,sirop|2 oz gin aux fruits;¾ oz jus de lime;½ oz sirop simple|Agiter avec de la glace;Filtrer dans une coupe|
+French 75 fruité|2|Flûte|gin_aromatise,citron,sirop,prosecco|1 oz gin aux fruits;½ oz jus de citron;½ oz sirop simple;3 oz prosecco|Agiter gin, citron et sirop;Filtrer dans une flûte;Compléter de prosecco|
+Gin fruité smash|2|Verre à whisky|gin_aromatise,citron,sirop,menthe|2 oz gin aux fruits;¾ oz jus de citron;½ oz sirop simple;6 feuilles de menthe|Froisser la menthe avec le sirop;Ajouter gin, citron et glace, agiter;Filtrer sur glace pilée|
+Rhum coco et ananas|1|Highball|rhum_coco,ananas|2 oz rhum à la noix de coco;4 oz jus d’ananas|Verser sur glace;Remuer|
+Malibu sunset|1|Highball|rhum_coco,orange,grenadine|2 oz rhum à la noix de coco;4 oz jus d’orange;¼ oz grenadine|Verser rhum et orange sur glace;Laisser couler la grenadine sans remuer|
+Rhum coco et canneberge|1|Highball|rhum_coco,canneberge|2 oz rhum à la noix de coco;4 oz jus de canneberge|Verser sur glace;Remuer|
+Rhum coco et cola|1|Highball|rhum_coco,cola|2 oz rhum à la noix de coco;4 oz cola|Verser sur glace;Presser un quartier de lime|
+Mojito coco|2|Highball|rhum_coco,menthe,lime,soda|2 oz rhum à la noix de coco;8 feuilles de menthe;1 oz jus de lime;Eau gazeuse|Froisser la menthe avec la lime;Ajouter rhum et glace pilée;Compléter d’eau gazeuse|
+Old fashioned au rhum ambré|2|Verre à whisky|rhum_ambre,sirop,angostura|2 oz rhum ambré;¼ oz sirop simple;2 traits d’Angostura|Remuer avec de la glace;Filtrer sur un gros glaçon;Presser un zeste d’orange|
+Daiquiri ambré|2|Coupe|rhum_ambre,lime,sirop|2 oz rhum ambré;1 oz jus de lime;¾ oz sirop simple|Agiter avec de la glace;Filtrer dans une coupe|Un daiquiri plus rond que celui au rhum blanc.
+Ti’ punch agricole|1|Verre à whisky|rhum_agricole,lime,sirop|2 oz rhum agricole;1 rondelle de lime;1 c. à thé de sirop de canne|Presser la lime dans le verre;Ajouter sirop et rhum;Remuer|
+Daiquiri agricole|2|Coupe|rhum_agricole,lime,sirop|2 oz rhum agricole;1 oz jus de lime;¾ oz sirop simple|Agiter avec de la glace;Filtrer dans une coupe|
+Rhum noir et ginger beer|1|Highball|rhum_noir,ginger_beer,lime|2 oz rhum noir;4 oz ginger beer;½ oz jus de lime|Verser sur glace;Compléter de ginger beer|
+Rhum noir sour|2|Verre à whisky|rhum_noir,citron,sirop|2 oz rhum noir;¾ oz jus de citron;½ oz sirop simple|Agiter avec de la glace;Filtrer sur glace|
+Scotch sour fumé|2|Verre à whisky|scotch_tourbe,citron,sirop|2 oz scotch tourbé;¾ oz jus de citron;¾ oz sirop simple|Agiter avec de la glace;Filtrer sur un gros glaçon|
+Rob Roy fumé|2|Coupe|scotch_tourbe,vermouth_doux,angostura|2 oz scotch tourbé;1 oz vermouth doux;2 traits d’Angostura|Remuer avec de la glace;Filtrer dans une coupe|
+Single malt et soda|1|Highball|single_malt,soda|2 oz scotch single malt;4 oz eau gazeuse|Verser sur glace;Remuer une fois|
+Single malt on the rocks|1|Verre à whisky|single_malt|2 oz scotch single malt|Verser sur un gros glaçon;Ajouter quelques gouttes d’eau si désiré|
+Canadian ginger|1|Highball|canadien,gingerale|2 oz whisky canadien;4 oz ginger ale|Verser sur glace;Presser un quartier de lime|
+Old fashioned canadien à l’érable|2|Verre à whisky|canadien,erable,angostura|2 oz whisky canadien;¼ oz sirop d’érable;2 traits d’Angostura|Remuer avec de la glace;Filtrer sur un gros glaçon;Presser un zeste d’orange|
+Sour canadien à l’érable|2|Verre à whisky|canadien,erable,citron|2 oz whisky canadien;¾ oz sirop d’érable;¾ oz jus de citron|Agiter avec de la glace;Filtrer sur un gros glaçon|
+Margarita reposado|2|Verre à whisky|tequila_reposado,triple_sec,lime|2 oz tequila reposado;1 oz triple sec;1 oz jus de lime|Agiter avec de la glace;Filtrer sur glace|
+Reposado et pamplemousse|1|Highball|tequila_reposado,pamplemousse,soda|2 oz tequila reposado;3 oz jus de pamplemousse;Eau gazeuse|Verser sur glace;Compléter d’eau gazeuse|
+Old fashioned añejo|2|Verre à whisky|tequila_anejo,sirop,angostura|2 oz tequila añejo;¼ oz sirop simple;2 traits d’Angostura|Remuer avec de la glace;Filtrer sur un gros glaçon;Presser un zeste d’orange|Le bon usage d’un añejo.
+Manhattan añejo|2|Coupe|tequila_anejo,vermouth_doux,angostura|2 oz tequila añejo;1 oz vermouth doux;2 traits d’Angostura|Remuer avec de la glace;Filtrer dans une coupe|
+Sour à la tequila añejo|2|Verre à whisky|tequila_anejo,citron,sirop|2 oz tequila añejo;¾ oz jus de citron;¾ oz sirop simple|Agiter avec de la glace;Filtrer sur glace|
+Añejo sur glace|1|Verre à whisky|tequila_anejo|2 oz tequila añejo|Verser sur un gros glaçon;Presser un zeste d’orange|À siroter.
+Vodka aromatisée et soda|1|Highball|vodka_aromatisee,soda|2 oz vodka aromatisée;4 oz eau gazeuse|Verser sur glace;Garnir d’un fruit|
+Vodka aromatisée et limonade|1|Highball|vodka_aromatisee,limonade|2 oz vodka aromatisée;4 oz limonade|Verser sur glace;Remuer|
+Vodka aromatisée tonic|1|Highball|vodka_aromatisee,tonic|2 oz vodka aromatisée;4 oz tonic|Verser sur glace;Presser un quartier de lime|
+Martini à la vodka aromatisée|2|Coupe|vodka_aromatisee,vermouth_sec|2 ½ oz vodka aromatisée;½ oz vermouth sec|Remuer avec de la glace;Filtrer dans une coupe|
+Armagnac sur glace|1|Verre à whisky|armagnac|2 oz armagnac|Verser sur un gros glaçon|
 `;
   EXTRA.split("\n").forEach(function (ln) {
     if (!ln.trim()) return;
@@ -567,17 +656,21 @@ Kahlúa cola|1|Highball|kahlua,cola|2 oz Kahlúa;4 oz cola|Verser sur glace;Remu
 
   /* Marques connues : le nom tapé choisit la catégorie */
   var BRANDS = [
-    ["Fireball", "fireball"], ["Kraken", "rhum_epice"], ["Captain Morgan épicé", "rhum_epice"], ["Captain Morgan blanc", "rhum_blanc"],
-    ["Sailor Jerry", "rhum_epice"], ["Bumbu", "rhum_brun"], ["Bacardi", "rhum_blanc"], ["Appleton Estate", "rhum_brun"],
-    ["Diplomático", "rhum_brun"], ["Mount Gay", "rhum_brun"], ["Lamb’s Navy", "rhum_brun"],
-    ["Patrón Añejo", "tequila_anejo"], ["Patrón Reposado", "tequila_anejo"], ["Patrón Silver", "tequila"], ["Don Julio Blanco", "tequila"],
-    ["Don Julio Reposado", "tequila_anejo"], ["Don Julio Añejo", "tequila_anejo"], ["Jose Cuervo", "tequila"], ["Espolòn", "tequila"],
-    ["Casamigos Blanco", "tequila"], ["Casamigos Reposado", "tequila_anejo"],
-    ["Absolut", "vodka"], ["Smirnoff", "vodka"], ["Grey Goose", "vodka"], ["Belvedere", "vodka"], ["Ketel One", "vodka"], ["Tito’s", "vodka"],
+    ["Kepler", "gin_aromatise"], ["Fireball", "fireball"], ["Kraken", "rhum_epice"], ["Captain Morgan épicé", "rhum_epice"],
+    ["Captain Morgan blanc", "rhum_blanc"], ["Sailor Jerry", "rhum_epice"], ["Bumbu", "rhum_ambre"], ["Bacardi", "rhum_blanc"],
+    ["Malibu", "rhum_coco"], ["Appleton Estate", "rhum_brun"], ["Diplomático", "rhum_brun"], ["Mount Gay", "rhum_brun"],
+    ["Lamb’s Navy", "rhum_noir"], ["Gosling’s Black Seal", "rhum_noir"], ["Clément", "rhum_agricole"], ["JM", "rhum_agricole"],
+    ["Patrón Añejo", "tequila_anejo"], ["Patrón Reposado", "tequila_reposado"], ["Patrón Silver", "tequila"], ["Don Julio Blanco", "tequila"],
+    ["Don Julio Reposado", "tequila_reposado"], ["Don Julio Añejo", "tequila_anejo"], ["Jose Cuervo", "tequila"], ["Espolòn", "tequila"],
+    ["Casamigos Blanco", "tequila"], ["Casamigos Reposado", "tequila_reposado"], ["Casamigos Añejo", "tequila_anejo"],
+    ["Absolut", "vodka"], ["Absolut Citron", "vodka_aromatisee"], ["Smirnoff", "vodka"], ["Grey Goose", "vodka"], ["Belvedere", "vodka"],
+    ["Ketel One", "vodka"], ["Tito’s", "vodka"],
     ["Bombay Sapphire", "gin"], ["Tanqueray", "gin"], ["Hendrick’s", "gin"], ["Beefeater", "gin"], ["Gordon’s", "gin"],
     ["Jack Daniel’s", "bourbon"], ["Jim Beam", "bourbon"], ["Maker’s Mark", "bourbon"], ["Wild Turkey", "bourbon"], ["Buffalo Trace", "bourbon"],
-    ["Crown Royal", "rye"], ["Wiser’s", "rye"], ["Canadian Club", "rye"],
-    ["Glenfiddich", "scotch"], ["Johnnie Walker", "scotch"], ["Macallan", "scotch"], ["Jameson", "irlandais"], ["Bushmills", "irlandais"],
+    ["Crown Royal", "canadien"], ["Wiser’s", "canadien"], ["Canadian Club", "canadien"],
+    ["Johnnie Walker", "scotch"], ["Chivas Regal", "scotch"], ["Glenfiddich", "single_malt"], ["Macallan", "single_malt"],
+    ["Laphroaig", "scotch_tourbe"], ["Lagavulin", "scotch_tourbe"], ["Ardbeg", "scotch_tourbe"],
+    ["Jameson", "irlandais"], ["Bushmills", "irlandais"],
     ["Hennessy", "cognac"], ["Rémy Martin", "cognac"], ["Courvoisier", "cognac"],
     ["Cointreau", "triple_sec"], ["Grand Marnier", "triple_sec"], ["Kahlúa", "kahlua"], ["Baileys", "baileys"], ["Disaronno", "amaretto"],
     ["Campari", "campari"], ["Aperol", "aperol"], ["Midori", "midori"], ["St-Germain", "st_germain"], ["Chambord", "chambord"],
@@ -641,7 +734,7 @@ Kahlúa cola|1|Highball|kahlua,cola|2 oz Kahlúa;4 oz cola|Verser sur glace;Remu
       html += '<div class="empty" style="margin-bottom:22px"><b>Ton bar est vide</b><p>Touche les bouteilles que tu possèdes, ou tape une marque ci-dessous. Les cocktails possibles s’affichent dans l’onglet Cocktails.</p><button class="pill" id="sample">Essayer avec un bar d’exemple</button></div>';
     }
     var opts = "";
-    GROUPS.slice(0, 2).forEach(function (g) {
+    GROUPS.filter(function (g) { return g[2] !== "mx"; }).forEach(function (g) {
       opts += '<optgroup label="' + g[0] + '">';
       g[1].forEach(function (p) { opts += '<option value="' + p[0] + '">' + esc(p[1]) + '</option>'; });
       opts += '</optgroup>';
@@ -811,7 +904,7 @@ Kahlúa cola|1|Highball|kahlua,cola|2 oz Kahlúa;4 oz cola|Verser sur glace;Remu
   function baseChips() {
     var out = [], covered = {};
     brands.forEach(function (b) { covered[b.id] = true; out.push([b.id, b.n]); });
-    GROUPS.slice(0, 2).forEach(function (g) {
+    GROUPS.filter(function (g) { return g[2] !== "mx"; }).forEach(function (g) {
       g[1].forEach(function (p) {
         if (have.has(p[0]) && !covered[p[0]]) out.push([p[0], p[1].replace(/ \(.*\)$/, "")]);
       });
