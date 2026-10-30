@@ -1,5 +1,5 @@
 /* Service worker : l'appli s'ouvre aussi sans réseau. */
-var CACHE = "cocktails-1.0.1";
+var CACHE = "cocktails-1.1.0";
 var FILES = ["./", "index.html", "manifest.webmanifest", "icon-192.png", "icon-512.png", "apple-touch-icon.png"];
 
 self.addEventListener("install", function (e) {

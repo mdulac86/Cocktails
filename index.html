@@ -157,6 +157,16 @@ details.card > summary::-webkit-details-marker { display: none; }
 .mine:empty { display: none; }
 .act { margin-top: 12px; }
 @media (prefers-reduced-motion: reduce) { .lights i, h1 .hot { animation: none; } }
+
+.str { font-weight: 600; }
+.s-f { color: var(--cyan); } .s-m { color: var(--gold); } .s-x { color: var(--accent); }
+.stdline { font-family: var(--f-mono); font-size: 0.8rem; color: var(--muted); margin: 12px 0 0; }
+.hint2 { font-size: 0.8rem; color: var(--muted); margin: 8px 0 0; }
+details.home { margin-top: 28px; background: var(--bg2); border: 1px solid var(--line); border-radius: 16px; padding: 0 14px; }
+details.home summary { cursor: pointer; padding: 14px 0; font-family: var(--f-display); font-weight: 600; }
+details.home dl { margin: 0 0 14px; display: grid; gap: 10px; }
+details.home dt { font-weight: 600; font-size: 0.92rem; }
+details.home dd { margin: 2px 0 0; color: var(--muted); font-size: 0.9rem; }
 </style>
 
 </head>
@@ -183,7 +193,19 @@ details.card > summary::-webkit-details-marker { display: none; }
   <section id="view-env" hidden></section>
   <section id="view-rec" hidden></section>
 
-  <p class="foot">1 oz = 30 ml. Glace, sucre, sel et zeste sont considérés comme toujours disponibles.</p>
+  <details class="home"><summary>Préparations maison</summary><dl>
+    <dt>Sirop simple</dt><dd>1 tasse de sucre et 1 tasse d’eau, chauffés jusqu’à dissolution. Se garde 1 mois au frigo.</dd>
+    <dt>Sirop riche</dt><dd>2 tasses de sucre pour 1 tasse d’eau, même méthode.</dd>
+    <dt>Sirop de miel</dt><dd>1 partie de miel dans 1 partie d’eau chaude.</dd>
+    <dt>Sirop d’érable</dt><dd>Utilise-le tel quel, ou allongé de 1 partie d’eau chaude pour 2 d’érable.</dd>
+    <dt>Sirop de gingembre</dt><dd>1 tasse d’eau, 1 tasse de sucre et ½ tasse de gingembre tranché, mijotés 15 minutes puis filtrés.</dd>
+    <dt>Grenadine</dt><dd>1 tasse de jus de grenade pur et 1 tasse de sucre, chauffés doucement jusqu’à dissolution. Quelques gouttes d’eau de fleur d’oranger au besoin.</dd>
+    <dt>Orgeat</dt><dd>1 tasse d’amandes moulues dans 1 tasse d’eau chaude, 4 heures de repos, filtrer, puis dissoudre 1 tasse de sucre. En dépannage : amaretto.</dd>
+    <dt>Mélange à sour</dt><dd>Parts égales de jus de citron frais et de sirop simple, à presser le jour même.</dd>
+    <dt>Spritz</dt><dd>3 parts de prosecco, 2 d’apéritif (Aperol, Campari), 1 d’eau gazeuse, sur glace.</dd>
+    <dt>Mojito</dt><dd>Menthe froissée, lime pressée et sirop simple, rhum blanc, glace pilée, eau gazeuse.</dd>
+  </dl></details>
+  <p class="foot">1 oz = 30 ml. Glace, sucre, sel et zeste sont considérés comme toujours disponibles. Le pourcentage est une estimation. Les recettes utilisent de vrais ingrédients, sans mélanges du commerce.</p>
 </main>
 
 <script>
@@ -217,7 +239,10 @@ details.card > summary::-webkit-details-marker { display: none; }
       ["baileys", "Baileys"], ["chambord", "Liqueur de framboise"], ["midori", "Midori"], ["st_germain", "St-Germain"],
       ["benedictine", "Bénédictine"], ["drambuie", "Drambuie"], ["frangelico", "Frangelico"], ["limoncello", "Limoncello"],
       ["creme_cacao", "Crème de cacao"], ["creme_menthe", "Crème de menthe"], ["creme_cassis", "Crème de cassis"],
-      ["curacao_bleu", "Curaçao bleu"], ["liqueur_peche", "Liqueur de pêche"], ["chartreuse", "Chartreuse"], ["maraschino", "Marasquin"]
+      ["curacao_bleu", "Curaçao bleu"], ["liqueur_peche", "Liqueur de pêche"], ["chartreuse", "Chartreuse"], ["maraschino", "Marasquin"],
+      ["sortilege", "Sortilège (whisky et érable)"], ["liqueur_cerise", "Liqueur de cerise (Cherry Heering)"],
+      ["creme_violette", "Crème de violette"], ["creme_banane", "Crème de banane"], ["galliano", "Galliano"],
+      ["sambuca", "Sambuca"], ["southern_comfort", "Southern Comfort"], ["jagermeister", "Jägermeister"], ["pastis", "Pastis ou ouzo"]
     ], "li"],
     ["Apéritifs et amers", [
       ["campari", "Campari"], ["aperol", "Aperol"], ["vermouth_doux", "Vermouth doux"], ["vermouth_sec", "Vermouth sec"],
@@ -225,17 +250,17 @@ details.card > summary::-webkit-details-marker { display: none; }
       ["sherry", "Xérès"], ["porto", "Porto"]
     ], "li"],
     ["Vins, bière et cidre", [
-      ["prosecco", "Prosecco ou mousseux"], ["vin_rouge", "Vin rouge"], ["vin_blanc", "Vin blanc"], ["biere", "Bière"], ["cidre", "Cidre"]
+      ["prosecco", "Prosecco ou mousseux"], ["vin_rouge", "Vin rouge"], ["vin_blanc", "Vin blanc"], ["biere", "Bière"], ["cidre", "Cidre"], ["cidre_glace", "Cidre de glace"]
     ], "li"],
     ["Mélangeurs", [
       ["citron", "Jus de citron"], ["lime", "Lime"], ["orange", "Jus d’orange"], ["pamplemousse", "Jus de pamplemousse"],
       ["canneberge", "Jus de canneberge"], ["ananas", "Jus d’ananas"], ["jus_pomme", "Jus de pomme"], ["tomate", "Clamato ou jus de tomate"],
       ["cola", "Cola"], ["tonic", "Tonic"], ["soda", "Eau gazeuse"], ["ginger_beer", "Ginger beer"], ["gingerale", "Ginger ale"],
-      ["limonade", "Limonade ou 7Up"], ["sirop", "Sirop simple"], ["erable", "Sirop d’érable"], ["miel", "Miel"], ["grenadine", "Grenadine"],
-      ["orgeat", "Orgeat"], ["angostura", "Bitter Angostura"], ["peychaud", "Bitter Peychaud’s"], ["bitter_orange", "Bitter d’orange"],
+      ["limonade", "Limonade ou 7Up"], ["sirop", "Sirop simple"], ["erable", "Sirop d’érable"], ["miel", "Miel"], ["grenadine", "Grenadine (maison ou du commerce)"],
+      ["orgeat", "Orgeat (maison ou du commerce)"], ["angostura", "Bitter Angostura"], ["peychaud", "Bitter Peychaud’s"], ["bitter_orange", "Bitter d’orange"],
       ["menthe", "Menthe fraîche"], ["basilic", "Basilic frais"], ["concombre", "Concombre"], ["framboise", "Framboises"],
-      ["fraise", "Fraises"], ["peche", "Purée de pêche"], ["gingembre", "Gingembre frais"], ["creme", "Crème"], ["lait", "Lait"],
-      ["coco", "Crème de coco"], ["chocolat", "Sirop de chocolat"], ["espresso", "Espresso"], ["cafe", "Café filtre"],
+      ["fraise", "Fraises"], ["bleuet", "Bleuets"], ["mangue", "Mangue"], ["fruit_passion", "Fruit de la passion"], ["banane", "Banane"], ["peche", "Purée de pêche"], ["gingembre", "Gingembre frais"], ["creme", "Crème"], ["lait", "Lait"],
+      ["coco", "Crème de coco"], ["chocolat", "Sirop de chocolat"], ["espresso", "Espresso"], ["cafe", "Café filtre"], ["the", "Thé"],
       ["oeuf", "Œuf (blanc ou entier)"]
     ], "mx"]
   ];
@@ -621,6 +646,561 @@ Vodka aromatisée et limonade|1|Highball|vodka_aromatisee,limonade|2 oz vodka ar
 Vodka aromatisée tonic|1|Highball|vodka_aromatisee,tonic|2 oz vodka aromatisée;4 oz tonic|Verser sur glace;Presser un quartier de lime|
 Martini à la vodka aromatisée|2|Coupe|vodka_aromatisee,vermouth_sec|2 ½ oz vodka aromatisée;½ oz vermouth sec|Remuer avec de la glace;Filtrer dans une coupe|
 Armagnac sur glace|1|Verre à whisky|armagnac|2 oz armagnac|Verser sur un gros glaçon|
+Gin Gin Mule|2|Verre à whisky|gin,lime,sirop,menthe,ginger_beer|1 ½ oz gin;¾ oz jus de lime;¾ oz sirop simple;6 feuilles de menthe;2 oz ginger beer|Froisser la menthe avec le sirop et la lime;Ajouter le gin et de la glace, agiter;Filtrer sur glace et compléter de ginger beer|
+Leap Year|2|Coupe|gin,triple_sec,vermouth_doux,citron|2 oz gin;½ oz triple sec;½ oz vermouth doux;¼ oz jus de citron|Agiter avec de la glace;Filtrer dans une coupe|
+Perfect Martini|2|Coupe|gin,vermouth_doux,vermouth_sec|2 oz gin;½ oz vermouth doux;½ oz vermouth sec|Remuer avec de la glace;Filtrer dans une coupe;Presser un zeste de citron|
+Tuxedo|3|Coupe|gin,vermouth_sec,maraschino,absinthe,bitter_orange|2 oz gin;1 oz vermouth sec;¼ oz marasquin;Rinçage d’absinthe;2 traits de bitter d’orange|Rincer la coupe à l’absinthe;Remuer le reste avec de la glace;Filtrer dans la coupe|
+Cooperstown|2|Coupe|gin,vermouth_doux,vermouth_sec,menthe|1 ½ oz gin;½ oz vermouth doux;½ oz vermouth sec;4 feuilles de menthe|Agiter avec de la glace;Filtrer finement dans une coupe|
+Gin julep|2|Gobelet|gin,menthe,sirop|2 oz gin;¾ oz sirop simple;8 feuilles de menthe|Froisser la menthe avec le sirop;Ajouter le gin et de la glace pilée;Remuer jusqu’à ce que le gobelet givre|
+Turf Club|2|Coupe|gin,vermouth_sec,maraschino,angostura|2 oz gin;1 oz vermouth sec;¼ oz marasquin;2 traits d’Angostura|Remuer avec de la glace;Filtrer dans une coupe|
+Income Tax|2|Coupe|gin,vermouth_doux,vermouth_sec,orange,angostura|1 ½ oz gin;½ oz vermouth doux;½ oz vermouth sec;1 oz jus d’orange;2 traits d’Angostura|Agiter avec de la glace;Filtrer dans une coupe|
+Casino|3|Coupe|gin,maraschino,citron,bitter_orange|2 oz gin;¼ oz marasquin;¼ oz jus de citron;2 traits de bitter d’orange|Agiter avec de la glace;Filtrer dans une coupe|
+Pink Lady|3|Coupe|gin,calvados,citron,grenadine,oeuf|1 ½ oz gin;½ oz calvados;¾ oz jus de citron;½ oz grenadine;1 blanc d’œuf|Agiter sans glace 15 secondes;Ajouter de la glace et agiter;Filtrer finement|Grenadine maison : jus de grenade et sucre à parts égales.
+Gin et cidre de glace|1|Flûte|gin,cidre_glace,soda|1 ½ oz gin;1 oz cidre de glace;3 oz eau gazeuse|Verser le gin et le cidre de glace sur glace;Compléter d’eau gazeuse;Garnir d’une tranche de pomme|
+Bleuet gin fizz|2|Collins|gin,bleuet,citron,sirop,soda|2 oz gin;¼ tasse de bleuets;¾ oz jus de citron;½ oz sirop simple;Eau gazeuse|Écraser les bleuets avec le sirop;Ajouter gin, citron et glace, agiter;Filtrer sur glace et compléter d’eau gazeuse|
+Kepler tonic aux bleuets|1|Ballon|gin_aromatise,tonic,bleuet|2 oz gin aux fruits;4 oz tonic;Quelques bleuets|Écraser 3 bleuets au fond du verre;Ajouter glace, gin et tonic|
+Harvey Wallbanger|1|Highball|vodka,orange,galliano|1 ½ oz vodka;4 oz jus d’orange;½ oz Galliano|Verser vodka et jus sur glace;Faire flotter le Galliano|
+Flying Grasshopper|2|Coupe|vodka,creme_menthe,creme_cacao|1 oz vodka;¾ oz crème de menthe;¾ oz crème de cacao|Agiter avec de la glace;Filtrer dans une coupe|
+Vodka stinger|1|Coupe|vodka,creme_menthe|2 oz vodka;1 oz crème de menthe|Agiter avec de la glace;Filtrer dans une coupe|
+Vodka et canneberge pétillante|1|Flûte|vodka,canneberge,prosecco|1 oz vodka;1 oz jus de canneberge;3 oz prosecco|Verser vodka et canneberge dans la flûte;Compléter de prosecco|
+Bloody Mary à l’érable|2|Highball|vodka,tomate,citron,erable|1 ½ oz vodka;4 oz jus de tomate;½ oz jus de citron;1 c. à thé de sirop d’érable;Sauce Worcestershire, sauce piquante, poivre|Verser sur glace;Remuer doucement;Garnir de céleri|
+Vodka et thé glacé|1|Highball|vodka,the,citron,sirop|1 ½ oz vodka;4 oz thé froid;½ oz jus de citron;½ oz sirop simple|Verser sur glace;Remuer|Infuser un thé noir fort et le laisser refroidir.
+Cable car|3|Coupe|rhum_epice,triple_sec,citron,sirop|1 ½ oz rhum épicé;¾ oz triple sec;¾ oz jus de citron;¼ oz sirop simple|Givrer le rebord de sucre;Agiter avec de la glace;Filtrer dans la coupe|
+Hotel Nacional|2|Coupe|rhum_ambre,ananas,lime,sirop|2 oz rhum ambré;1 oz jus d’ananas;¾ oz jus de lime;½ oz sirop simple|Agiter avec de la glace;Filtrer dans une coupe|
+Queen’s Park swizzle|2|Highball|rhum_brun,lime,sirop,menthe,angostura|2 oz rhum brun;1 oz jus de lime;¾ oz sirop simple;8 feuilles de menthe;4 traits d’Angostura|Froisser la menthe avec le sirop;Ajouter le rhum, le lime et de la glace pilée;Remuer vigoureusement|
+Corn ’n’ oil|2|Verre à whisky|rhum_noir,lime,sirop,angostura|2 oz rhum noir;½ oz jus de lime;½ oz sirop simple;2 traits d’Angostura|Agiter avec de la glace;Filtrer sur glace pilée|
+Trinidad sour|3|Coupe|rye,angostura,orgeat,citron|1 ½ oz Angostura;1 oz orgeat;¾ oz jus de citron;½ oz rye|Agiter avec de la glace;Filtrer finement dans une coupe|Le bitter est l’ingrédient principal. Orgeat maison : amandes moulues, sucre et eau.
+Mai Tai classique|3|Verre à whisky|rhum_brun,rhum_blanc,triple_sec,orgeat,lime|1 oz rhum brun;1 oz rhum blanc;½ oz triple sec;½ oz orgeat;1 oz jus de lime|Agiter avec de la glace;Filtrer sur glace pilée;Garnir de menthe|Sans orgeat maison, remplacer par ½ oz d’amaretto et ¼ oz de sirop simple.
+Rum Collins|2|Collins|rhum_blanc,citron,sirop,soda|2 oz rhum blanc;1 oz jus de citron;¾ oz sirop simple;Eau gazeuse|Agiter rhum, citron et sirop;Filtrer sur glace;Compléter d’eau gazeuse|
+Daiquiri banane|2|Coupe|rhum_blanc,banane,lime,sirop|2 oz rhum blanc;½ banane;1 oz jus de lime;½ oz sirop simple|Mélanger au mélangeur avec une tasse de glace;Verser dans une coupe|
+Bahama punch maison|2|Highball|rhum_brun,rhum_coco,orange,ananas,grenadine|1 oz rhum brun;1 oz rhum à la noix de coco;2 oz jus d’orange;2 oz jus d’ananas;¼ oz grenadine|Agiter avec de la glace;Filtrer sur glace|
+Rhum et cidre de glace|1|Verre à whisky|rhum_ambre,cidre_glace|1 ½ oz rhum ambré;1 oz cidre de glace|Remuer avec de la glace;Filtrer sur un gros glaçon;Garnir d’un zeste d’orange|
+Érable daiquiri|2|Coupe|rhum_ambre,lime,erable|2 oz rhum ambré;¾ oz jus de lime;½ oz sirop d’érable|Agiter avec de la glace;Filtrer dans une coupe|
+Paloma classique|2|Highball|tequila,pamplemousse,lime,sirop,soda|2 oz tequila;2 oz jus de pamplemousse;½ oz jus de lime;¼ oz sirop simple;Eau gazeuse|Saler le rebord;Agiter tequila, jus et sirop;Filtrer sur glace et compléter d’eau gazeuse|
+Siesta|2|Coupe|tequila,campari,pamplemousse,lime,sirop|1 ½ oz tequila;½ oz Campari;½ oz jus de pamplemousse;½ oz jus de lime;½ oz sirop simple|Agiter avec de la glace;Filtrer dans une coupe|
+Tequila daisy|2|Verre à whisky|tequila,triple_sec,citron,grenadine|1 ½ oz tequila;½ oz triple sec;¾ oz jus de citron;¼ oz grenadine|Agiter avec de la glace;Filtrer sur glace|
+Mezcal sunrise|2|Highball|mezcal,orange,grenadine|1 ½ oz mezcal;4 oz jus d’orange;¼ oz grenadine|Verser mezcal et jus sur glace;Laisser couler la grenadine|
+Margarita à la mangue|2|Coupe|tequila,triple_sec,lime,mangue|1 ½ oz tequila;¾ oz triple sec;¾ oz jus de lime;2 oz purée de mangue|Agiter avec de la glace;Filtrer sur glace|
+Margarita au bleuet|2|Verre à whisky|tequila,triple_sec,lime,bleuet|1 ½ oz tequila;¾ oz triple sec;¾ oz jus de lime;¼ tasse de bleuets|Écraser les bleuets;Agiter avec le reste et de la glace;Filtrer finement sur glace|
+Palomita à l’érable|2|Highball|tequila_reposado,pamplemousse,lime,erable,soda|2 oz tequila reposado;2 oz jus de pamplemousse;½ oz jus de lime;¼ oz sirop d’érable;Eau gazeuse|Agiter tequila, jus et érable;Filtrer sur glace;Compléter d’eau gazeuse|
+Porto flip|2|Coupe|porto,cognac,oeuf|1 ½ oz porto;¾ oz cognac;1 jaune d’œuf|Agiter sans glace 15 secondes;Ajouter de la glace et agiter;Filtrer finement et râper de la muscade|
+Final Ward|3|Coupe|rye,chartreuse,maraschino,citron|¾ oz rye;¾ oz Chartreuse;¾ oz marasquin;¾ oz jus de citron|Agiter avec de la glace;Filtrer finement dans une coupe|
+Chartreuse swizzle|3|Verre à whisky|chartreuse,ananas,lime,sirop|1 ½ oz Chartreuse verte;1 oz jus d’ananas;¾ oz jus de lime;½ oz sirop simple|Verser sur glace pilée;Remuer vigoureusement|
+Blinker|2|Coupe|rye,pamplemousse,grenadine|2 oz rye;1 ½ oz jus de pamplemousse;½ oz grenadine|Agiter avec de la glace;Filtrer dans une coupe|Grenadine maison : jus de grenade et sucre à parts égales.
+Toronto|2|Coupe|canadien,fernet,sirop,angostura|2 oz whisky canadien;¼ oz Fernet-Branca;¼ oz sirop simple;2 traits d’Angostura|Remuer avec de la glace;Filtrer dans une coupe;Presser un zeste d’orange|Un classique canadien.
+Cablegram|2|Highball|rye,citron,sirop,gingerale|2 oz rye;¾ oz jus de citron;½ oz sirop simple;Ginger ale|Agiter whisky, citron et sirop;Filtrer sur glace;Compléter de ginger ale|
+Preakness|2|Coupe|rye,vermouth_doux,benedictine,angostura|2 oz rye;¾ oz vermouth doux;¼ oz Bénédictine;2 traits d’Angostura|Remuer avec de la glace;Filtrer dans une coupe|
+Kentucky colonel|1|Coupe|bourbon,benedictine|2 oz bourbon;½ oz Bénédictine|Remuer avec de la glace;Filtrer dans une coupe|
+Improved whiskey cocktail|3|Verre à whisky|rye,maraschino,absinthe,sirop,angostura|2 oz rye;¼ oz marasquin;¼ oz sirop simple;2 traits d’Angostura;Rinçage d’absinthe|Rincer le verre à l’absinthe;Remuer le reste avec de la glace;Filtrer sur un gros glaçon|
+Canadien et érable chaud|1|Tasse|canadien,erable,citron|1 ½ oz whisky canadien;1 c. à soupe de sirop d’érable;½ oz jus de citron;4 oz eau chaude|Dissoudre l’érable dans l’eau chaude;Ajouter whisky et citron|
+Sortilège sur glace|1|Verre à whisky|sortilege|2 oz Sortilège|Verser sur un gros glaçon|À siroter comme un digestif.
+Sortilège et café|1|Tasse|sortilege,cafe|1 ½ oz Sortilège;5 oz café chaud;Crème fouettée|Verser le café sur le Sortilège;Garnir de crème|
+Sortilège sour|2|Verre à whisky|sortilege,citron|2 oz Sortilège;¾ oz jus de citron|Agiter avec de la glace;Filtrer sur un gros glaçon|Le citron coupe la douceur de l’érable.
+Sortilège et cidre|1|Verre à pied|sortilege,cidre|1 ½ oz Sortilège;4 oz cidre|Verser sur glace;Garnir d’une tranche de pomme|
+Sortilège et ginger ale|1|Highball|sortilege,gingerale,citron|1 ½ oz Sortilège;4 oz ginger ale;½ oz jus de citron|Verser sur glace;Remuer|
+Sortilège tonic|1|Highball|sortilege,tonic,citron|1 ½ oz Sortilège;3 oz tonic;¼ oz jus de citron|Verser sur glace;Garnir d’un zeste d’orange|
+Cidre de glace et prosecco|1|Flûte|cidre_glace,prosecco|1 ½ oz cidre de glace;4 oz prosecco|Verser le cidre de glace;Compléter de prosecco|
+Cidre de glace tonic|1|Ballon|cidre_glace,tonic|2 oz cidre de glace;3 oz tonic|Verser sur glace;Garnir d’une tranche de pomme|
+Cidre de glace et whisky|2|Verre à whisky|cidre_glace,canadien,citron|1 ½ oz whisky canadien;1 oz cidre de glace;½ oz jus de citron|Agiter avec de la glace;Filtrer sur un gros glaçon|
+Cassis et cidre|1|Verre à pied|creme_cassis,cidre|¾ oz crème de cassis;4 oz cidre|Verser le cassis;Compléter de cidre|
+Cassis tonic|1|Ballon|creme_cassis,gin,tonic|¾ oz crème de cassis;1 ½ oz gin;3 oz tonic|Verser sur glace;Remuer|
+Mimosa à l’ananas|1|Flûte|prosecco,ananas|3 oz prosecco;2 oz jus d’ananas|Verser le jus;Compléter de prosecco|
+Mimosa à la canneberge|1|Flûte|prosecco,canneberge|3 oz prosecco;2 oz jus de canneberge|Verser le jus;Compléter de prosecco|
+Mimosa au pamplemousse|1|Flûte|prosecco,pamplemousse|3 oz prosecco;2 oz jus de pamplemousse|Verser le jus;Compléter de prosecco|
+Bellini à la mangue|1|Flûte|prosecco,mangue|2 oz purée de mangue;4 oz prosecco|Verser la purée;Compléter de prosecco|
+Royale aux bleuets|2|Flûte|prosecco,bleuet,sirop|¼ tasse de bleuets;¼ oz sirop simple;4 oz prosecco|Écraser les bleuets avec le sirop;Filtrer;Compléter de prosecco|
+Spritz maison au citron|1|Grand verre à vin|prosecco,citron,sirop,soda|3 oz prosecco;1 oz jus de citron;¾ oz sirop simple;1 oz eau gazeuse|Remplir de glace;Verser prosecco, citron et sirop;Compléter d’eau gazeuse|Un spritz fait de vrais ingrédients, sans mélange du commerce.
+Spritz au gingembre|1|Grand verre à vin|prosecco,gingembre,citron,sirop,soda|3 oz prosecco;1 oz sirop de gingembre;½ oz jus de citron;1 oz eau gazeuse|Remplir de glace;Verser tous les ingrédients;Remuer doucement|Sirop de gingembre maison : gingembre tranché, sucre et eau, 15 minutes.
+Spritz à la fraise|1|Grand verre à vin|prosecco,fraise,sirop,soda|3 oz prosecco;4 fraises;¼ oz sirop simple;1 oz eau gazeuse|Écraser les fraises avec le sirop;Ajouter glace et prosecco;Compléter d’eau gazeuse|
+Midori spritz|1|Grand verre à vin|midori,prosecco,soda|1 ½ oz Midori;3 oz prosecco;1 oz eau gazeuse|Remplir de glace;Verser Midori et prosecco;Compléter d’eau gazeuse|
+Lillet spritz|1|Grand verre à vin|lillet,prosecco,soda|2 oz Lillet;2 oz prosecco;1 oz eau gazeuse|Remplir de glace;Verser Lillet et prosecco;Compléter d’eau gazeuse|
+Pimm’s spritz|1|Grand verre à vin|pimms,prosecco,soda|1 ½ oz Pimm’s;3 oz prosecco;1 oz eau gazeuse|Remplir de glace;Verser Pimm’s et prosecco;Garnir de concombre|
+Amaretto spritz|1|Grand verre à vin|amaretto,prosecco,soda|1 ½ oz amaretto;3 oz prosecco;1 oz eau gazeuse|Remplir de glace;Verser amaretto et prosecco;Garnir d’orange|
+Vin chaud blanc|1|Casserole|vin_blanc,miel,citron|1 bouteille de vin blanc;3 c. à soupe de miel;1 citron en tranches;Cannelle, clou de girofle|Chauffer doucement sans bouillir;Servir chaud|
+Café Frangelico|1|Tasse|frangelico,cafe,creme|1 ½ oz Frangelico;5 oz café chaud;Crème fouettée|Verser le café sur la liqueur;Garnir de crème|
+Café Drambuie|1|Tasse|drambuie,cafe,creme|1 ½ oz Drambuie;5 oz café chaud;Crème fouettée|Verser le café sur la liqueur;Garnir de crème|
+Café gaélique|1|Verre à pied|scotch,cafe,sirop,creme|1 ½ oz scotch;4 oz café chaud;1 c. à thé de sucre;Crème fouettée légère|Dissoudre le sucre dans le café;Ajouter le scotch;Faire flotter la crème|
+Café royal|1|Tasse|cognac,cafe|1 ½ oz cognac;5 oz café chaud;1 morceau de sucre|Verser le café sur le cognac;Sucrer au goût|
+Chocolat chaud à l’orange|1|Tasse|triple_sec,lait,chocolat|1 ½ oz triple sec;6 oz lait chaud;1 c. à soupe de sirop de chocolat|Réchauffer le lait avec le chocolat;Ajouter la liqueur|
+Chocolat chaud menthe|1|Tasse|creme_menthe,lait,chocolat|1 ½ oz crème de menthe;6 oz lait chaud;1 c. à soupe de sirop de chocolat|Réchauffer le lait avec le chocolat;Ajouter la liqueur|
+Chocolat chaud amaretto|1|Tasse|amaretto,lait,chocolat|1 ½ oz amaretto;6 oz lait chaud;1 c. à soupe de sirop de chocolat|Réchauffer le lait avec le chocolat;Ajouter la liqueur|
+Alexander au gin|2|Coupe|gin,creme_cacao,creme|1 ½ oz gin;1 oz crème de cacao;1 oz crème|Agiter avec de la glace;Filtrer dans une coupe;Râper de la muscade|
+Panama|2|Coupe|rhum_ambre,creme_cacao,creme|1 ½ oz rhum ambré;1 oz crème de cacao;1 oz crème|Agiter avec de la glace;Filtrer dans une coupe;Râper de la muscade|
+Alexander à l’amaretto|2|Coupe|amaretto,creme_cacao,creme|1 ½ oz amaretto;1 oz crème de cacao;1 oz crème|Agiter avec de la glace;Filtrer dans une coupe|
+Banana Alexander|2|Coupe|creme_banane,cognac,creme|1 oz cognac;1 oz crème de banane;1 oz crème|Agiter avec de la glace;Filtrer dans une coupe|
+Alabama slammer|1|Verre à shooter|amaretto,southern_comfort,orange,citron|½ oz amaretto;½ oz Southern Comfort;1 oz jus d’orange;¼ oz jus de citron|Agiter avec de la glace;Filtrer dans le verre|
+Mind eraser|1|Verre à shooter|vodka,kahlua,soda|1 oz vodka;1 oz Kahlúa;1 oz eau gazeuse|Verser vodka et Kahlúa sur glace;Compléter d’eau gazeuse|
+Washington apple|1|Verre à shooter|canadien,jus_pomme,canneberge|1 oz whisky canadien;1 oz jus de pomme;1 oz jus de canneberge|Agiter avec de la glace;Filtrer dans le verre|
+Slippery nipple|2|Verre à shooter|sambuca,baileys|1 oz sambuca;½ oz Baileys|Verser la sambuca;Faire flotter le Baileys|
+Jäger et gingembre|1|Highball|jagermeister,ginger_beer,lime|1 ½ oz Jägermeister;4 oz ginger beer;½ oz jus de lime|Verser sur glace;Compléter de ginger beer|
+Cherry whisky sour|2|Verre à whisky|bourbon,liqueur_cerise,citron|1 ½ oz bourbon;½ oz liqueur de cerise;¾ oz jus de citron;¼ oz sirop simple|Agiter avec de la glace;Filtrer sur glace|
+Pastis et eau|1|Verre long|pastis|1 ½ oz pastis;5 oz eau froide|Verser le pastis;Ajouter l’eau et des glaçons|Le classique de l’apéro, 1 pour 5 ou 1 pour 3.
+Sour au rhum ambré|2|Verre à whisky|rhum_ambre,citron,sirop|2 oz rhum ambré;¾ oz jus de citron;¾ oz sirop simple|Agiter avec de la glace;Filtrer sur glace fraîche|
+Sour au rhum agricole|2|Verre à whisky|rhum_agricole,citron,sirop|2 oz rhum agricole;¾ oz jus de citron;¾ oz sirop simple|Agiter avec de la glace;Filtrer sur glace fraîche|
+Sour à la cachaça|2|Verre à whisky|cachaca,citron,sirop|2 oz cachaça;¾ oz jus de citron;¾ oz sirop simple|Agiter avec de la glace;Filtrer sur glace fraîche|
+Sour à la tequila reposado|2|Verre à whisky|tequila_reposado,citron,sirop|2 oz tequila reposado;¾ oz jus de citron;¾ oz sirop simple|Agiter avec de la glace;Filtrer sur glace fraîche|
+Sour au mezcal|2|Verre à whisky|mezcal,citron,sirop|2 oz mezcal;¾ oz jus de citron;¾ oz sirop simple|Agiter avec de la glace;Filtrer sur glace fraîche|
+Sour au cognac|2|Verre à whisky|cognac,citron,sirop|2 oz cognac;¾ oz jus de citron;¾ oz sirop simple|Agiter avec de la glace;Filtrer sur glace fraîche|
+Sour à l’armagnac|2|Verre à whisky|armagnac,citron,sirop|2 oz armagnac;¾ oz jus de citron;¾ oz sirop simple|Agiter avec de la glace;Filtrer sur glace fraîche|
+Sour au calvados|2|Verre à whisky|calvados,citron,sirop|2 oz calvados;¾ oz jus de citron;¾ oz sirop simple|Agiter avec de la glace;Filtrer sur glace fraîche|
+Sour au gin aux fruits|2|Verre à whisky|gin_aromatise,citron,sirop|2 oz gin aux fruits;¾ oz jus de citron;¾ oz sirop simple|Agiter avec de la glace;Filtrer sur glace fraîche|
+Sour à la vodka aromatisée|2|Verre à whisky|vodka_aromatisee,citron,sirop|2 oz vodka aromatisée;¾ oz jus de citron;¾ oz sirop simple|Agiter avec de la glace;Filtrer sur glace fraîche|
+Sour mousseux au rye|3|Coupe|rye,citron,sirop,oeuf|2 oz rye;¾ oz jus de citron;¾ oz sirop simple;1 blanc d’œuf|Agiter sans glace 15 secondes;Ajouter de la glace et agiter 15 secondes;Filtrer finement dans la coupe|Le premier agitage sans glace crée la mousse.
+Sour mousseux au bourbon|3|Coupe|bourbon,citron,sirop,oeuf|2 oz bourbon;¾ oz jus de citron;¾ oz sirop simple;1 blanc d’œuf|Agiter sans glace 15 secondes;Ajouter de la glace et agiter 15 secondes;Filtrer finement dans la coupe|Le premier agitage sans glace crée la mousse.
+Sour mousseux au whisky canadien|3|Coupe|canadien,citron,sirop,oeuf|2 oz whisky canadien;¾ oz jus de citron;¾ oz sirop simple;1 blanc d’œuf|Agiter sans glace 15 secondes;Ajouter de la glace et agiter 15 secondes;Filtrer finement dans la coupe|Le premier agitage sans glace crée la mousse.
+Sour mousseux au whisky irlandais|3|Coupe|irlandais,citron,sirop,oeuf|2 oz whisky irlandais;¾ oz jus de citron;¾ oz sirop simple;1 blanc d’œuf|Agiter sans glace 15 secondes;Ajouter de la glace et agiter 15 secondes;Filtrer finement dans la coupe|Le premier agitage sans glace crée la mousse.
+Sour mousseux au gin|3|Coupe|gin,citron,sirop,oeuf|2 oz gin;¾ oz jus de citron;¾ oz sirop simple;1 blanc d’œuf|Agiter sans glace 15 secondes;Ajouter de la glace et agiter 15 secondes;Filtrer finement dans la coupe|Le premier agitage sans glace crée la mousse.
+Sour mousseux au rhum ambré|3|Coupe|rhum_ambre,citron,sirop,oeuf|2 oz rhum ambré;¾ oz jus de citron;¾ oz sirop simple;1 blanc d’œuf|Agiter sans glace 15 secondes;Ajouter de la glace et agiter 15 secondes;Filtrer finement dans la coupe|Le premier agitage sans glace crée la mousse.
+Sour mousseux au mezcal|3|Coupe|mezcal,citron,sirop,oeuf|2 oz mezcal;¾ oz jus de citron;¾ oz sirop simple;1 blanc d’œuf|Agiter sans glace 15 secondes;Ajouter de la glace et agiter 15 secondes;Filtrer finement dans la coupe|Le premier agitage sans glace crée la mousse.
+Sour mousseux à la tequila reposado|3|Coupe|tequila_reposado,citron,sirop,oeuf|2 oz tequila reposado;¾ oz jus de citron;¾ oz sirop simple;1 blanc d’œuf|Agiter sans glace 15 secondes;Ajouter de la glace et agiter 15 secondes;Filtrer finement dans la coupe|Le premier agitage sans glace crée la mousse.
+Sour mousseux au cognac|3|Coupe|cognac,citron,sirop,oeuf|2 oz cognac;¾ oz jus de citron;¾ oz sirop simple;1 blanc d’œuf|Agiter sans glace 15 secondes;Ajouter de la glace et agiter 15 secondes;Filtrer finement dans la coupe|Le premier agitage sans glace crée la mousse.
+Sour mousseux au calvados|3|Coupe|calvados,citron,sirop,oeuf|2 oz calvados;¾ oz jus de citron;¾ oz sirop simple;1 blanc d’œuf|Agiter sans glace 15 secondes;Ajouter de la glace et agiter 15 secondes;Filtrer finement dans la coupe|Le premier agitage sans glace crée la mousse.
+Sour mousseux au rhum agricole|3|Coupe|rhum_agricole,citron,sirop,oeuf|2 oz rhum agricole;¾ oz jus de citron;¾ oz sirop simple;1 blanc d’œuf|Agiter sans glace 15 secondes;Ajouter de la glace et agiter 15 secondes;Filtrer finement dans la coupe|Le premier agitage sans glace crée la mousse.
+Collins au rhum ambré|2|Collins|rhum_ambre,citron,sirop,soda|2 oz rhum ambré;1 oz jus de citron;¾ oz sirop simple;Eau gazeuse|Agiter spiritueux, citron et sirop avec de la glace;Filtrer sur glace;Compléter d’eau gazeuse|
+Collins au rhum brun|2|Collins|rhum_brun,citron,sirop,soda|2 oz rhum brun;1 oz jus de citron;¾ oz sirop simple;Eau gazeuse|Agiter spiritueux, citron et sirop avec de la glace;Filtrer sur glace;Compléter d’eau gazeuse|
+Collins à la tequila|2|Collins|tequila,citron,sirop,soda|2 oz tequila;1 oz jus de citron;¾ oz sirop simple;Eau gazeuse|Agiter spiritueux, citron et sirop avec de la glace;Filtrer sur glace;Compléter d’eau gazeuse|
+Collins à la tequila reposado|2|Collins|tequila_reposado,citron,sirop,soda|2 oz tequila reposado;1 oz jus de citron;¾ oz sirop simple;Eau gazeuse|Agiter spiritueux, citron et sirop avec de la glace;Filtrer sur glace;Compléter d’eau gazeuse|
+Collins au mezcal|2|Collins|mezcal,citron,sirop,soda|2 oz mezcal;1 oz jus de citron;¾ oz sirop simple;Eau gazeuse|Agiter spiritueux, citron et sirop avec de la glace;Filtrer sur glace;Compléter d’eau gazeuse|
+Collins au rye|2|Collins|rye,citron,sirop,soda|2 oz rye;1 oz jus de citron;¾ oz sirop simple;Eau gazeuse|Agiter spiritueux, citron et sirop avec de la glace;Filtrer sur glace;Compléter d’eau gazeuse|
+Collins au scotch|2|Collins|scotch,citron,sirop,soda|2 oz scotch;1 oz jus de citron;¾ oz sirop simple;Eau gazeuse|Agiter spiritueux, citron et sirop avec de la glace;Filtrer sur glace;Compléter d’eau gazeuse|
+Collins au whisky irlandais|2|Collins|irlandais,citron,sirop,soda|2 oz whisky irlandais;1 oz jus de citron;¾ oz sirop simple;Eau gazeuse|Agiter spiritueux, citron et sirop avec de la glace;Filtrer sur glace;Compléter d’eau gazeuse|
+Collins au whisky canadien|2|Collins|canadien,citron,sirop,soda|2 oz whisky canadien;1 oz jus de citron;¾ oz sirop simple;Eau gazeuse|Agiter spiritueux, citron et sirop avec de la glace;Filtrer sur glace;Compléter d’eau gazeuse|
+Collins au cognac|2|Collins|cognac,citron,sirop,soda|2 oz cognac;1 oz jus de citron;¾ oz sirop simple;Eau gazeuse|Agiter spiritueux, citron et sirop avec de la glace;Filtrer sur glace;Compléter d’eau gazeuse|
+Collins au calvados|2|Collins|calvados,citron,sirop,soda|2 oz calvados;1 oz jus de citron;¾ oz sirop simple;Eau gazeuse|Agiter spiritueux, citron et sirop avec de la glace;Filtrer sur glace;Compléter d’eau gazeuse|
+Collins à l’armagnac|2|Collins|armagnac,citron,sirop,soda|2 oz armagnac;1 oz jus de citron;¾ oz sirop simple;Eau gazeuse|Agiter spiritueux, citron et sirop avec de la glace;Filtrer sur glace;Compléter d’eau gazeuse|
+Collins au pisco|2|Collins|pisco,citron,sirop,soda|2 oz pisco;1 oz jus de citron;¾ oz sirop simple;Eau gazeuse|Agiter spiritueux, citron et sirop avec de la glace;Filtrer sur glace;Compléter d’eau gazeuse|
+Collins à la cachaça|2|Collins|cachaca,citron,sirop,soda|2 oz cachaça;1 oz jus de citron;¾ oz sirop simple;Eau gazeuse|Agiter spiritueux, citron et sirop avec de la glace;Filtrer sur glace;Compléter d’eau gazeuse|
+Collins au gin aux fruits|2|Collins|gin_aromatise,citron,sirop,soda|2 oz gin aux fruits;1 oz jus de citron;¾ oz sirop simple;Eau gazeuse|Agiter spiritueux, citron et sirop avec de la glace;Filtrer sur glace;Compléter d’eau gazeuse|
+Collins à la vodka aromatisée|2|Collins|vodka_aromatisee,citron,sirop,soda|2 oz vodka aromatisée;1 oz jus de citron;¾ oz sirop simple;Eau gazeuse|Agiter spiritueux, citron et sirop avec de la glace;Filtrer sur glace;Compléter d’eau gazeuse|
+Collins au rhum agricole|2|Collins|rhum_agricole,citron,sirop,soda|2 oz rhum agricole;1 oz jus de citron;¾ oz sirop simple;Eau gazeuse|Agiter spiritueux, citron et sirop avec de la glace;Filtrer sur glace;Compléter d’eau gazeuse|
+Smash au rhum blanc|2|Verre à whisky|rhum_blanc,citron,sirop,menthe|2 oz rhum blanc;¾ oz jus de citron;½ oz sirop simple;6 feuilles de menthe|Froisser la menthe avec le sirop;Ajouter le spiritueux, le citron et de la glace, agiter;Filtrer sur glace pilée|
+Smash au rhum ambré|2|Verre à whisky|rhum_ambre,citron,sirop,menthe|2 oz rhum ambré;¾ oz jus de citron;½ oz sirop simple;6 feuilles de menthe|Froisser la menthe avec le sirop;Ajouter le spiritueux, le citron et de la glace, agiter;Filtrer sur glace pilée|
+Smash à la tequila|2|Verre à whisky|tequila,citron,sirop,menthe|2 oz tequila;¾ oz jus de citron;½ oz sirop simple;6 feuilles de menthe|Froisser la menthe avec le sirop;Ajouter le spiritueux, le citron et de la glace, agiter;Filtrer sur glace pilée|
+Smash au mezcal|2|Verre à whisky|mezcal,citron,sirop,menthe|2 oz mezcal;¾ oz jus de citron;½ oz sirop simple;6 feuilles de menthe|Froisser la menthe avec le sirop;Ajouter le spiritueux, le citron et de la glace, agiter;Filtrer sur glace pilée|
+Smash au scotch|2|Verre à whisky|scotch,citron,sirop,menthe|2 oz scotch;¾ oz jus de citron;½ oz sirop simple;6 feuilles de menthe|Froisser la menthe avec le sirop;Ajouter le spiritueux, le citron et de la glace, agiter;Filtrer sur glace pilée|
+Smash au rye|2|Verre à whisky|rye,citron,sirop,menthe|2 oz rye;¾ oz jus de citron;½ oz sirop simple;6 feuilles de menthe|Froisser la menthe avec le sirop;Ajouter le spiritueux, le citron et de la glace, agiter;Filtrer sur glace pilée|
+Smash au whisky irlandais|2|Verre à whisky|irlandais,citron,sirop,menthe|2 oz whisky irlandais;¾ oz jus de citron;½ oz sirop simple;6 feuilles de menthe|Froisser la menthe avec le sirop;Ajouter le spiritueux, le citron et de la glace, agiter;Filtrer sur glace pilée|
+Smash au whisky canadien|2|Verre à whisky|canadien,citron,sirop,menthe|2 oz whisky canadien;¾ oz jus de citron;½ oz sirop simple;6 feuilles de menthe|Froisser la menthe avec le sirop;Ajouter le spiritueux, le citron et de la glace, agiter;Filtrer sur glace pilée|
+Smash au cognac|2|Verre à whisky|cognac,citron,sirop,menthe|2 oz cognac;¾ oz jus de citron;½ oz sirop simple;6 feuilles de menthe|Froisser la menthe avec le sirop;Ajouter le spiritueux, le citron et de la glace, agiter;Filtrer sur glace pilée|
+Smash au calvados|2|Verre à whisky|calvados,citron,sirop,menthe|2 oz calvados;¾ oz jus de citron;½ oz sirop simple;6 feuilles de menthe|Froisser la menthe avec le sirop;Ajouter le spiritueux, le citron et de la glace, agiter;Filtrer sur glace pilée|
+Smash au pisco|2|Verre à whisky|pisco,citron,sirop,menthe|2 oz pisco;¾ oz jus de citron;½ oz sirop simple;6 feuilles de menthe|Froisser la menthe avec le sirop;Ajouter le spiritueux, le citron et de la glace, agiter;Filtrer sur glace pilée|
+Smash à la cachaça|2|Verre à whisky|cachaca,citron,sirop,menthe|2 oz cachaça;¾ oz jus de citron;½ oz sirop simple;6 feuilles de menthe|Froisser la menthe avec le sirop;Ajouter le spiritueux, le citron et de la glace, agiter;Filtrer sur glace pilée|
+Smash à la vodka|2|Verre à whisky|vodka,citron,sirop,menthe|2 oz vodka;¾ oz jus de citron;½ oz sirop simple;6 feuilles de menthe|Froisser la menthe avec le sirop;Ajouter le spiritueux, le citron et de la glace, agiter;Filtrer sur glace pilée|
+Smash à la vodka aromatisée|2|Verre à whisky|vodka_aromatisee,citron,sirop,menthe|2 oz vodka aromatisée;¾ oz jus de citron;½ oz sirop simple;6 feuilles de menthe|Froisser la menthe avec le sirop;Ajouter le spiritueux, le citron et de la glace, agiter;Filtrer sur glace pilée|
+Smash à l’armagnac|2|Verre à whisky|armagnac,citron,sirop,menthe|2 oz armagnac;¾ oz jus de citron;½ oz sirop simple;6 feuilles de menthe|Froisser la menthe avec le sirop;Ajouter le spiritueux, le citron et de la glace, agiter;Filtrer sur glace pilée|
+Mule au rhum blanc|1|Tasse ou verre|rhum_blanc,ginger_beer,lime|2 oz rhum blanc;½ oz jus de lime;4 oz ginger beer|Remplir de glace;Verser le spiritueux et le lime;Compléter de ginger beer|
+Mule au rhum ambré|1|Tasse ou verre|rhum_ambre,ginger_beer,lime|2 oz rhum ambré;½ oz jus de lime;4 oz ginger beer|Remplir de glace;Verser le spiritueux et le lime;Compléter de ginger beer|
+Mule au rhum agricole|1|Tasse ou verre|rhum_agricole,ginger_beer,lime|2 oz rhum agricole;½ oz jus de lime;4 oz ginger beer|Remplir de glace;Verser le spiritueux et le lime;Compléter de ginger beer|
+Mule à la cachaça|1|Tasse ou verre|cachaca,ginger_beer,lime|2 oz cachaça;½ oz jus de lime;4 oz ginger beer|Remplir de glace;Verser le spiritueux et le lime;Compléter de ginger beer|
+Mule au rye|1|Tasse ou verre|rye,ginger_beer,lime|2 oz rye;½ oz jus de lime;4 oz ginger beer|Remplir de glace;Verser le spiritueux et le lime;Compléter de ginger beer|
+Mule au whisky canadien|1|Tasse ou verre|canadien,ginger_beer,lime|2 oz whisky canadien;½ oz jus de lime;4 oz ginger beer|Remplir de glace;Verser le spiritueux et le lime;Compléter de ginger beer|
+Mule au cognac|1|Tasse ou verre|cognac,ginger_beer,lime|2 oz cognac;½ oz jus de lime;4 oz ginger beer|Remplir de glace;Verser le spiritueux et le lime;Compléter de ginger beer|
+Mule au gin aux fruits|1|Tasse ou verre|gin_aromatise,ginger_beer,lime|2 oz gin aux fruits;½ oz jus de lime;4 oz ginger beer|Remplir de glace;Verser le spiritueux et le lime;Compléter de ginger beer|
+Mule à la vodka aromatisée|1|Tasse ou verre|vodka_aromatisee,ginger_beer,lime|2 oz vodka aromatisée;½ oz jus de lime;4 oz ginger beer|Remplir de glace;Verser le spiritueux et le lime;Compléter de ginger beer|
+Mule au rhum coco|1|Tasse ou verre|rhum_coco,ginger_beer,lime|2 oz rhum coco;½ oz jus de lime;4 oz ginger beer|Remplir de glace;Verser le spiritueux et le lime;Compléter de ginger beer|
+Mule à l’armagnac|1|Tasse ou verre|armagnac,ginger_beer,lime|2 oz armagnac;½ oz jus de lime;4 oz ginger beer|Remplir de glace;Verser le spiritueux et le lime;Compléter de ginger beer|
+Mule au single malt|1|Tasse ou verre|single_malt,ginger_beer,lime|2 oz single malt;½ oz jus de lime;4 oz ginger beer|Remplir de glace;Verser le spiritueux et le lime;Compléter de ginger beer|
+Mule à la tequila reposado|1|Tasse ou verre|tequila_reposado,ginger_beer,lime|2 oz tequila reposado;½ oz jus de lime;4 oz ginger beer|Remplir de glace;Verser le spiritueux et le lime;Compléter de ginger beer|
+Old fashioned au rhum noir|2|Verre à whisky|rhum_noir,sirop,angostura|2 oz rhum noir;¼ oz sirop simple;2 traits d’Angostura|Mélanger sirop et bitter dans le verre;Ajouter le spiritueux et un gros glaçon;Remuer 20 secondes et presser un zeste d’orange|
+Old fashioned au rhum agricole|2|Verre à whisky|rhum_agricole,sirop,angostura|2 oz rhum agricole;¼ oz sirop simple;2 traits d’Angostura|Mélanger sirop et bitter dans le verre;Ajouter le spiritueux et un gros glaçon;Remuer 20 secondes et presser un zeste d’orange|
+Old fashioned au rhum épicé|2|Verre à whisky|rhum_epice,sirop,angostura|2 oz rhum épicé;¼ oz sirop simple;2 traits d’Angostura|Mélanger sirop et bitter dans le verre;Ajouter le spiritueux et un gros glaçon;Remuer 20 secondes et presser un zeste d’orange|
+Old fashioned à la tequila reposado|2|Verre à whisky|tequila_reposado,sirop,angostura|2 oz tequila reposado;¼ oz sirop simple;2 traits d’Angostura|Mélanger sirop et bitter dans le verre;Ajouter le spiritueux et un gros glaçon;Remuer 20 secondes et presser un zeste d’orange|
+Old fashioned au mezcal|2|Verre à whisky|mezcal,sirop,angostura|2 oz mezcal;¼ oz sirop simple;2 traits d’Angostura|Mélanger sirop et bitter dans le verre;Ajouter le spiritueux et un gros glaçon;Remuer 20 secondes et presser un zeste d’orange|
+Old fashioned au rye|2|Verre à whisky|rye,sirop,angostura|2 oz rye;¼ oz sirop simple;2 traits d’Angostura|Mélanger sirop et bitter dans le verre;Ajouter le spiritueux et un gros glaçon;Remuer 20 secondes et presser un zeste d’orange|
+Old fashioned au scotch|2|Verre à whisky|scotch,sirop,angostura|2 oz scotch;¼ oz sirop simple;2 traits d’Angostura|Mélanger sirop et bitter dans le verre;Ajouter le spiritueux et un gros glaçon;Remuer 20 secondes et presser un zeste d’orange|
+Old fashioned au single malt|2|Verre à whisky|single_malt,sirop,angostura|2 oz single malt;¼ oz sirop simple;2 traits d’Angostura|Mélanger sirop et bitter dans le verre;Ajouter le spiritueux et un gros glaçon;Remuer 20 secondes et presser un zeste d’orange|
+Old fashioned au whisky irlandais|2|Verre à whisky|irlandais,sirop,angostura|2 oz whisky irlandais;¼ oz sirop simple;2 traits d’Angostura|Mélanger sirop et bitter dans le verre;Ajouter le spiritueux et un gros glaçon;Remuer 20 secondes et presser un zeste d’orange|
+Old fashioned à l’armagnac|2|Verre à whisky|armagnac,sirop,angostura|2 oz armagnac;¼ oz sirop simple;2 traits d’Angostura|Mélanger sirop et bitter dans le verre;Ajouter le spiritueux et un gros glaçon;Remuer 20 secondes et presser un zeste d’orange|
+Old fashioned au calvados|2|Verre à whisky|calvados,sirop,angostura|2 oz calvados;¼ oz sirop simple;2 traits d’Angostura|Mélanger sirop et bitter dans le verre;Ajouter le spiritueux et un gros glaçon;Remuer 20 secondes et presser un zeste d’orange|
+Old fashioned au bourbon et érable|2|Verre à whisky|bourbon,erable,angostura|2 oz bourbon;¼ oz sirop d’érable;2 traits d’Angostura|Mélanger l’érable et le bitter dans le verre;Ajouter le spiritueux et un gros glaçon;Remuer 20 secondes et presser un zeste d’orange|
+Old fashioned au rye et érable|2|Verre à whisky|rye,erable,angostura|2 oz rye;¼ oz sirop d’érable;2 traits d’Angostura|Mélanger l’érable et le bitter dans le verre;Ajouter le spiritueux et un gros glaçon;Remuer 20 secondes et presser un zeste d’orange|
+Old fashioned au scotch et érable|2|Verre à whisky|scotch,erable,angostura|2 oz scotch;¼ oz sirop d’érable;2 traits d’Angostura|Mélanger l’érable et le bitter dans le verre;Ajouter le spiritueux et un gros glaçon;Remuer 20 secondes et presser un zeste d’orange|
+Old fashioned au whisky irlandais et érable|2|Verre à whisky|irlandais,erable,angostura|2 oz whisky irlandais;¼ oz sirop d’érable;2 traits d’Angostura|Mélanger l’érable et le bitter dans le verre;Ajouter le spiritueux et un gros glaçon;Remuer 20 secondes et presser un zeste d’orange|
+Old fashioned au cognac et érable|2|Verre à whisky|cognac,erable,angostura|2 oz cognac;¼ oz sirop d’érable;2 traits d’Angostura|Mélanger l’érable et le bitter dans le verre;Ajouter le spiritueux et un gros glaçon;Remuer 20 secondes et presser un zeste d’orange|
+Old fashioned au calvados et érable|2|Verre à whisky|calvados,erable,angostura|2 oz calvados;¼ oz sirop d’érable;2 traits d’Angostura|Mélanger l’érable et le bitter dans le verre;Ajouter le spiritueux et un gros glaçon;Remuer 20 secondes et presser un zeste d’orange|
+Old fashioned au rhum brun et érable|2|Verre à whisky|rhum_brun,erable,angostura|2 oz rhum brun;¼ oz sirop d’érable;2 traits d’Angostura|Mélanger l’érable et le bitter dans le verre;Ajouter le spiritueux et un gros glaçon;Remuer 20 secondes et presser un zeste d’orange|
+Old fashioned à la tequila añejo et érable|2|Verre à whisky|tequila_anejo,erable,angostura|2 oz tequila añejo;¼ oz sirop d’érable;2 traits d’Angostura|Mélanger l’érable et le bitter dans le verre;Ajouter le spiritueux et un gros glaçon;Remuer 20 secondes et presser un zeste d’orange|
+Old fashioned à l’armagnac et érable|2|Verre à whisky|armagnac,erable,angostura|2 oz armagnac;¼ oz sirop d’érable;2 traits d’Angostura|Mélanger l’érable et le bitter dans le verre;Ajouter le spiritueux et un gros glaçon;Remuer 20 secondes et presser un zeste d’orange|
+Rhum ambré tonic|1|Ballon|rhum_ambre,tonic|2 oz rhum ambré;4 oz tonic;1 zeste d’orange ou 1 quartier de lime|Remplir de glace;Verser le spiritueux, puis le tonic;Garnir|
+Mezcal tonic|1|Ballon|mezcal,tonic|2 oz mezcal;4 oz tonic;1 zeste d’orange ou 1 quartier de lime|Remplir de glace;Verser le spiritueux, puis le tonic;Garnir|
+Cachaça tonic|1|Ballon|cachaca,tonic|2 oz cachaça;4 oz tonic;1 zeste d’orange ou 1 quartier de lime|Remplir de glace;Verser le spiritueux, puis le tonic;Garnir|
+Armagnac tonic|1|Ballon|armagnac,tonic|2 oz armagnac;4 oz tonic;1 zeste d’orange ou 1 quartier de lime|Remplir de glace;Verser le spiritueux, puis le tonic;Garnir|
+Rhum agricole tonic|1|Ballon|rhum_agricole,tonic|2 oz rhum agricole;4 oz tonic;1 zeste d’orange ou 1 quartier de lime|Remplir de glace;Verser le spiritueux, puis le tonic;Garnir|
+Whisky canadien tonic|1|Ballon|canadien,tonic|2 oz whisky canadien;4 oz tonic;1 zeste d’orange ou 1 quartier de lime|Remplir de glace;Verser le spiritueux, puis le tonic;Garnir|
+Rye tonic|1|Ballon|rye,tonic|2 oz rye;4 oz tonic;1 zeste d’orange ou 1 quartier de lime|Remplir de glace;Verser le spiritueux, puis le tonic;Garnir|
+Bourbon tonic|1|Ballon|bourbon,tonic|2 oz bourbon;4 oz tonic;1 zeste d’orange ou 1 quartier de lime|Remplir de glace;Verser le spiritueux, puis le tonic;Garnir|
+Whisky irlandais tonic|1|Ballon|irlandais,tonic|2 oz whisky irlandais;4 oz tonic;1 zeste d’orange ou 1 quartier de lime|Remplir de glace;Verser le spiritueux, puis le tonic;Garnir|
+Tequila reposado tonic|1|Ballon|tequila_reposado,tonic|2 oz tequila reposado;4 oz tonic;1 zeste d’orange ou 1 quartier de lime|Remplir de glace;Verser le spiritueux, puis le tonic;Garnir|
+Rhum ambré et ginger ale|1|Highball|rhum_ambre,gingerale,citron|2 oz rhum ambré;4 oz ginger ale;1 quartier de citron|Remplir de glace;Verser le spiritueux et le ginger ale;Presser le citron|
+Whisky irlandais et ginger ale|1|Highball|irlandais,gingerale,citron|2 oz whisky irlandais;4 oz ginger ale;1 quartier de citron|Remplir de glace;Verser le spiritueux et le ginger ale;Presser le citron|
+Rye et ginger ale|1|Highball|rye,gingerale,citron|2 oz rye;4 oz ginger ale;1 quartier de citron|Remplir de glace;Verser le spiritueux et le ginger ale;Presser le citron|
+Bourbon et ginger ale|1|Highball|bourbon,gingerale,citron|2 oz bourbon;4 oz ginger ale;1 quartier de citron|Remplir de glace;Verser le spiritueux et le ginger ale;Presser le citron|
+Calvados et ginger ale|1|Highball|calvados,gingerale,citron|2 oz calvados;4 oz ginger ale;1 quartier de citron|Remplir de glace;Verser le spiritueux et le ginger ale;Presser le citron|
+Armagnac et ginger ale|1|Highball|armagnac,gingerale,citron|2 oz armagnac;4 oz ginger ale;1 quartier de citron|Remplir de glace;Verser le spiritueux et le ginger ale;Presser le citron|
+Tequila reposado et ginger ale|1|Highball|tequila_reposado,gingerale,citron|2 oz tequila reposado;4 oz ginger ale;1 quartier de citron|Remplir de glace;Verser le spiritueux et le ginger ale;Presser le citron|
+Scotch et ginger ale|1|Highball|scotch,gingerale,citron|2 oz scotch;4 oz ginger ale;1 quartier de citron|Remplir de glace;Verser le spiritueux et le ginger ale;Presser le citron|
+Rhum ambré et cola|1|Highball|rhum_ambre,cola,lime|2 oz rhum ambré;4 oz cola;1 quartier de lime|Remplir de glace;Verser le spiritueux et le cola;Presser le lime|
+Rhum agricole et cola|1|Highball|rhum_agricole,cola,lime|2 oz rhum agricole;4 oz cola;1 quartier de lime|Remplir de glace;Verser le spiritueux et le cola;Presser le lime|
+Rhum noir et cola|1|Highball|rhum_noir,cola,lime|2 oz rhum noir;4 oz cola;1 quartier de lime|Remplir de glace;Verser le spiritueux et le cola;Presser le lime|
+Whisky canadien et cola|1|Highball|canadien,cola,lime|2 oz whisky canadien;4 oz cola;1 quartier de lime|Remplir de glace;Verser le spiritueux et le cola;Presser le lime|
+Scotch et cola|1|Highball|scotch,cola,lime|2 oz scotch;4 oz cola;1 quartier de lime|Remplir de glace;Verser le spiritueux et le cola;Presser le lime|
+Cognac et cola|1|Highball|cognac,cola,lime|2 oz cognac;4 oz cola;1 quartier de lime|Remplir de glace;Verser le spiritueux et le cola;Presser le lime|
+Toddy au bourbon|1|Tasse|bourbon,miel,citron|1 ½ oz bourbon;1 c. à soupe de miel;½ oz jus de citron;4 oz eau chaude|Dissoudre le miel dans l’eau chaude;Ajouter le spiritueux et le citron;Garnir de cannelle|
+Toddy au rye|1|Tasse|rye,miel,citron|1 ½ oz rye;1 c. à soupe de miel;½ oz jus de citron;4 oz eau chaude|Dissoudre le miel dans l’eau chaude;Ajouter le spiritueux et le citron;Garnir de cannelle|
+Toddy au scotch|1|Tasse|scotch,miel,citron|1 ½ oz scotch;1 c. à soupe de miel;½ oz jus de citron;4 oz eau chaude|Dissoudre le miel dans l’eau chaude;Ajouter le spiritueux et le citron;Garnir de cannelle|
+Toddy au whisky irlandais|1|Tasse|irlandais,miel,citron|1 ½ oz whisky irlandais;1 c. à soupe de miel;½ oz jus de citron;4 oz eau chaude|Dissoudre le miel dans l’eau chaude;Ajouter le spiritueux et le citron;Garnir de cannelle|
+Toddy au cognac|1|Tasse|cognac,miel,citron|1 ½ oz cognac;1 c. à soupe de miel;½ oz jus de citron;4 oz eau chaude|Dissoudre le miel dans l’eau chaude;Ajouter le spiritueux et le citron;Garnir de cannelle|
+Toddy au calvados|1|Tasse|calvados,miel,citron|1 ½ oz calvados;1 c. à soupe de miel;½ oz jus de citron;4 oz eau chaude|Dissoudre le miel dans l’eau chaude;Ajouter le spiritueux et le citron;Garnir de cannelle|
+Toddy au rhum ambré|1|Tasse|rhum_ambre,miel,citron|1 ½ oz rhum ambré;1 c. à soupe de miel;½ oz jus de citron;4 oz eau chaude|Dissoudre le miel dans l’eau chaude;Ajouter le spiritueux et le citron;Garnir de cannelle|
+Toddy au rhum noir|1|Tasse|rhum_noir,miel,citron|1 ½ oz rhum noir;1 c. à soupe de miel;½ oz jus de citron;4 oz eau chaude|Dissoudre le miel dans l’eau chaude;Ajouter le spiritueux et le citron;Garnir de cannelle|
+Toddy à l’armagnac|1|Tasse|armagnac,miel,citron|1 ½ oz armagnac;1 c. à soupe de miel;½ oz jus de citron;4 oz eau chaude|Dissoudre le miel dans l’eau chaude;Ajouter le spiritueux et le citron;Garnir de cannelle|
+Toddy à la tequila reposado|1|Tasse|tequila_reposado,miel,citron|1 ½ oz tequila reposado;1 c. à soupe de miel;½ oz jus de citron;4 oz eau chaude|Dissoudre le miel dans l’eau chaude;Ajouter le spiritueux et le citron;Garnir de cannelle|
+Buck au rhum ambré|1|Highball|rhum_ambre,citron,gingerale|2 oz rhum ambré;½ oz jus de citron;4 oz ginger ale|Remplir de glace;Verser le spiritueux et le citron;Compléter de ginger ale|
+Buck au cognac|1|Highball|cognac,citron,gingerale|2 oz cognac;½ oz jus de citron;4 oz ginger ale|Remplir de glace;Verser le spiritueux et le citron;Compléter de ginger ale|
+Buck au calvados|1|Highball|calvados,citron,gingerale|2 oz calvados;½ oz jus de citron;4 oz ginger ale|Remplir de glace;Verser le spiritueux et le citron;Compléter de ginger ale|
+Buck au bourbon|1|Highball|bourbon,citron,gingerale|2 oz bourbon;½ oz jus de citron;4 oz ginger ale|Remplir de glace;Verser le spiritueux et le citron;Compléter de ginger ale|
+Buck à la tequila reposado|1|Highball|tequila_reposado,citron,gingerale|2 oz tequila reposado;½ oz jus de citron;4 oz ginger ale|Remplir de glace;Verser le spiritueux et le citron;Compléter de ginger ale|
+Buck au rye|1|Highball|rye,citron,gingerale|2 oz rye;½ oz jus de citron;4 oz ginger ale|Remplir de glace;Verser le spiritueux et le citron;Compléter de ginger ale|
+Buck à la vodka aromatisée|1|Highball|vodka_aromatisee,citron,gingerale|2 oz vodka aromatisée;½ oz jus de citron;4 oz ginger ale|Remplir de glace;Verser le spiritueux et le citron;Compléter de ginger ale|
+Buck à l’armagnac|1|Highball|armagnac,citron,gingerale|2 oz armagnac;½ oz jus de citron;4 oz ginger ale|Remplir de glace;Verser le spiritueux et le citron;Compléter de ginger ale|
+Rickey au rhum blanc|1|Highball|rhum_blanc,lime,soda|2 oz rhum blanc;½ lime pressé;Eau gazeuse|Presser le lime sur de la glace;Ajouter le spiritueux;Compléter d’eau gazeuse|Aucun sucre, très sec.
+Rickey au bourbon|1|Highball|bourbon,lime,soda|2 oz bourbon;½ lime pressé;Eau gazeuse|Presser le lime sur de la glace;Ajouter le spiritueux;Compléter d’eau gazeuse|Aucun sucre, très sec.
+Rickey à la tequila|1|Highball|tequila,lime,soda|2 oz tequila;½ lime pressé;Eau gazeuse|Presser le lime sur de la glace;Ajouter le spiritueux;Compléter d’eau gazeuse|Aucun sucre, très sec.
+Rickey à la vodka|1|Highball|vodka,lime,soda|2 oz vodka;½ lime pressé;Eau gazeuse|Presser le lime sur de la glace;Ajouter le spiritueux;Compléter d’eau gazeuse|Aucun sucre, très sec.
+Rickey au rye|1|Highball|rye,lime,soda|2 oz rye;½ lime pressé;Eau gazeuse|Presser le lime sur de la glace;Ajouter le spiritueux;Compléter d’eau gazeuse|Aucun sucre, très sec.
+Rickey au calvados|1|Highball|calvados,lime,soda|2 oz calvados;½ lime pressé;Eau gazeuse|Presser le lime sur de la glace;Ajouter le spiritueux;Compléter d’eau gazeuse|Aucun sucre, très sec.
+Rickey au rhum ambré|1|Highball|rhum_ambre,lime,soda|2 oz rhum ambré;½ lime pressé;Eau gazeuse|Presser le lime sur de la glace;Ajouter le spiritueux;Compléter d’eau gazeuse|Aucun sucre, très sec.
+Julep au rye|2|Gobelet|rye,menthe,sirop|2 oz rye;¾ oz sirop simple;8 feuilles de menthe|Froisser la menthe avec le sirop;Ajouter le spiritueux et de la glace pilée;Remuer jusqu’à ce que le gobelet givre|
+Julep au cognac|2|Gobelet|cognac,menthe,sirop|2 oz cognac;¾ oz sirop simple;8 feuilles de menthe|Froisser la menthe avec le sirop;Ajouter le spiritueux et de la glace pilée;Remuer jusqu’à ce que le gobelet givre|
+Julep au rhum ambré|2|Gobelet|rhum_ambre,menthe,sirop|2 oz rhum ambré;¾ oz sirop simple;8 feuilles de menthe|Froisser la menthe avec le sirop;Ajouter le spiritueux et de la glace pilée;Remuer jusqu’à ce que le gobelet givre|
+Julep au calvados|2|Gobelet|calvados,menthe,sirop|2 oz calvados;¾ oz sirop simple;8 feuilles de menthe|Froisser la menthe avec le sirop;Ajouter le spiritueux et de la glace pilée;Remuer jusqu’à ce que le gobelet givre|
+Julep à la tequila reposado|2|Gobelet|tequila_reposado,menthe,sirop|2 oz tequila reposado;¾ oz sirop simple;8 feuilles de menthe|Froisser la menthe avec le sirop;Ajouter le spiritueux et de la glace pilée;Remuer jusqu’à ce que le gobelet givre|
+Julep au whisky canadien|2|Gobelet|canadien,menthe,sirop|2 oz whisky canadien;¾ oz sirop simple;8 feuilles de menthe|Froisser la menthe avec le sirop;Ajouter le spiritueux et de la glace pilée;Remuer jusqu’à ce que le gobelet givre|
+Julep à l’armagnac|2|Gobelet|armagnac,menthe,sirop|2 oz armagnac;¾ oz sirop simple;8 feuilles de menthe|Froisser la menthe avec le sirop;Ajouter le spiritueux et de la glace pilée;Remuer jusqu’à ce que le gobelet givre|
+Swizzle au rhum ambré|2|Highball|rhum_ambre,lime,sirop,angostura|2 oz rhum ambré;1 oz jus de lime;¾ oz sirop simple;3 traits d’Angostura|Verser tous les ingrédients sur glace pilée;Remuer vigoureusement jusqu’à ce que le verre givre|
+Swizzle à la cachaça|2|Highball|cachaca,lime,sirop,angostura|2 oz cachaça;1 oz jus de lime;¾ oz sirop simple;3 traits d’Angostura|Verser tous les ingrédients sur glace pilée;Remuer vigoureusement jusqu’à ce que le verre givre|
+Swizzle à la tequila reposado|2|Highball|tequila_reposado,lime,sirop,angostura|2 oz tequila reposado;1 oz jus de lime;¾ oz sirop simple;3 traits d’Angostura|Verser tous les ingrédients sur glace pilée;Remuer vigoureusement jusqu’à ce que le verre givre|
+Swizzle au gin aux fruits|2|Highball|gin_aromatise,lime,sirop,angostura|2 oz gin aux fruits;1 oz jus de lime;¾ oz sirop simple;3 traits d’Angostura|Verser tous les ingrédients sur glace pilée;Remuer vigoureusement jusqu’à ce que le verre givre|
+Swizzle au rhum agricole|2|Highball|rhum_agricole,lime,sirop,angostura|2 oz rhum agricole;1 oz jus de lime;¾ oz sirop simple;3 traits d’Angostura|Verser tous les ingrédients sur glace pilée;Remuer vigoureusement jusqu’à ce que le verre givre|
+Sidecar à l’armagnac|2|Coupe|armagnac,triple_sec,citron|1 ½ oz armagnac;¾ oz triple sec;¾ oz jus de citron|Agiter avec de la glace;Filtrer dans une coupe froide|
+Sidecar au calvados|2|Coupe|calvados,triple_sec,citron|1 ½ oz calvados;¾ oz triple sec;¾ oz jus de citron|Agiter avec de la glace;Filtrer dans une coupe froide|
+Sidecar au rhum ambré|2|Coupe|rhum_ambre,triple_sec,citron|1 ½ oz rhum ambré;¾ oz triple sec;¾ oz jus de citron|Agiter avec de la glace;Filtrer dans une coupe froide|
+Sidecar à la tequila reposado|2|Coupe|tequila_reposado,triple_sec,citron|1 ½ oz tequila reposado;¾ oz triple sec;¾ oz jus de citron|Agiter avec de la glace;Filtrer dans une coupe froide|
+Sidecar au bourbon|2|Coupe|bourbon,triple_sec,citron|1 ½ oz bourbon;¾ oz triple sec;¾ oz jus de citron|Agiter avec de la glace;Filtrer dans une coupe froide|
+Sidecar au whisky canadien|2|Coupe|canadien,triple_sec,citron|1 ½ oz whisky canadien;¾ oz triple sec;¾ oz jus de citron|Agiter avec de la glace;Filtrer dans une coupe froide|
+Sidecar au pisco|2|Coupe|pisco,triple_sec,citron|1 ½ oz pisco;¾ oz triple sec;¾ oz jus de citron|Agiter avec de la glace;Filtrer dans une coupe froide|
+Sidecar au brandy|2|Coupe|brandy,triple_sec,citron|1 ½ oz brandy;¾ oz triple sec;¾ oz jus de citron|Agiter avec de la glace;Filtrer dans une coupe froide|
+Manhattan au whisky canadien|2|Coupe|canadien,vermouth_doux,angostura|2 oz whisky canadien;1 oz vermouth doux;2 traits d’Angostura|Remuer avec de la glace 30 secondes;Filtrer dans une coupe froide|
+Manhattan au whisky irlandais|2|Coupe|irlandais,vermouth_doux,angostura|2 oz whisky irlandais;1 oz vermouth doux;2 traits d’Angostura|Remuer avec de la glace 30 secondes;Filtrer dans une coupe froide|
+Manhattan au cognac|2|Coupe|cognac,vermouth_doux,angostura|2 oz cognac;1 oz vermouth doux;2 traits d’Angostura|Remuer avec de la glace 30 secondes;Filtrer dans une coupe froide|
+Manhattan au calvados|2|Coupe|calvados,vermouth_doux,angostura|2 oz calvados;1 oz vermouth doux;2 traits d’Angostura|Remuer avec de la glace 30 secondes;Filtrer dans une coupe froide|
+Manhattan au rhum ambré|2|Coupe|rhum_ambre,vermouth_doux,angostura|2 oz rhum ambré;1 oz vermouth doux;2 traits d’Angostura|Remuer avec de la glace 30 secondes;Filtrer dans une coupe froide|
+Manhattan à l’armagnac|2|Coupe|armagnac,vermouth_doux,angostura|2 oz armagnac;1 oz vermouth doux;2 traits d’Angostura|Remuer avec de la glace 30 secondes;Filtrer dans une coupe froide|
+Negroni au rhum ambré|2|Verre à whisky|rhum_ambre,campari,vermouth_doux|1 oz rhum ambré;1 oz Campari;1 oz vermouth doux;1 zeste d’orange|Remuer avec de la glace;Filtrer sur un gros glaçon;Garnir de zeste|Parts égales.
+Negroni à la vodka|2|Verre à whisky|vodka,campari,vermouth_doux|1 oz vodka;1 oz Campari;1 oz vermouth doux;1 zeste d’orange|Remuer avec de la glace;Filtrer sur un gros glaçon;Garnir de zeste|Parts égales.
+Negroni à la tequila reposado|2|Verre à whisky|tequila_reposado,campari,vermouth_doux|1 oz tequila reposado;1 oz Campari;1 oz vermouth doux;1 zeste d’orange|Remuer avec de la glace;Filtrer sur un gros glaçon;Garnir de zeste|Parts égales.
+Negroni au cognac|2|Verre à whisky|cognac,campari,vermouth_doux|1 oz cognac;1 oz Campari;1 oz vermouth doux;1 zeste d’orange|Remuer avec de la glace;Filtrer sur un gros glaçon;Garnir de zeste|Parts égales.
+Negroni au calvados|2|Verre à whisky|calvados,campari,vermouth_doux|1 oz calvados;1 oz Campari;1 oz vermouth doux;1 zeste d’orange|Remuer avec de la glace;Filtrer sur un gros glaçon;Garnir de zeste|Parts égales.
+Negroni au gin aux fruits|2|Verre à whisky|gin_aromatise,campari,vermouth_doux|1 oz gin aux fruits;1 oz Campari;1 oz vermouth doux;1 zeste d’orange|Remuer avec de la glace;Filtrer sur un gros glaçon;Garnir de zeste|Parts égales.
+Negroni au rhum agricole|2|Verre à whisky|rhum_agricole,campari,vermouth_doux|1 oz rhum agricole;1 oz Campari;1 oz vermouth doux;1 zeste d’orange|Remuer avec de la glace;Filtrer sur un gros glaçon;Garnir de zeste|Parts égales.
+Negroni au whisky canadien|2|Verre à whisky|canadien,campari,vermouth_doux|1 oz whisky canadien;1 oz Campari;1 oz vermouth doux;1 zeste d’orange|Remuer avec de la glace;Filtrer sur un gros glaçon;Garnir de zeste|Parts égales.
+Gimlet au rhum blanc|2|Coupe|rhum_blanc,lime,sirop|2 oz rhum blanc;¾ oz jus de lime;¾ oz sirop simple|Agiter avec de la glace;Filtrer dans une coupe|
+Gimlet à la tequila|2|Coupe|tequila,lime,sirop|2 oz tequila;¾ oz jus de lime;¾ oz sirop simple|Agiter avec de la glace;Filtrer dans une coupe|
+Gimlet à la vodka aromatisée|2|Coupe|vodka_aromatisee,lime,sirop|2 oz vodka aromatisée;¾ oz jus de lime;¾ oz sirop simple|Agiter avec de la glace;Filtrer dans une coupe|
+Gimlet à la cachaça|2|Coupe|cachaca,lime,sirop|2 oz cachaça;¾ oz jus de lime;¾ oz sirop simple|Agiter avec de la glace;Filtrer dans une coupe|
+Gimlet au rhum agricole|2|Coupe|rhum_agricole,lime,sirop|2 oz rhum agricole;¾ oz jus de lime;¾ oz sirop simple|Agiter avec de la glace;Filtrer dans une coupe|
+Flip au whisky canadien|3|Coupe|canadien,sirop,oeuf|2 oz whisky canadien;½ oz sirop simple;1 œuf entier|Agiter sans glace 15 secondes;Ajouter de la glace et agiter;Filtrer finement et râper de la muscade|
+Flip au cognac|3|Coupe|cognac,sirop,oeuf|2 oz cognac;½ oz sirop simple;1 œuf entier|Agiter sans glace 15 secondes;Ajouter de la glace et agiter;Filtrer finement et râper de la muscade|
+Flip au calvados|3|Coupe|calvados,sirop,oeuf|2 oz calvados;½ oz sirop simple;1 œuf entier|Agiter sans glace 15 secondes;Ajouter de la glace et agiter;Filtrer finement et râper de la muscade|
+Flip à la tequila añejo|3|Coupe|tequila_anejo,sirop,oeuf|2 oz tequila añejo;½ oz sirop simple;1 œuf entier|Agiter sans glace 15 secondes;Ajouter de la glace et agiter;Filtrer finement et râper de la muscade|
+Silver fizz|3|Collins|gin,citron,sirop,oeuf,soda|2 oz gin;¾ oz jus de citron;¾ oz sirop simple;1 blanc d’œuf;Eau gazeuse|Agiter sans glace 15 secondes;Ajouter de la glace et agiter;Filtrer sur glace;Compléter d’eau gazeuse|
+Golden fizz|3|Collins|gin,citron,sirop,oeuf,soda|2 oz gin;¾ oz jus de citron;¾ oz sirop simple;1 jaune d’œuf;Eau gazeuse|Agiter sans glace 15 secondes;Ajouter de la glace et agiter;Filtrer sur glace;Compléter d’eau gazeuse|
+Érable fizz au whisky canadien|2|Collins|canadien,erable,citron,soda|2 oz whisky canadien;½ oz sirop d’érable;¾ oz jus de citron;Eau gazeuse|Agiter spiritueux, érable et citron avec de la glace;Filtrer sur glace;Compléter d’eau gazeuse|
+Érable fizz au bourbon|2|Collins|bourbon,erable,citron,soda|2 oz bourbon;½ oz sirop d’érable;¾ oz jus de citron;Eau gazeuse|Agiter spiritueux, érable et citron avec de la glace;Filtrer sur glace;Compléter d’eau gazeuse|
+Érable fizz au rye|2|Collins|rye,erable,citron,soda|2 oz rye;½ oz sirop d’érable;¾ oz jus de citron;Eau gazeuse|Agiter spiritueux, érable et citron avec de la glace;Filtrer sur glace;Compléter d’eau gazeuse|
+Érable fizz au rhum ambré|2|Collins|rhum_ambre,erable,citron,soda|2 oz rhum ambré;½ oz sirop d’érable;¾ oz jus de citron;Eau gazeuse|Agiter spiritueux, érable et citron avec de la glace;Filtrer sur glace;Compléter d’eau gazeuse|
+Érable fizz au gin|2|Collins|gin,erable,citron,soda|2 oz gin;½ oz sirop d’érable;¾ oz jus de citron;Eau gazeuse|Agiter spiritueux, érable et citron avec de la glace;Filtrer sur glace;Compléter d’eau gazeuse|
+Érable fizz au cognac|2|Collins|cognac,erable,citron,soda|2 oz cognac;½ oz sirop d’érable;¾ oz jus de citron;Eau gazeuse|Agiter spiritueux, érable et citron avec de la glace;Filtrer sur glace;Compléter d’eau gazeuse|
+Érable fizz à la tequila reposado|2|Collins|tequila_reposado,erable,citron,soda|2 oz tequila reposado;½ oz sirop d’érable;¾ oz jus de citron;Eau gazeuse|Agiter spiritueux, érable et citron avec de la glace;Filtrer sur glace;Compléter d’eau gazeuse|
+Érable fizz au whisky irlandais|2|Collins|irlandais,erable,citron,soda|2 oz whisky irlandais;½ oz sirop d’érable;¾ oz jus de citron;Eau gazeuse|Agiter spiritueux, érable et citron avec de la glace;Filtrer sur glace;Compléter d’eau gazeuse|
+Thé glacé à la vodka|1|Highball|vodka,the,citron,sirop|2 oz vodka;4 oz thé froid;½ oz jus de citron;½ oz sirop simple|Remplir de glace;Verser tous les ingrédients;Remuer|Infuser un thé noir fort et le laisser refroidir.
+Thé glacé au gin|1|Highball|gin,the,citron,sirop|2 oz gin;4 oz thé froid;½ oz jus de citron;½ oz sirop simple|Remplir de glace;Verser tous les ingrédients;Remuer|Infuser un thé noir fort et le laisser refroidir.
+Thé glacé au rhum ambré|1|Highball|rhum_ambre,the,citron,sirop|2 oz rhum ambré;4 oz thé froid;½ oz jus de citron;½ oz sirop simple|Remplir de glace;Verser tous les ingrédients;Remuer|Infuser un thé noir fort et le laisser refroidir.
+Thé glacé au bourbon|1|Highball|bourbon,the,citron,sirop|2 oz bourbon;4 oz thé froid;½ oz jus de citron;½ oz sirop simple|Remplir de glace;Verser tous les ingrédients;Remuer|Infuser un thé noir fort et le laisser refroidir.
+Thé glacé au whisky canadien|1|Highball|canadien,the,citron,sirop|2 oz whisky canadien;4 oz thé froid;½ oz jus de citron;½ oz sirop simple|Remplir de glace;Verser tous les ingrédients;Remuer|Infuser un thé noir fort et le laisser refroidir.
+Thé glacé à la tequila reposado|1|Highball|tequila_reposado,the,citron,sirop|2 oz tequila reposado;4 oz thé froid;½ oz jus de citron;½ oz sirop simple|Remplir de glace;Verser tous les ingrédients;Remuer|Infuser un thé noir fort et le laisser refroidir.
+Thé glacé au cognac|1|Highball|cognac,the,citron,sirop|2 oz cognac;4 oz thé froid;½ oz jus de citron;½ oz sirop simple|Remplir de glace;Verser tous les ingrédients;Remuer|Infuser un thé noir fort et le laisser refroidir.
+Thé glacé au calvados|1|Highball|calvados,the,citron,sirop|2 oz calvados;4 oz thé froid;½ oz jus de citron;½ oz sirop simple|Remplir de glace;Verser tous les ingrédients;Remuer|Infuser un thé noir fort et le laisser refroidir.
+Fizz au gingembre à la vodka|2|Collins|vodka,gingembre,citron,sirop,soda|2 oz vodka;4 tranches de gingembre frais;¾ oz jus de citron;¾ oz sirop simple;Eau gazeuse|Écraser le gingembre avec le sirop;Ajouter le spiritueux, le citron et de la glace, agiter;Filtrer sur glace et compléter d’eau gazeuse|
+Fizz au gingembre au gin|2|Collins|gin,gingembre,citron,sirop,soda|2 oz gin;4 tranches de gingembre frais;¾ oz jus de citron;¾ oz sirop simple;Eau gazeuse|Écraser le gingembre avec le sirop;Ajouter le spiritueux, le citron et de la glace, agiter;Filtrer sur glace et compléter d’eau gazeuse|
+Fizz au gingembre au rhum ambré|2|Collins|rhum_ambre,gingembre,citron,sirop,soda|2 oz rhum ambré;4 tranches de gingembre frais;¾ oz jus de citron;¾ oz sirop simple;Eau gazeuse|Écraser le gingembre avec le sirop;Ajouter le spiritueux, le citron et de la glace, agiter;Filtrer sur glace et compléter d’eau gazeuse|
+Fizz au gingembre au bourbon|2|Collins|bourbon,gingembre,citron,sirop,soda|2 oz bourbon;4 tranches de gingembre frais;¾ oz jus de citron;¾ oz sirop simple;Eau gazeuse|Écraser le gingembre avec le sirop;Ajouter le spiritueux, le citron et de la glace, agiter;Filtrer sur glace et compléter d’eau gazeuse|
+Fizz au gingembre au whisky canadien|2|Collins|canadien,gingembre,citron,sirop,soda|2 oz whisky canadien;4 tranches de gingembre frais;¾ oz jus de citron;¾ oz sirop simple;Eau gazeuse|Écraser le gingembre avec le sirop;Ajouter le spiritueux, le citron et de la glace, agiter;Filtrer sur glace et compléter d’eau gazeuse|
+Fizz au gingembre à la tequila|2|Collins|tequila,gingembre,citron,sirop,soda|2 oz tequila;4 tranches de gingembre frais;¾ oz jus de citron;¾ oz sirop simple;Eau gazeuse|Écraser le gingembre avec le sirop;Ajouter le spiritueux, le citron et de la glace, agiter;Filtrer sur glace et compléter d’eau gazeuse|
+Fizz au gingembre à la cachaça|2|Collins|cachaca,gingembre,citron,sirop,soda|2 oz cachaça;4 tranches de gingembre frais;¾ oz jus de citron;¾ oz sirop simple;Eau gazeuse|Écraser le gingembre avec le sirop;Ajouter le spiritueux, le citron et de la glace, agiter;Filtrer sur glace et compléter d’eau gazeuse|
+Fizz au gingembre au cognac|2|Collins|cognac,gingembre,citron,sirop,soda|2 oz cognac;4 tranches de gingembre frais;¾ oz jus de citron;¾ oz sirop simple;Eau gazeuse|Écraser le gingembre avec le sirop;Ajouter le spiritueux, le citron et de la glace, agiter;Filtrer sur glace et compléter d’eau gazeuse|
+Cidre au rhum ambré|1|Verre à pied|rhum_ambre,cidre,citron|1 ½ oz rhum ambré;4 oz cidre;¼ oz jus de citron|Remplir de glace;Verser le spiritueux et le citron;Compléter de cidre|
+Cidre au bourbon|1|Verre à pied|bourbon,cidre,citron|1 ½ oz bourbon;4 oz cidre;¼ oz jus de citron|Remplir de glace;Verser le spiritueux et le citron;Compléter de cidre|
+Cidre au whisky canadien|1|Verre à pied|canadien,cidre,citron|1 ½ oz whisky canadien;4 oz cidre;¼ oz jus de citron|Remplir de glace;Verser le spiritueux et le citron;Compléter de cidre|
+Cidre au gin|1|Verre à pied|gin,cidre,citron|1 ½ oz gin;4 oz cidre;¼ oz jus de citron|Remplir de glace;Verser le spiritueux et le citron;Compléter de cidre|
+Cidre au cognac|1|Verre à pied|cognac,cidre,citron|1 ½ oz cognac;4 oz cidre;¼ oz jus de citron|Remplir de glace;Verser le spiritueux et le citron;Compléter de cidre|
+Cidre à la vodka aromatisée|1|Verre à pied|vodka_aromatisee,cidre,citron|1 ½ oz vodka aromatisée;4 oz cidre;¼ oz jus de citron|Remplir de glace;Verser le spiritueux et le citron;Compléter de cidre|
+Chocolat chaud au bourbon|1|Tasse|bourbon,lait,chocolat|1 ½ oz bourbon;6 oz lait chaud;1 c. à soupe de sirop de chocolat|Réchauffer le lait avec le chocolat;Ajouter le spiritueux|
+Chocolat chaud au scotch|1|Tasse|scotch,lait,chocolat|1 ½ oz scotch;6 oz lait chaud;1 c. à soupe de sirop de chocolat|Réchauffer le lait avec le chocolat;Ajouter le spiritueux|
+Chocolat chaud au cognac|1|Tasse|cognac,lait,chocolat|1 ½ oz cognac;6 oz lait chaud;1 c. à soupe de sirop de chocolat|Réchauffer le lait avec le chocolat;Ajouter le spiritueux|
+Chocolat chaud au rhum ambré|1|Tasse|rhum_ambre,lait,chocolat|1 ½ oz rhum ambré;6 oz lait chaud;1 c. à soupe de sirop de chocolat|Réchauffer le lait avec le chocolat;Ajouter le spiritueux|
+Chocolat chaud au Kahlúa|1|Tasse|kahlua,lait,chocolat|1 ½ oz Kahlúa;6 oz lait chaud;1 c. à soupe de sirop de chocolat|Réchauffer le lait avec le chocolat;Ajouter le spiritueux|
+Chocolat chaud au Frangelico|1|Tasse|frangelico,lait,chocolat|1 ½ oz Frangelico;6 oz lait chaud;1 c. à soupe de sirop de chocolat|Réchauffer le lait avec le chocolat;Ajouter le spiritueux|
+Chocolat chaud au Sortilège|1|Tasse|sortilege,lait,chocolat|1 ½ oz Sortilège;6 oz lait chaud;1 c. à soupe de sirop de chocolat|Réchauffer le lait avec le chocolat;Ajouter le spiritueux|
+Chocolat chaud au whisky canadien|1|Tasse|canadien,lait,chocolat|1 ½ oz whisky canadien;6 oz lait chaud;1 c. à soupe de sirop de chocolat|Réchauffer le lait avec le chocolat;Ajouter le spiritueux|
+Chocolat chaud au whisky irlandais|1|Tasse|irlandais,lait,chocolat|1 ½ oz whisky irlandais;6 oz lait chaud;1 c. à soupe de sirop de chocolat|Réchauffer le lait avec le chocolat;Ajouter le spiritueux|
+Café au rhum ambré|1|Tasse|rhum_ambre,cafe|1 ½ oz rhum ambré;5 oz café chaud;Crème fouettée|Verser le café sur le spiritueux;Garnir de crème|
+Café au bourbon|1|Tasse|bourbon,cafe|1 ½ oz bourbon;5 oz café chaud;Crème fouettée|Verser le café sur le spiritueux;Garnir de crème|
+Café au whisky canadien|1|Tasse|canadien,cafe|1 ½ oz whisky canadien;5 oz café chaud;Crème fouettée|Verser le café sur le spiritueux;Garnir de crème|
+Café au calvados|1|Tasse|calvados,cafe|1 ½ oz calvados;5 oz café chaud;Crème fouettée|Verser le café sur le spiritueux;Garnir de crème|
+Café à l’armagnac|1|Tasse|armagnac,cafe|1 ½ oz armagnac;5 oz café chaud;Crème fouettée|Verser le café sur le spiritueux;Garnir de crème|
+Cidre chaud au rhum ambré|1|Tasse|rhum_ambre,cidre|1 ½ oz rhum ambré;5 oz cidre chaud;1 bâton de cannelle|Chauffer le cidre sans le faire bouillir;Ajouter le spiritueux|
+Cidre chaud au bourbon|1|Tasse|bourbon,cidre|1 ½ oz bourbon;5 oz cidre chaud;1 bâton de cannelle|Chauffer le cidre sans le faire bouillir;Ajouter le spiritueux|
+Cidre chaud au whisky canadien|1|Tasse|canadien,cidre|1 ½ oz whisky canadien;5 oz cidre chaud;1 bâton de cannelle|Chauffer le cidre sans le faire bouillir;Ajouter le spiritueux|
+Cidre chaud au cognac|1|Tasse|cognac,cidre|1 ½ oz cognac;5 oz cidre chaud;1 bâton de cannelle|Chauffer le cidre sans le faire bouillir;Ajouter le spiritueux|
+Cidre chaud au Sortilège|1|Tasse|sortilege,cidre|1 ½ oz Sortilège;5 oz cidre chaud;1 bâton de cannelle|Chauffer le cidre sans le faire bouillir;Ajouter le spiritueux|
+Vin chaud au cognac|1|Tasse|cognac,vin_rouge,miel|5 oz vin rouge chaud;1 ½ oz cognac;1 c. à thé de miel|Chauffer le vin avec le miel sans bouillir;Ajouter le spiritueux|
+Vin chaud au rhum ambré|1|Tasse|rhum_ambre,vin_rouge,miel|5 oz vin rouge chaud;1 ½ oz rhum ambré;1 c. à thé de miel|Chauffer le vin avec le miel sans bouillir;Ajouter le spiritueux|
+Vin chaud au Sortilège|1|Tasse|sortilege,vin_rouge,miel|5 oz vin rouge chaud;1 ½ oz Sortilège;1 c. à thé de miel|Chauffer le vin avec le miel sans bouillir;Ajouter le spiritueux|
+Royale au Midori|1|Flûte|midori,prosecco|½ oz Midori;4 oz prosecco|Verser la liqueur dans la flûte;Compléter de prosecco|
+Royale à la liqueur de pêche|1|Flûte|liqueur_peche,prosecco|½ oz liqueur de pêche;4 oz prosecco|Verser la liqueur dans la flûte;Compléter de prosecco|
+Royale au triple sec|1|Flûte|triple_sec,prosecco|½ oz triple sec;4 oz prosecco|Verser la liqueur dans la flûte;Compléter de prosecco|
+Royale au limoncello|1|Flûte|limoncello,prosecco|½ oz limoncello;4 oz prosecco|Verser la liqueur dans la flûte;Compléter de prosecco|
+Royale au St-Germain|1|Flûte|st_germain,prosecco|½ oz St-Germain;4 oz prosecco|Verser la liqueur dans la flûte;Compléter de prosecco|
+Royale à la crème de violette|1|Flûte|creme_violette,prosecco|½ oz crème de violette;4 oz prosecco|Verser la liqueur dans la flûte;Compléter de prosecco|
+Royale à la liqueur de cerise|1|Flûte|liqueur_cerise,prosecco|½ oz liqueur de cerise;4 oz prosecco|Verser la liqueur dans la flûte;Compléter de prosecco|
+Kalimotxo|1|Verre à bière|vin_rouge,cola|3 oz vin rouge;3 oz cola|Remplir de glace;Verser le vin, puis le cola|Le cocktail de pique-nique espagnol.
+Tinto de verano|1|Grand verre|vin_rouge,citron,sirop,soda|4 oz vin rouge;½ oz jus de citron;½ oz sirop simple;2 oz eau gazeuse|Remplir de glace;Verser le vin, le citron et le sirop;Compléter d’eau gazeuse|
+Daiquiri à la pêche|2|Coupe|rhum_blanc,peche,lime,sirop|2 oz rhum blanc;2 oz purée de pêche;1 oz jus de lime;½ oz sirop simple|Agiter avec le rhum, le lime et de la glace;Filtrer finement dans une coupe|
+Daiquiri à la mangue|2|Coupe|rhum_blanc,mangue,lime,sirop|2 oz rhum blanc;2 oz purée de mangue;1 oz jus de lime;½ oz sirop simple|Agiter avec le rhum, le lime et de la glace;Filtrer finement dans une coupe|
+Daiquiri à l’ananas|2|Coupe|rhum_blanc,ananas,lime,sirop|2 oz rhum blanc;2 oz jus d’ananas;1 oz jus de lime;½ oz sirop simple|Agiter avec le rhum, le lime et de la glace;Filtrer finement dans une coupe|
+Daiquiri au fruit de la passion|2|Coupe|rhum_blanc,fruit_passion,lime,sirop|2 oz rhum blanc;1 oz pulpe de fruit de la passion;1 oz jus de lime;½ oz sirop simple|Agiter avec le rhum, le lime et de la glace;Filtrer finement dans une coupe|
+Daiquiri aux bleuets|2|Coupe|rhum_blanc,bleuet,lime,sirop|2 oz rhum blanc;¼ tasse de bleuets;1 oz jus de lime;½ oz sirop simple|Écraser le fruit avec le sirop;Agiter avec le rhum, le lime et de la glace;Filtrer finement dans une coupe|
+Daiquiri au pamplemousse|2|Coupe|rhum_blanc,pamplemousse,lime,sirop|2 oz rhum blanc;2 oz jus de pamplemousse;1 oz jus de lime;½ oz sirop simple|Agiter avec le rhum, le lime et de la glace;Filtrer finement dans une coupe|
+Daiquiri au concombre|2|Coupe|rhum_blanc,concombre,lime,sirop|2 oz rhum blanc;4 tranches de concombre;1 oz jus de lime;½ oz sirop simple|Écraser le fruit avec le sirop;Agiter avec le rhum, le lime et de la glace;Filtrer finement dans une coupe|
+Daiquiri à la canneberge|2|Coupe|rhum_blanc,canneberge,lime,sirop|2 oz rhum blanc;2 oz jus de canneberge;1 oz jus de lime;½ oz sirop simple|Agiter avec le rhum, le lime et de la glace;Filtrer finement dans une coupe|
+Margarita à la pêche|2|Verre à whisky|tequila,triple_sec,lime,peche|1 ½ oz tequila;¾ oz triple sec;¾ oz jus de lime;2 oz purée de pêche|Agiter avec de la glace;Filtrer sur glace fraîche|
+Margarita au fruit de la passion|2|Verre à whisky|tequila,triple_sec,lime,fruit_passion|1 ½ oz tequila;¾ oz triple sec;¾ oz jus de lime;1 oz pulpe de fruit de la passion|Agiter avec de la glace;Filtrer sur glace fraîche|
+Margarita au concombre|2|Verre à whisky|tequila,triple_sec,lime,concombre|1 ½ oz tequila;¾ oz triple sec;¾ oz jus de lime;4 tranches de concombre|Écraser le fruit dans le shaker;Agiter avec de la glace;Filtrer sur glace fraîche|
+Margarita à la canneberge|2|Verre à whisky|tequila,triple_sec,lime,canneberge|1 ½ oz tequila;¾ oz triple sec;¾ oz jus de lime;2 oz jus de canneberge|Agiter avec de la glace;Filtrer sur glace fraîche|
+Margarita fumée à la mangue|2|Verre à whisky|mezcal,triple_sec,lime,mangue|1 ½ oz mezcal;¾ oz triple sec;¾ oz jus de lime;2 oz purée de mangue|Agiter avec de la glace;Filtrer sur glace fraîche|
+Margarita fumée à l’ananas|2|Verre à whisky|mezcal,triple_sec,lime,ananas|1 ½ oz mezcal;¾ oz triple sec;¾ oz jus de lime;2 oz jus d’ananas|Agiter avec de la glace;Filtrer sur glace fraîche|
+Margarita fumée au fruit de la passion|2|Verre à whisky|mezcal,triple_sec,lime,fruit_passion|1 ½ oz mezcal;¾ oz triple sec;¾ oz jus de lime;1 oz pulpe de fruit de la passion|Agiter avec de la glace;Filtrer sur glace fraîche|
+Margarita fumée au pamplemousse|2|Verre à whisky|mezcal,triple_sec,lime,pamplemousse|1 ½ oz mezcal;¾ oz triple sec;¾ oz jus de lime;2 oz jus de pamplemousse|Agiter avec de la glace;Filtrer sur glace fraîche|
+Margarita fumée aux bleuets|2|Verre à whisky|mezcal,triple_sec,lime,bleuet|1 ½ oz mezcal;¾ oz triple sec;¾ oz jus de lime;¼ tasse de bleuets|Écraser le fruit dans le shaker;Agiter avec de la glace;Filtrer sur glace fraîche|
+Margarita fumée à la canneberge|2|Verre à whisky|mezcal,triple_sec,lime,canneberge|1 ½ oz mezcal;¾ oz triple sec;¾ oz jus de lime;2 oz jus de canneberge|Agiter avec de la glace;Filtrer sur glace fraîche|
+Margarita fumée au concombre|2|Verre à whisky|mezcal,triple_sec,lime,concombre|1 ½ oz mezcal;¾ oz triple sec;¾ oz jus de lime;4 tranches de concombre|Écraser le fruit dans le shaker;Agiter avec de la glace;Filtrer sur glace fraîche|
+Mojito à la mangue|2|Highball|rhum_blanc,mangue,menthe,lime,sirop,soda|2 oz rhum blanc;2 oz purée de mangue;8 feuilles de menthe;1 oz jus de lime;½ oz sirop simple;Eau gazeuse|Froisser la menthe avec le fruit, le lime et le sirop;Ajouter le rhum et de la glace pilée;Compléter d’eau gazeuse|
+Mojito aux bleuets|2|Highball|rhum_blanc,bleuet,menthe,lime,sirop,soda|2 oz rhum blanc;¼ tasse de bleuets;8 feuilles de menthe;1 oz jus de lime;½ oz sirop simple;Eau gazeuse|Froisser la menthe avec le fruit, le lime et le sirop;Ajouter le rhum et de la glace pilée;Compléter d’eau gazeuse|
+Mojito à la pêche|2|Highball|rhum_blanc,peche,menthe,lime,sirop,soda|2 oz rhum blanc;2 oz purée de pêche;8 feuilles de menthe;1 oz jus de lime;½ oz sirop simple;Eau gazeuse|Froisser la menthe avec le fruit, le lime et le sirop;Ajouter le rhum et de la glace pilée;Compléter d’eau gazeuse|
+Mojito au fruit de la passion|2|Highball|rhum_blanc,fruit_passion,menthe,lime,sirop,soda|2 oz rhum blanc;1 oz pulpe de fruit de la passion;8 feuilles de menthe;1 oz jus de lime;½ oz sirop simple;Eau gazeuse|Froisser la menthe avec le fruit, le lime et le sirop;Ajouter le rhum et de la glace pilée;Compléter d’eau gazeuse|
+Mojito au concombre|2|Highball|rhum_blanc,concombre,menthe,lime,sirop,soda|2 oz rhum blanc;4 tranches de concombre;8 feuilles de menthe;1 oz jus de lime;½ oz sirop simple;Eau gazeuse|Froisser la menthe avec le fruit, le lime et le sirop;Ajouter le rhum et de la glace pilée;Compléter d’eau gazeuse|
+Mojito au pamplemousse|2|Highball|rhum_blanc,pamplemousse,menthe,lime,sirop,soda|2 oz rhum blanc;2 oz jus de pamplemousse;8 feuilles de menthe;1 oz jus de lime;½ oz sirop simple;Eau gazeuse|Froisser la menthe avec le fruit, le lime et le sirop;Ajouter le rhum et de la glace pilée;Compléter d’eau gazeuse|
+Mojito au gingembre|2|Highball|rhum_blanc,gingembre,menthe,lime,sirop,soda|2 oz rhum blanc;4 tranches de gingembre frais;8 feuilles de menthe;1 oz jus de lime;½ oz sirop simple;Eau gazeuse|Froisser la menthe avec le fruit, le lime et le sirop;Ajouter le rhum et de la glace pilée;Compléter d’eau gazeuse|
+Mojito à la canneberge|2|Highball|rhum_blanc,canneberge,menthe,lime,sirop,soda|2 oz rhum blanc;2 oz jus de canneberge;8 feuilles de menthe;1 oz jus de lime;½ oz sirop simple;Eau gazeuse|Froisser la menthe avec le fruit, le lime et le sirop;Ajouter le rhum et de la glace pilée;Compléter d’eau gazeuse|
+Caipirinha à la fraise|2|Verre à whisky|cachaca,lime,fraise|2 oz cachaça;1 lime coupé en morceaux;2 c. à thé de sucre;4 fraises|Écraser le lime, le sucre et le fruit;Ajouter le spiritueux et de la glace pilée;Remuer|
+Caipirinha à la framboise|2|Verre à whisky|cachaca,lime,framboise|2 oz cachaça;1 lime coupé en morceaux;2 c. à thé de sucre;8 framboises|Écraser le lime, le sucre et le fruit;Ajouter le spiritueux et de la glace pilée;Remuer|
+Caipirinha à la mangue|2|Verre à whisky|cachaca,lime,mangue|2 oz cachaça;1 lime coupé en morceaux;2 c. à thé de sucre;1 oz purée de mangue|Écraser le lime, le sucre et le fruit;Ajouter le spiritueux et de la glace pilée;Remuer|
+Caipirinha au fruit de la passion|2|Verre à whisky|cachaca,lime,fruit_passion|2 oz cachaça;1 lime coupé en morceaux;2 c. à thé de sucre;1 oz pulpe de fruit de la passion|Écraser le lime, le sucre et le fruit;Ajouter le spiritueux et de la glace pilée;Remuer|
+Caipirinha à l’ananas|2|Verre à whisky|cachaca,lime,ananas|2 oz cachaça;1 lime coupé en morceaux;2 c. à thé de sucre;1 oz jus d’ananas|Écraser le lime, le sucre et le fruit;Ajouter le spiritueux et de la glace pilée;Remuer|
+Caipirinha aux bleuets|2|Verre à whisky|cachaca,lime,bleuet|2 oz cachaça;1 lime coupé en morceaux;2 c. à thé de sucre;¼ tasse de bleuets|Écraser le lime, le sucre et le fruit;Ajouter le spiritueux et de la glace pilée;Remuer|
+Caipirinha au pamplemousse|2|Verre à whisky|cachaca,lime,pamplemousse|2 oz cachaça;1 lime coupé en morceaux;2 c. à thé de sucre;1 oz jus de pamplemousse|Écraser le lime, le sucre et le fruit;Ajouter le spiritueux et de la glace pilée;Remuer|
+Caipirinha à la pêche|2|Verre à whisky|cachaca,lime,peche|2 oz cachaça;1 lime coupé en morceaux;2 c. à thé de sucre;1 oz purée de pêche|Écraser le lime, le sucre et le fruit;Ajouter le spiritueux et de la glace pilée;Remuer|
+Caipiroska à la fraise|2|Verre à whisky|vodka,lime,fraise|2 oz vodka;1 lime coupé en morceaux;2 c. à thé de sucre;4 fraises|Écraser le lime, le sucre et le fruit;Ajouter le spiritueux et de la glace pilée;Remuer|
+Caipiroska à la framboise|2|Verre à whisky|vodka,lime,framboise|2 oz vodka;1 lime coupé en morceaux;2 c. à thé de sucre;8 framboises|Écraser le lime, le sucre et le fruit;Ajouter le spiritueux et de la glace pilée;Remuer|
+Caipiroska à la mangue|2|Verre à whisky|vodka,lime,mangue|2 oz vodka;1 lime coupé en morceaux;2 c. à thé de sucre;1 oz purée de mangue|Écraser le lime, le sucre et le fruit;Ajouter le spiritueux et de la glace pilée;Remuer|
+Caipiroska au fruit de la passion|2|Verre à whisky|vodka,lime,fruit_passion|2 oz vodka;1 lime coupé en morceaux;2 c. à thé de sucre;1 oz pulpe de fruit de la passion|Écraser le lime, le sucre et le fruit;Ajouter le spiritueux et de la glace pilée;Remuer|
+Caipiroska aux bleuets|2|Verre à whisky|vodka,lime,bleuet|2 oz vodka;1 lime coupé en morceaux;2 c. à thé de sucre;¼ tasse de bleuets|Écraser le lime, le sucre et le fruit;Ajouter le spiritueux et de la glace pilée;Remuer|
+Caipiroska au concombre|2|Verre à whisky|vodka,lime,concombre|2 oz vodka;1 lime coupé en morceaux;2 c. à thé de sucre;4 tranches de concombre|Écraser le lime, le sucre et le fruit;Ajouter le spiritueux et de la glace pilée;Remuer|
+Caipirissima à la fraise|2|Verre à whisky|rhum_blanc,lime,fraise|2 oz rhum blanc;1 lime coupé en morceaux;2 c. à thé de sucre;4 fraises|Écraser le lime, le sucre et le fruit;Ajouter le spiritueux et de la glace pilée;Remuer|
+Caipirissima à la mangue|2|Verre à whisky|rhum_blanc,lime,mangue|2 oz rhum blanc;1 lime coupé en morceaux;2 c. à thé de sucre;1 oz purée de mangue|Écraser le lime, le sucre et le fruit;Ajouter le spiritueux et de la glace pilée;Remuer|
+Caipirissima à l’ananas|2|Verre à whisky|rhum_blanc,lime,ananas|2 oz rhum blanc;1 lime coupé en morceaux;2 c. à thé de sucre;1 oz jus d’ananas|Écraser le lime, le sucre et le fruit;Ajouter le spiritueux et de la glace pilée;Remuer|
+Caipirissima au fruit de la passion|2|Verre à whisky|rhum_blanc,lime,fruit_passion|2 oz rhum blanc;1 lime coupé en morceaux;2 c. à thé de sucre;1 oz pulpe de fruit de la passion|Écraser le lime, le sucre et le fruit;Ajouter le spiritueux et de la glace pilée;Remuer|
+Smash au bourbon et à la fraise|2|Verre à whisky|bourbon,fraise,citron,sirop,menthe|2 oz bourbon;4 fraises;¾ oz jus de citron;½ oz sirop simple;6 feuilles de menthe|Écraser le fruit et la menthe avec le sirop;Ajouter le spiritueux, le citron et de la glace, agiter;Filtrer sur glace pilée|
+Smash au bourbon et à la pêche|2|Verre à whisky|bourbon,peche,citron,sirop,menthe|2 oz bourbon;2 oz purée de pêche;¾ oz jus de citron;½ oz sirop simple;6 feuilles de menthe|Froisser la menthe avec le sirop;Ajouter le spiritueux, le fruit, le citron et de la glace, agiter;Filtrer sur glace pilée|
+Smash au bourbon et à la framboise|2|Verre à whisky|bourbon,framboise,citron,sirop,menthe|2 oz bourbon;8 framboises;¾ oz jus de citron;½ oz sirop simple;6 feuilles de menthe|Écraser le fruit et la menthe avec le sirop;Ajouter le spiritueux, le citron et de la glace, agiter;Filtrer sur glace pilée|
+Smash au bourbon et aux bleuets|2|Verre à whisky|bourbon,bleuet,citron,sirop,menthe|2 oz bourbon;¼ tasse de bleuets;¾ oz jus de citron;½ oz sirop simple;6 feuilles de menthe|Écraser le fruit et la menthe avec le sirop;Ajouter le spiritueux, le citron et de la glace, agiter;Filtrer sur glace pilée|
+Smash au bourbon et à l’orange|2|Verre à whisky|bourbon,orange,citron,sirop,menthe|2 oz bourbon;2 oz jus d’orange;¾ oz jus de citron;½ oz sirop simple;6 feuilles de menthe|Froisser la menthe avec le sirop;Ajouter le spiritueux, le fruit, le citron et de la glace, agiter;Filtrer sur glace pilée|
+Smash au rye et aux bleuets|2|Verre à whisky|rye,bleuet,citron,sirop,menthe|2 oz rye;¼ tasse de bleuets;¾ oz jus de citron;½ oz sirop simple;6 feuilles de menthe|Écraser le fruit et la menthe avec le sirop;Ajouter le spiritueux, le citron et de la glace, agiter;Filtrer sur glace pilée|
+Smash au rye et à la framboise|2|Verre à whisky|rye,framboise,citron,sirop,menthe|2 oz rye;8 framboises;¾ oz jus de citron;½ oz sirop simple;6 feuilles de menthe|Écraser le fruit et la menthe avec le sirop;Ajouter le spiritueux, le citron et de la glace, agiter;Filtrer sur glace pilée|
+Smash au rye et à la pomme|2|Verre à whisky|rye,jus_pomme,citron,sirop,menthe|2 oz rye;2 oz jus de pomme;¾ oz jus de citron;½ oz sirop simple;6 feuilles de menthe|Froisser la menthe avec le sirop;Ajouter le spiritueux, le fruit, le citron et de la glace, agiter;Filtrer sur glace pilée|
+Smash au whisky canadien et aux bleuets|2|Verre à whisky|canadien,bleuet,citron,sirop,menthe|2 oz whisky canadien;¼ tasse de bleuets;¾ oz jus de citron;½ oz sirop simple;6 feuilles de menthe|Écraser le fruit et la menthe avec le sirop;Ajouter le spiritueux, le citron et de la glace, agiter;Filtrer sur glace pilée|
+Smash au whisky canadien et à la pomme|2|Verre à whisky|canadien,jus_pomme,citron,sirop,menthe|2 oz whisky canadien;2 oz jus de pomme;¾ oz jus de citron;½ oz sirop simple;6 feuilles de menthe|Froisser la menthe avec le sirop;Ajouter le spiritueux, le fruit, le citron et de la glace, agiter;Filtrer sur glace pilée|
+Smash au whisky canadien et à la framboise|2|Verre à whisky|canadien,framboise,citron,sirop,menthe|2 oz whisky canadien;8 framboises;¾ oz jus de citron;½ oz sirop simple;6 feuilles de menthe|Écraser le fruit et la menthe avec le sirop;Ajouter le spiritueux, le citron et de la glace, agiter;Filtrer sur glace pilée|
+Smash au whisky canadien et au gingembre|2|Verre à whisky|canadien,gingembre,citron,sirop,menthe|2 oz whisky canadien;4 tranches de gingembre frais;¾ oz jus de citron;½ oz sirop simple;6 feuilles de menthe|Écraser le fruit et la menthe avec le sirop;Ajouter le spiritueux, le citron et de la glace, agiter;Filtrer sur glace pilée|
+Smash au whisky canadien et au basilic|2|Verre à whisky|canadien,basilic,citron,sirop,menthe|2 oz whisky canadien;6 feuilles de basilic;¾ oz jus de citron;½ oz sirop simple;6 feuilles de menthe|Écraser le fruit et la menthe avec le sirop;Ajouter le spiritueux, le citron et de la glace, agiter;Filtrer sur glace pilée|
+Smash au gin et à la fraise|2|Verre à whisky|gin,fraise,citron,sirop,menthe|2 oz gin;4 fraises;¾ oz jus de citron;½ oz sirop simple;6 feuilles de menthe|Écraser le fruit et la menthe avec le sirop;Ajouter le spiritueux, le citron et de la glace, agiter;Filtrer sur glace pilée|
+Smash au gin et à la framboise|2|Verre à whisky|gin,framboise,citron,sirop,menthe|2 oz gin;8 framboises;¾ oz jus de citron;½ oz sirop simple;6 feuilles de menthe|Écraser le fruit et la menthe avec le sirop;Ajouter le spiritueux, le citron et de la glace, agiter;Filtrer sur glace pilée|
+Smash au gin et à la pêche|2|Verre à whisky|gin,peche,citron,sirop,menthe|2 oz gin;2 oz purée de pêche;¾ oz jus de citron;½ oz sirop simple;6 feuilles de menthe|Froisser la menthe avec le sirop;Ajouter le spiritueux, le fruit, le citron et de la glace, agiter;Filtrer sur glace pilée|
+Smash au gin et aux bleuets|2|Verre à whisky|gin,bleuet,citron,sirop,menthe|2 oz gin;¼ tasse de bleuets;¾ oz jus de citron;½ oz sirop simple;6 feuilles de menthe|Écraser le fruit et la menthe avec le sirop;Ajouter le spiritueux, le citron et de la glace, agiter;Filtrer sur glace pilée|
+Smash à la vodka et à la fraise|2|Verre à whisky|vodka,fraise,citron,sirop,menthe|2 oz vodka;4 fraises;¾ oz jus de citron;½ oz sirop simple;6 feuilles de menthe|Écraser le fruit et la menthe avec le sirop;Ajouter le spiritueux, le citron et de la glace, agiter;Filtrer sur glace pilée|
+Smash à la vodka et à la pêche|2|Verre à whisky|vodka,peche,citron,sirop,menthe|2 oz vodka;2 oz purée de pêche;¾ oz jus de citron;½ oz sirop simple;6 feuilles de menthe|Froisser la menthe avec le sirop;Ajouter le spiritueux, le fruit, le citron et de la glace, agiter;Filtrer sur glace pilée|
+Smash à la vodka et aux bleuets|2|Verre à whisky|vodka,bleuet,citron,sirop,menthe|2 oz vodka;¼ tasse de bleuets;¾ oz jus de citron;½ oz sirop simple;6 feuilles de menthe|Écraser le fruit et la menthe avec le sirop;Ajouter le spiritueux, le citron et de la glace, agiter;Filtrer sur glace pilée|
+Smash à la vodka et à la mangue|2|Verre à whisky|vodka,mangue,citron,sirop,menthe|2 oz vodka;2 oz purée de mangue;¾ oz jus de citron;½ oz sirop simple;6 feuilles de menthe|Froisser la menthe avec le sirop;Ajouter le spiritueux, le fruit, le citron et de la glace, agiter;Filtrer sur glace pilée|
+Smash à la vodka et au concombre|2|Verre à whisky|vodka,concombre,citron,sirop,menthe|2 oz vodka;4 tranches de concombre;¾ oz jus de citron;½ oz sirop simple;6 feuilles de menthe|Écraser le fruit et la menthe avec le sirop;Ajouter le spiritueux, le citron et de la glace, agiter;Filtrer sur glace pilée|
+Smash à la vodka et au basilic|2|Verre à whisky|vodka,basilic,citron,sirop,menthe|2 oz vodka;6 feuilles de basilic;¾ oz jus de citron;½ oz sirop simple;6 feuilles de menthe|Écraser le fruit et la menthe avec le sirop;Ajouter le spiritueux, le citron et de la glace, agiter;Filtrer sur glace pilée|
+Smash à la vodka et au gingembre|2|Verre à whisky|vodka,gingembre,citron,sirop,menthe|2 oz vodka;4 tranches de gingembre frais;¾ oz jus de citron;½ oz sirop simple;6 feuilles de menthe|Écraser le fruit et la menthe avec le sirop;Ajouter le spiritueux, le citron et de la glace, agiter;Filtrer sur glace pilée|
+Smash au rhum ambré et à l’ananas|2|Verre à whisky|rhum_ambre,ananas,citron,sirop,menthe|2 oz rhum ambré;2 oz jus d’ananas;¾ oz jus de citron;½ oz sirop simple;6 feuilles de menthe|Froisser la menthe avec le sirop;Ajouter le spiritueux, le fruit, le citron et de la glace, agiter;Filtrer sur glace pilée|
+Smash au rhum ambré et à la mangue|2|Verre à whisky|rhum_ambre,mangue,citron,sirop,menthe|2 oz rhum ambré;2 oz purée de mangue;¾ oz jus de citron;½ oz sirop simple;6 feuilles de menthe|Froisser la menthe avec le sirop;Ajouter le spiritueux, le fruit, le citron et de la glace, agiter;Filtrer sur glace pilée|
+Smash au rhum ambré et à la pêche|2|Verre à whisky|rhum_ambre,peche,citron,sirop,menthe|2 oz rhum ambré;2 oz purée de pêche;¾ oz jus de citron;½ oz sirop simple;6 feuilles de menthe|Froisser la menthe avec le sirop;Ajouter le spiritueux, le fruit, le citron et de la glace, agiter;Filtrer sur glace pilée|
+Smash au rhum blanc et à la fraise|2|Verre à whisky|rhum_blanc,fraise,citron,sirop,menthe|2 oz rhum blanc;4 fraises;¾ oz jus de citron;½ oz sirop simple;6 feuilles de menthe|Écraser le fruit et la menthe avec le sirop;Ajouter le spiritueux, le citron et de la glace, agiter;Filtrer sur glace pilée|
+Smash au rhum blanc et à l’ananas|2|Verre à whisky|rhum_blanc,ananas,citron,sirop,menthe|2 oz rhum blanc;2 oz jus d’ananas;¾ oz jus de citron;½ oz sirop simple;6 feuilles de menthe|Froisser la menthe avec le sirop;Ajouter le spiritueux, le fruit, le citron et de la glace, agiter;Filtrer sur glace pilée|
+Smash au rhum blanc et à la mangue|2|Verre à whisky|rhum_blanc,mangue,citron,sirop,menthe|2 oz rhum blanc;2 oz purée de mangue;¾ oz jus de citron;½ oz sirop simple;6 feuilles de menthe|Froisser la menthe avec le sirop;Ajouter le spiritueux, le fruit, le citron et de la glace, agiter;Filtrer sur glace pilée|
+Smash au rhum blanc et au basilic|2|Verre à whisky|rhum_blanc,basilic,citron,sirop,menthe|2 oz rhum blanc;6 feuilles de basilic;¾ oz jus de citron;½ oz sirop simple;6 feuilles de menthe|Écraser le fruit et la menthe avec le sirop;Ajouter le spiritueux, le citron et de la glace, agiter;Filtrer sur glace pilée|
+Smash à la tequila et à la fraise|2|Verre à whisky|tequila,fraise,citron,sirop,menthe|2 oz tequila;4 fraises;¾ oz jus de citron;½ oz sirop simple;6 feuilles de menthe|Écraser le fruit et la menthe avec le sirop;Ajouter le spiritueux, le citron et de la glace, agiter;Filtrer sur glace pilée|
+Smash à la tequila et à la mangue|2|Verre à whisky|tequila,mangue,citron,sirop,menthe|2 oz tequila;2 oz purée de mangue;¾ oz jus de citron;½ oz sirop simple;6 feuilles de menthe|Froisser la menthe avec le sirop;Ajouter le spiritueux, le fruit, le citron et de la glace, agiter;Filtrer sur glace pilée|
+Smash à la tequila et à la pêche|2|Verre à whisky|tequila,peche,citron,sirop,menthe|2 oz tequila;2 oz purée de pêche;¾ oz jus de citron;½ oz sirop simple;6 feuilles de menthe|Froisser la menthe avec le sirop;Ajouter le spiritueux, le fruit, le citron et de la glace, agiter;Filtrer sur glace pilée|
+Smash à la tequila et à l’ananas|2|Verre à whisky|tequila,ananas,citron,sirop,menthe|2 oz tequila;2 oz jus d’ananas;¾ oz jus de citron;½ oz sirop simple;6 feuilles de menthe|Froisser la menthe avec le sirop;Ajouter le spiritueux, le fruit, le citron et de la glace, agiter;Filtrer sur glace pilée|
+Smash à la tequila et au concombre|2|Verre à whisky|tequila,concombre,citron,sirop,menthe|2 oz tequila;4 tranches de concombre;¾ oz jus de citron;½ oz sirop simple;6 feuilles de menthe|Écraser le fruit et la menthe avec le sirop;Ajouter le spiritueux, le citron et de la glace, agiter;Filtrer sur glace pilée|
+Smash à la tequila et au basilic|2|Verre à whisky|tequila,basilic,citron,sirop,menthe|2 oz tequila;6 feuilles de basilic;¾ oz jus de citron;½ oz sirop simple;6 feuilles de menthe|Écraser le fruit et la menthe avec le sirop;Ajouter le spiritueux, le citron et de la glace, agiter;Filtrer sur glace pilée|
+Smash au mezcal et au basilic|2|Verre à whisky|mezcal,basilic,citron,sirop,menthe|2 oz mezcal;6 feuilles de basilic;¾ oz jus de citron;½ oz sirop simple;6 feuilles de menthe|Écraser le fruit et la menthe avec le sirop;Ajouter le spiritueux, le citron et de la glace, agiter;Filtrer sur glace pilée|
+Smash au mezcal et au concombre|2|Verre à whisky|mezcal,concombre,citron,sirop,menthe|2 oz mezcal;4 tranches de concombre;¾ oz jus de citron;½ oz sirop simple;6 feuilles de menthe|Écraser le fruit et la menthe avec le sirop;Ajouter le spiritueux, le citron et de la glace, agiter;Filtrer sur glace pilée|
+Smash au cognac et à la pêche|2|Verre à whisky|cognac,peche,citron,sirop,menthe|2 oz cognac;2 oz purée de pêche;¾ oz jus de citron;½ oz sirop simple;6 feuilles de menthe|Froisser la menthe avec le sirop;Ajouter le spiritueux, le fruit, le citron et de la glace, agiter;Filtrer sur glace pilée|
+Smash au cognac et à la framboise|2|Verre à whisky|cognac,framboise,citron,sirop,menthe|2 oz cognac;8 framboises;¾ oz jus de citron;½ oz sirop simple;6 feuilles de menthe|Écraser le fruit et la menthe avec le sirop;Ajouter le spiritueux, le citron et de la glace, agiter;Filtrer sur glace pilée|
+Smash au calvados et à la pomme|2|Verre à whisky|calvados,jus_pomme,citron,sirop,menthe|2 oz calvados;2 oz jus de pomme;¾ oz jus de citron;½ oz sirop simple;6 feuilles de menthe|Froisser la menthe avec le sirop;Ajouter le spiritueux, le fruit, le citron et de la glace, agiter;Filtrer sur glace pilée|
+Fizz au gin et à la fraise|2|Collins|gin,fraise,citron,sirop,soda|2 oz gin;4 fraises;¾ oz jus de citron;½ oz sirop simple;Eau gazeuse|Écraser le fruit avec le sirop;Ajouter le spiritueux, le citron et de la glace, agiter;Filtrer sur glace;Compléter d’eau gazeuse|
+Fizz au gin et à la pêche|2|Collins|gin,peche,citron,sirop,soda|2 oz gin;2 oz purée de pêche;¾ oz jus de citron;½ oz sirop simple;Eau gazeuse|Agiter le spiritueux, le fruit, le citron et le sirop avec de la glace;Filtrer sur glace;Compléter d’eau gazeuse|
+Fizz au gin et à la mangue|2|Collins|gin,mangue,citron,sirop,soda|2 oz gin;2 oz purée de mangue;¾ oz jus de citron;½ oz sirop simple;Eau gazeuse|Agiter le spiritueux, le fruit, le citron et le sirop avec de la glace;Filtrer sur glace;Compléter d’eau gazeuse|
+Fizz au gin et au fruit de la passion|2|Collins|gin,fruit_passion,citron,sirop,soda|2 oz gin;1 oz pulpe de fruit de la passion;¾ oz jus de citron;½ oz sirop simple;Eau gazeuse|Agiter le spiritueux, le fruit, le citron et le sirop avec de la glace;Filtrer sur glace;Compléter d’eau gazeuse|
+Fizz au gin et au pamplemousse|2|Collins|gin,pamplemousse,citron,sirop,soda|2 oz gin;2 oz jus de pamplemousse;¾ oz jus de citron;½ oz sirop simple;Eau gazeuse|Agiter le spiritueux, le fruit, le citron et le sirop avec de la glace;Filtrer sur glace;Compléter d’eau gazeuse|
+Fizz à la vodka et à la framboise|2|Collins|vodka,framboise,citron,sirop,soda|2 oz vodka;8 framboises;¾ oz jus de citron;½ oz sirop simple;Eau gazeuse|Écraser le fruit avec le sirop;Ajouter le spiritueux, le citron et de la glace, agiter;Filtrer sur glace;Compléter d’eau gazeuse|
+Fizz à la vodka et à la fraise|2|Collins|vodka,fraise,citron,sirop,soda|2 oz vodka;4 fraises;¾ oz jus de citron;½ oz sirop simple;Eau gazeuse|Écraser le fruit avec le sirop;Ajouter le spiritueux, le citron et de la glace, agiter;Filtrer sur glace;Compléter d’eau gazeuse|
+Fizz à la vodka et aux bleuets|2|Collins|vodka,bleuet,citron,sirop,soda|2 oz vodka;¼ tasse de bleuets;¾ oz jus de citron;½ oz sirop simple;Eau gazeuse|Écraser le fruit avec le sirop;Ajouter le spiritueux, le citron et de la glace, agiter;Filtrer sur glace;Compléter d’eau gazeuse|
+Fizz à la vodka et à la pêche|2|Collins|vodka,peche,citron,sirop,soda|2 oz vodka;2 oz purée de pêche;¾ oz jus de citron;½ oz sirop simple;Eau gazeuse|Agiter le spiritueux, le fruit, le citron et le sirop avec de la glace;Filtrer sur glace;Compléter d’eau gazeuse|
+Fizz à la vodka et à la mangue|2|Collins|vodka,mangue,citron,sirop,soda|2 oz vodka;2 oz purée de mangue;¾ oz jus de citron;½ oz sirop simple;Eau gazeuse|Agiter le spiritueux, le fruit, le citron et le sirop avec de la glace;Filtrer sur glace;Compléter d’eau gazeuse|
+Fizz à la vodka et au concombre|2|Collins|vodka,concombre,citron,sirop,soda|2 oz vodka;4 tranches de concombre;¾ oz jus de citron;½ oz sirop simple;Eau gazeuse|Écraser le fruit avec le sirop;Ajouter le spiritueux, le citron et de la glace, agiter;Filtrer sur glace;Compléter d’eau gazeuse|
+Fizz à la vodka et au pamplemousse|2|Collins|vodka,pamplemousse,citron,sirop,soda|2 oz vodka;2 oz jus de pamplemousse;¾ oz jus de citron;½ oz sirop simple;Eau gazeuse|Agiter le spiritueux, le fruit, le citron et le sirop avec de la glace;Filtrer sur glace;Compléter d’eau gazeuse|
+Fizz au rhum blanc et à la fraise|2|Collins|rhum_blanc,fraise,citron,sirop,soda|2 oz rhum blanc;4 fraises;¾ oz jus de citron;½ oz sirop simple;Eau gazeuse|Écraser le fruit avec le sirop;Ajouter le spiritueux, le citron et de la glace, agiter;Filtrer sur glace;Compléter d’eau gazeuse|
+Fizz au rhum blanc et à la pêche|2|Collins|rhum_blanc,peche,citron,sirop,soda|2 oz rhum blanc;2 oz purée de pêche;¾ oz jus de citron;½ oz sirop simple;Eau gazeuse|Agiter le spiritueux, le fruit, le citron et le sirop avec de la glace;Filtrer sur glace;Compléter d’eau gazeuse|
+Fizz au rhum blanc et à la mangue|2|Collins|rhum_blanc,mangue,citron,sirop,soda|2 oz rhum blanc;2 oz purée de mangue;¾ oz jus de citron;½ oz sirop simple;Eau gazeuse|Agiter le spiritueux, le fruit, le citron et le sirop avec de la glace;Filtrer sur glace;Compléter d’eau gazeuse|
+Fizz au rhum blanc et au fruit de la passion|2|Collins|rhum_blanc,fruit_passion,citron,sirop,soda|2 oz rhum blanc;1 oz pulpe de fruit de la passion;¾ oz jus de citron;½ oz sirop simple;Eau gazeuse|Agiter le spiritueux, le fruit, le citron et le sirop avec de la glace;Filtrer sur glace;Compléter d’eau gazeuse|
+Fizz au rhum blanc et aux bleuets|2|Collins|rhum_blanc,bleuet,citron,sirop,soda|2 oz rhum blanc;¼ tasse de bleuets;¾ oz jus de citron;½ oz sirop simple;Eau gazeuse|Écraser le fruit avec le sirop;Ajouter le spiritueux, le citron et de la glace, agiter;Filtrer sur glace;Compléter d’eau gazeuse|
+Fizz au rhum blanc et au pamplemousse|2|Collins|rhum_blanc,pamplemousse,citron,sirop,soda|2 oz rhum blanc;2 oz jus de pamplemousse;¾ oz jus de citron;½ oz sirop simple;Eau gazeuse|Agiter le spiritueux, le fruit, le citron et le sirop avec de la glace;Filtrer sur glace;Compléter d’eau gazeuse|
+Fizz à la tequila et au pamplemousse|2|Collins|tequila,pamplemousse,citron,sirop,soda|2 oz tequila;2 oz jus de pamplemousse;¾ oz jus de citron;½ oz sirop simple;Eau gazeuse|Agiter le spiritueux, le fruit, le citron et le sirop avec de la glace;Filtrer sur glace;Compléter d’eau gazeuse|
+Fizz à la tequila et à la mangue|2|Collins|tequila,mangue,citron,sirop,soda|2 oz tequila;2 oz purée de mangue;¾ oz jus de citron;½ oz sirop simple;Eau gazeuse|Agiter le spiritueux, le fruit, le citron et le sirop avec de la glace;Filtrer sur glace;Compléter d’eau gazeuse|
+Fizz à la tequila et à la fraise|2|Collins|tequila,fraise,citron,sirop,soda|2 oz tequila;4 fraises;¾ oz jus de citron;½ oz sirop simple;Eau gazeuse|Écraser le fruit avec le sirop;Ajouter le spiritueux, le citron et de la glace, agiter;Filtrer sur glace;Compléter d’eau gazeuse|
+Fizz à la tequila et au concombre|2|Collins|tequila,concombre,citron,sirop,soda|2 oz tequila;4 tranches de concombre;¾ oz jus de citron;½ oz sirop simple;Eau gazeuse|Écraser le fruit avec le sirop;Ajouter le spiritueux, le citron et de la glace, agiter;Filtrer sur glace;Compléter d’eau gazeuse|
+Fizz au bourbon et à la pêche|2|Collins|bourbon,peche,citron,sirop,soda|2 oz bourbon;2 oz purée de pêche;¾ oz jus de citron;½ oz sirop simple;Eau gazeuse|Agiter le spiritueux, le fruit, le citron et le sirop avec de la glace;Filtrer sur glace;Compléter d’eau gazeuse|
+Cooler à la vodka et à l’ananas|1|Highball|vodka,ananas,lime,soda|2 oz vodka;2 oz jus d’ananas;½ oz jus de lime;Eau gazeuse|Remplir de glace;Verser le spiritueux, le jus et l’agrume;Remuer et compléter d’eau gazeuse|Le jus d’agrume frais garde la boisson vive et équilibrée.
+Cooler à la vodka et au pamplemousse|1|Highball|vodka,pamplemousse,lime,soda|2 oz vodka;2 oz jus de pamplemousse;½ oz jus de lime;Eau gazeuse|Remplir de glace;Verser le spiritueux, le jus et l’agrume;Remuer et compléter d’eau gazeuse|Le jus d’agrume frais garde la boisson vive et équilibrée.
+Cooler à la vodka et à la canneberge|1|Highball|vodka,canneberge,lime,soda|2 oz vodka;2 oz jus de canneberge;½ oz jus de lime;Eau gazeuse|Remplir de glace;Verser le spiritueux, le jus et l’agrume;Remuer et compléter d’eau gazeuse|Le jus d’agrume frais garde la boisson vive et équilibrée.
+Cooler à la vodka et à la pomme|1|Highball|vodka,jus_pomme,lime,soda|2 oz vodka;2 oz jus de pomme;½ oz jus de lime;Eau gazeuse|Remplir de glace;Verser le spiritueux, le jus et l’agrume;Remuer et compléter d’eau gazeuse|Le jus d’agrume frais garde la boisson vive et équilibrée.
+Cooler à la vodka et à la mangue|1|Highball|vodka,mangue,lime,soda|2 oz vodka;2 oz purée de mangue;½ oz jus de lime;Eau gazeuse|Remplir de glace;Verser le spiritueux, le jus et l’agrume;Remuer et compléter d’eau gazeuse|Le jus d’agrume frais garde la boisson vive et équilibrée.
+Cooler au gin et au pamplemousse|1|Highball|gin,pamplemousse,citron,soda|2 oz gin;2 oz jus de pamplemousse;½ oz jus de citron;Eau gazeuse|Remplir de glace;Verser le spiritueux, le jus et l’agrume;Remuer et compléter d’eau gazeuse|Le jus d’agrume frais garde la boisson vive et équilibrée.
+Cooler au gin et à la pomme|1|Highball|gin,jus_pomme,citron,soda|2 oz gin;2 oz jus de pomme;½ oz jus de citron;Eau gazeuse|Remplir de glace;Verser le spiritueux, le jus et l’agrume;Remuer et compléter d’eau gazeuse|Le jus d’agrume frais garde la boisson vive et équilibrée.
+Cooler au gin et à la canneberge|1|Highball|gin,canneberge,citron,soda|2 oz gin;2 oz jus de canneberge;½ oz jus de citron;Eau gazeuse|Remplir de glace;Verser le spiritueux, le jus et l’agrume;Remuer et compléter d’eau gazeuse|Le jus d’agrume frais garde la boisson vive et équilibrée.
+Cooler au gin et à la mangue|1|Highball|gin,mangue,citron,soda|2 oz gin;2 oz purée de mangue;½ oz jus de citron;Eau gazeuse|Remplir de glace;Verser le spiritueux, le jus et l’agrume;Remuer et compléter d’eau gazeuse|Le jus d’agrume frais garde la boisson vive et équilibrée.
+Cooler au gin et à l’ananas|1|Highball|gin,ananas,citron,soda|2 oz gin;2 oz jus d’ananas;½ oz jus de citron;Eau gazeuse|Remplir de glace;Verser le spiritueux, le jus et l’agrume;Remuer et compléter d’eau gazeuse|Le jus d’agrume frais garde la boisson vive et équilibrée.
+Cooler au rhum blanc et à l’ananas|1|Highball|rhum_blanc,ananas,lime,soda|2 oz rhum blanc;2 oz jus d’ananas;½ oz jus de lime;Eau gazeuse|Remplir de glace;Verser le spiritueux, le jus et l’agrume;Remuer et compléter d’eau gazeuse|Le jus d’agrume frais garde la boisson vive et équilibrée.
+Cooler au rhum blanc et au pamplemousse|1|Highball|rhum_blanc,pamplemousse,lime,soda|2 oz rhum blanc;2 oz jus de pamplemousse;½ oz jus de lime;Eau gazeuse|Remplir de glace;Verser le spiritueux, le jus et l’agrume;Remuer et compléter d’eau gazeuse|Le jus d’agrume frais garde la boisson vive et équilibrée.
+Cooler au rhum blanc et à la canneberge|1|Highball|rhum_blanc,canneberge,lime,soda|2 oz rhum blanc;2 oz jus de canneberge;½ oz jus de lime;Eau gazeuse|Remplir de glace;Verser le spiritueux, le jus et l’agrume;Remuer et compléter d’eau gazeuse|Le jus d’agrume frais garde la boisson vive et équilibrée.
+Cooler au rhum blanc et à la mangue|1|Highball|rhum_blanc,mangue,lime,soda|2 oz rhum blanc;2 oz purée de mangue;½ oz jus de lime;Eau gazeuse|Remplir de glace;Verser le spiritueux, le jus et l’agrume;Remuer et compléter d’eau gazeuse|Le jus d’agrume frais garde la boisson vive et équilibrée.
+Cooler au rhum blanc et à l’orange|1|Highball|rhum_blanc,orange,lime,soda|2 oz rhum blanc;2 oz jus d’orange;½ oz jus de lime;Eau gazeuse|Remplir de glace;Verser le spiritueux, le jus et l’agrume;Remuer et compléter d’eau gazeuse|Le jus d’agrume frais garde la boisson vive et équilibrée.
+Cooler au rhum ambré et à l’ananas|1|Highball|rhum_ambre,ananas,lime,soda|2 oz rhum ambré;2 oz jus d’ananas;½ oz jus de lime;Eau gazeuse|Remplir de glace;Verser le spiritueux, le jus et l’agrume;Remuer et compléter d’eau gazeuse|Le jus d’agrume frais garde la boisson vive et équilibrée.
+Cooler au rhum ambré et à l’orange|1|Highball|rhum_ambre,orange,lime,soda|2 oz rhum ambré;2 oz jus d’orange;½ oz jus de lime;Eau gazeuse|Remplir de glace;Verser le spiritueux, le jus et l’agrume;Remuer et compléter d’eau gazeuse|Le jus d’agrume frais garde la boisson vive et équilibrée.
+Cooler au rhum ambré et à la pomme|1|Highball|rhum_ambre,jus_pomme,lime,soda|2 oz rhum ambré;2 oz jus de pomme;½ oz jus de lime;Eau gazeuse|Remplir de glace;Verser le spiritueux, le jus et l’agrume;Remuer et compléter d’eau gazeuse|Le jus d’agrume frais garde la boisson vive et équilibrée.
+Cooler au rhum ambré et à la canneberge|1|Highball|rhum_ambre,canneberge,lime,soda|2 oz rhum ambré;2 oz jus de canneberge;½ oz jus de lime;Eau gazeuse|Remplir de glace;Verser le spiritueux, le jus et l’agrume;Remuer et compléter d’eau gazeuse|Le jus d’agrume frais garde la boisson vive et équilibrée.
+Cooler à la tequila et à l’ananas|1|Highball|tequila,ananas,lime,soda|2 oz tequila;2 oz jus d’ananas;½ oz jus de lime;Eau gazeuse|Remplir de glace;Verser le spiritueux, le jus et l’agrume;Remuer et compléter d’eau gazeuse|Le jus d’agrume frais garde la boisson vive et équilibrée.
+Cooler à la tequila et au pamplemousse|1|Highball|tequila,pamplemousse,lime,soda|2 oz tequila;2 oz jus de pamplemousse;½ oz jus de lime;Eau gazeuse|Remplir de glace;Verser le spiritueux, le jus et l’agrume;Remuer et compléter d’eau gazeuse|Le jus d’agrume frais garde la boisson vive et équilibrée.
+Cooler à la tequila et à la canneberge|1|Highball|tequila,canneberge,lime,soda|2 oz tequila;2 oz jus de canneberge;½ oz jus de lime;Eau gazeuse|Remplir de glace;Verser le spiritueux, le jus et l’agrume;Remuer et compléter d’eau gazeuse|Le jus d’agrume frais garde la boisson vive et équilibrée.
+Cooler à la tequila et à l’orange|1|Highball|tequila,orange,lime,soda|2 oz tequila;2 oz jus d’orange;½ oz jus de lime;Eau gazeuse|Remplir de glace;Verser le spiritueux, le jus et l’agrume;Remuer et compléter d’eau gazeuse|Le jus d’agrume frais garde la boisson vive et équilibrée.
+Cooler à la tequila et à la mangue|1|Highball|tequila,mangue,lime,soda|2 oz tequila;2 oz purée de mangue;½ oz jus de lime;Eau gazeuse|Remplir de glace;Verser le spiritueux, le jus et l’agrume;Remuer et compléter d’eau gazeuse|Le jus d’agrume frais garde la boisson vive et équilibrée.
+Cooler au bourbon et à la pomme|1|Highball|bourbon,jus_pomme,citron,soda|2 oz bourbon;2 oz jus de pomme;½ oz jus de citron;Eau gazeuse|Remplir de glace;Verser le spiritueux, le jus et l’agrume;Remuer et compléter d’eau gazeuse|Le jus d’agrume frais garde la boisson vive et équilibrée.
+Cooler au bourbon et à la canneberge|1|Highball|bourbon,canneberge,citron,soda|2 oz bourbon;2 oz jus de canneberge;½ oz jus de citron;Eau gazeuse|Remplir de glace;Verser le spiritueux, le jus et l’agrume;Remuer et compléter d’eau gazeuse|Le jus d’agrume frais garde la boisson vive et équilibrée.
+Cooler au bourbon et à l’orange|1|Highball|bourbon,orange,citron,soda|2 oz bourbon;2 oz jus d’orange;½ oz jus de citron;Eau gazeuse|Remplir de glace;Verser le spiritueux, le jus et l’agrume;Remuer et compléter d’eau gazeuse|Le jus d’agrume frais garde la boisson vive et équilibrée.
+Cooler au whisky canadien et à la pomme|1|Highball|canadien,jus_pomme,citron,soda|2 oz whisky canadien;2 oz jus de pomme;½ oz jus de citron;Eau gazeuse|Remplir de glace;Verser le spiritueux, le jus et l’agrume;Remuer et compléter d’eau gazeuse|Le jus d’agrume frais garde la boisson vive et équilibrée.
+Cooler au whisky canadien et à la canneberge|1|Highball|canadien,canneberge,citron,soda|2 oz whisky canadien;2 oz jus de canneberge;½ oz jus de citron;Eau gazeuse|Remplir de glace;Verser le spiritueux, le jus et l’agrume;Remuer et compléter d’eau gazeuse|Le jus d’agrume frais garde la boisson vive et équilibrée.
+Cooler au cognac et à la pomme|1|Highball|cognac,jus_pomme,citron,soda|2 oz cognac;2 oz jus de pomme;½ oz jus de citron;Eau gazeuse|Remplir de glace;Verser le spiritueux, le jus et l’agrume;Remuer et compléter d’eau gazeuse|Le jus d’agrume frais garde la boisson vive et équilibrée.
+Cooler au cognac et à l’orange|1|Highball|cognac,orange,citron,soda|2 oz cognac;2 oz jus d’orange;½ oz jus de citron;Eau gazeuse|Remplir de glace;Verser le spiritueux, le jus et l’agrume;Remuer et compléter d’eau gazeuse|Le jus d’agrume frais garde la boisson vive et équilibrée.
+Sour au bourbon et à la pêche|2|Verre à whisky|bourbon,peche,citron,sirop|1 ½ oz bourbon;2 oz purée de pêche;¾ oz jus de citron;½ oz sirop simple|Agiter avec le spiritueux, le citron et de la glace;Filtrer sur glace fraîche|
+Sour au bourbon et aux bleuets|2|Verre à whisky|bourbon,bleuet,citron,sirop|1 ½ oz bourbon;¼ tasse de bleuets;¾ oz jus de citron;½ oz sirop simple|Écraser le fruit avec le sirop;Agiter avec le spiritueux, le citron et de la glace;Filtrer sur glace fraîche|
+Sour au bourbon et à la framboise|2|Verre à whisky|bourbon,framboise,citron,sirop|1 ½ oz bourbon;8 framboises;¾ oz jus de citron;½ oz sirop simple|Écraser le fruit avec le sirop;Agiter avec le spiritueux, le citron et de la glace;Filtrer sur glace fraîche|
+Sour au whisky canadien et aux bleuets|2|Verre à whisky|canadien,bleuet,citron,sirop|1 ½ oz whisky canadien;¼ tasse de bleuets;¾ oz jus de citron;½ oz sirop simple|Écraser le fruit avec le sirop;Agiter avec le spiritueux, le citron et de la glace;Filtrer sur glace fraîche|
+Sour au whisky canadien et à la pomme|2|Verre à whisky|canadien,jus_pomme,citron,sirop|1 ½ oz whisky canadien;2 oz jus de pomme;¾ oz jus de citron;½ oz sirop simple|Agiter avec le spiritueux, le citron et de la glace;Filtrer sur glace fraîche|
+Sour au rhum ambré et à la mangue|2|Verre à whisky|rhum_ambre,mangue,citron,sirop|1 ½ oz rhum ambré;2 oz purée de mangue;¾ oz jus de citron;½ oz sirop simple|Agiter avec le spiritueux, le citron et de la glace;Filtrer sur glace fraîche|
+Sour au rhum ambré et à l’ananas|2|Verre à whisky|rhum_ambre,ananas,citron,sirop|1 ½ oz rhum ambré;2 oz jus d’ananas;¾ oz jus de citron;½ oz sirop simple|Agiter avec le spiritueux, le citron et de la glace;Filtrer sur glace fraîche|
+Sour au gin et à la framboise|2|Verre à whisky|gin,framboise,citron,sirop|1 ½ oz gin;8 framboises;¾ oz jus de citron;½ oz sirop simple|Écraser le fruit avec le sirop;Agiter avec le spiritueux, le citron et de la glace;Filtrer sur glace fraîche|
+Sour au gin et à la pêche|2|Verre à whisky|gin,peche,citron,sirop|1 ½ oz gin;2 oz purée de pêche;¾ oz jus de citron;½ oz sirop simple|Agiter avec le spiritueux, le citron et de la glace;Filtrer sur glace fraîche|
+Sour au gin et à la mangue|2|Verre à whisky|gin,mangue,citron,sirop|1 ½ oz gin;2 oz purée de mangue;¾ oz jus de citron;½ oz sirop simple|Agiter avec le spiritueux, le citron et de la glace;Filtrer sur glace fraîche|
+Sour à la vodka et aux bleuets|2|Verre à whisky|vodka,bleuet,citron,sirop|1 ½ oz vodka;¼ tasse de bleuets;¾ oz jus de citron;½ oz sirop simple|Écraser le fruit avec le sirop;Agiter avec le spiritueux, le citron et de la glace;Filtrer sur glace fraîche|
+Sour à la vodka et à la framboise|2|Verre à whisky|vodka,framboise,citron,sirop|1 ½ oz vodka;8 framboises;¾ oz jus de citron;½ oz sirop simple|Écraser le fruit avec le sirop;Agiter avec le spiritueux, le citron et de la glace;Filtrer sur glace fraîche|
+Sour à la vodka et au pamplemousse|2|Verre à whisky|vodka,pamplemousse,citron,sirop|1 ½ oz vodka;2 oz jus de pamplemousse;¾ oz jus de citron;½ oz sirop simple|Agiter avec le spiritueux, le citron et de la glace;Filtrer sur glace fraîche|
+Sour à la tequila et à la mangue|2|Verre à whisky|tequila,mangue,citron,sirop|1 ½ oz tequila;2 oz purée de mangue;¾ oz jus de citron;½ oz sirop simple|Agiter avec le spiritueux, le citron et de la glace;Filtrer sur glace fraîche|
+Sour à la tequila et au fruit de la passion|2|Verre à whisky|tequila,fruit_passion,citron,sirop|1 ½ oz tequila;1 oz pulpe de fruit de la passion;¾ oz jus de citron;½ oz sirop simple|Agiter avec le spiritueux, le citron et de la glace;Filtrer sur glace fraîche|
+Sour au cognac et à la pêche|2|Verre à whisky|cognac,peche,citron,sirop|1 ½ oz cognac;2 oz purée de pêche;¾ oz jus de citron;½ oz sirop simple|Agiter avec le spiritueux, le citron et de la glace;Filtrer sur glace fraîche|
+Sour au calvados et à la pomme|2|Verre à whisky|calvados,jus_pomme,citron,sirop|1 ½ oz calvados;2 oz jus de pomme;¾ oz jus de citron;½ oz sirop simple|Agiter avec le spiritueux, le citron et de la glace;Filtrer sur glace fraîche|
+Spritz Aperol au pamplemousse|1|Grand verre à vin|aperol,pamplemousse,prosecco,soda|2 oz Aperol;3 oz prosecco;1 oz jus de pamplemousse;1 oz eau gazeuse|Remplir de glace;Verser l’apéritif, le prosecco et le jus;Compléter d’eau gazeuse|
+Spritz Aperol à la fraise|1|Grand verre à vin|aperol,fraise,prosecco,soda|2 oz Aperol;3 oz prosecco;4 fraises;1 oz eau gazeuse|Froisser le fruit au fond du verre;Ajouter de la glace, l’apéritif et le prosecco;Compléter d’eau gazeuse|
+Spritz Aperol à la framboise|1|Grand verre à vin|aperol,framboise,prosecco,soda|2 oz Aperol;3 oz prosecco;8 framboises;1 oz eau gazeuse|Froisser le fruit au fond du verre;Ajouter de la glace, l’apéritif et le prosecco;Compléter d’eau gazeuse|
+Spritz Aperol à la mangue|1|Grand verre à vin|aperol,mangue,prosecco,soda|2 oz Aperol;3 oz prosecco;1 oz purée de mangue;1 oz eau gazeuse|Remplir de glace;Verser l’apéritif, le prosecco et le jus;Compléter d’eau gazeuse|
+Spritz Aperol à l’orange|1|Grand verre à vin|aperol,orange,prosecco,soda|2 oz Aperol;3 oz prosecco;1 oz jus d’orange;1 oz eau gazeuse|Remplir de glace;Verser l’apéritif, le prosecco et le jus;Compléter d’eau gazeuse|
+Spritz Aperol au concombre|1|Grand verre à vin|aperol,concombre,prosecco,soda|2 oz Aperol;3 oz prosecco;4 tranches de concombre;1 oz eau gazeuse|Froisser le fruit au fond du verre;Ajouter de la glace, l’apéritif et le prosecco;Compléter d’eau gazeuse|
+Spritz Campari au pamplemousse|1|Grand verre à vin|campari,pamplemousse,prosecco,soda|1 ½ oz Campari;3 oz prosecco;1 oz jus de pamplemousse;1 oz eau gazeuse|Remplir de glace;Verser l’apéritif, le prosecco et le jus;Compléter d’eau gazeuse|
+Spritz Campari à l’orange|1|Grand verre à vin|campari,orange,prosecco,soda|1 ½ oz Campari;3 oz prosecco;1 oz jus d’orange;1 oz eau gazeuse|Remplir de glace;Verser l’apéritif, le prosecco et le jus;Compléter d’eau gazeuse|
+Spritz Campari à la framboise|1|Grand verre à vin|campari,framboise,prosecco,soda|1 ½ oz Campari;3 oz prosecco;8 framboises;1 oz eau gazeuse|Froisser le fruit au fond du verre;Ajouter de la glace, l’apéritif et le prosecco;Compléter d’eau gazeuse|
+Spritz Campari à la fraise|1|Grand verre à vin|campari,fraise,prosecco,soda|1 ½ oz Campari;3 oz prosecco;4 fraises;1 oz eau gazeuse|Froisser le fruit au fond du verre;Ajouter de la glace, l’apéritif et le prosecco;Compléter d’eau gazeuse|
+Spritz St-Germain au concombre|1|Grand verre à vin|st_germain,concombre,prosecco,soda|1 ½ oz St-Germain;3 oz prosecco;4 tranches de concombre;1 oz eau gazeuse|Froisser le fruit au fond du verre;Ajouter de la glace, l’apéritif et le prosecco;Compléter d’eau gazeuse|
+Spritz St-Germain à la framboise|1|Grand verre à vin|st_germain,framboise,prosecco,soda|1 ½ oz St-Germain;3 oz prosecco;8 framboises;1 oz eau gazeuse|Froisser le fruit au fond du verre;Ajouter de la glace, l’apéritif et le prosecco;Compléter d’eau gazeuse|
+Spritz St-Germain au pamplemousse|1|Grand verre à vin|st_germain,pamplemousse,prosecco,soda|1 ½ oz St-Germain;3 oz prosecco;1 oz jus de pamplemousse;1 oz eau gazeuse|Remplir de glace;Verser l’apéritif, le prosecco et le jus;Compléter d’eau gazeuse|
+Spritz St-Germain à la fraise|1|Grand verre à vin|st_germain,fraise,prosecco,soda|1 ½ oz St-Germain;3 oz prosecco;4 fraises;1 oz eau gazeuse|Froisser le fruit au fond du verre;Ajouter de la glace, l’apéritif et le prosecco;Compléter d’eau gazeuse|
+Spritz St-Germain aux bleuets|1|Grand verre à vin|st_germain,bleuet,prosecco,soda|1 ½ oz St-Germain;3 oz prosecco;¼ tasse de bleuets;1 oz eau gazeuse|Froisser le fruit au fond du verre;Ajouter de la glace, l’apéritif et le prosecco;Compléter d’eau gazeuse|
+Spritz limoncello à la framboise|1|Grand verre à vin|limoncello,framboise,prosecco,soda|1 ½ oz limoncello;3 oz prosecco;8 framboises;1 oz eau gazeuse|Froisser le fruit au fond du verre;Ajouter de la glace, l’apéritif et le prosecco;Compléter d’eau gazeuse|
+Spritz limoncello à la fraise|1|Grand verre à vin|limoncello,fraise,prosecco,soda|1 ½ oz limoncello;3 oz prosecco;4 fraises;1 oz eau gazeuse|Froisser le fruit au fond du verre;Ajouter de la glace, l’apéritif et le prosecco;Compléter d’eau gazeuse|
+Spritz limoncello aux bleuets|1|Grand verre à vin|limoncello,bleuet,prosecco,soda|1 ½ oz limoncello;3 oz prosecco;¼ tasse de bleuets;1 oz eau gazeuse|Froisser le fruit au fond du verre;Ajouter de la glace, l’apéritif et le prosecco;Compléter d’eau gazeuse|
+Spritz limoncello au concombre|1|Grand verre à vin|limoncello,concombre,prosecco,soda|1 ½ oz limoncello;3 oz prosecco;4 tranches de concombre;1 oz eau gazeuse|Froisser le fruit au fond du verre;Ajouter de la glace, l’apéritif et le prosecco;Compléter d’eau gazeuse|
+Spritz limoncello au basilic|1|Grand verre à vin|limoncello,basilic,prosecco,soda|1 ½ oz limoncello;3 oz prosecco;6 feuilles de basilic;1 oz eau gazeuse|Froisser le fruit au fond du verre;Ajouter de la glace, l’apéritif et le prosecco;Compléter d’eau gazeuse|
+Spritz Lillet à la fraise|1|Grand verre à vin|lillet,fraise,prosecco,soda|2 oz Lillet;3 oz prosecco;4 fraises;1 oz eau gazeuse|Froisser le fruit au fond du verre;Ajouter de la glace, l’apéritif et le prosecco;Compléter d’eau gazeuse|
+Spritz Lillet à la framboise|1|Grand verre à vin|lillet,framboise,prosecco,soda|2 oz Lillet;3 oz prosecco;8 framboises;1 oz eau gazeuse|Froisser le fruit au fond du verre;Ajouter de la glace, l’apéritif et le prosecco;Compléter d’eau gazeuse|
+Spritz Lillet au pamplemousse|1|Grand verre à vin|lillet,pamplemousse,prosecco,soda|2 oz Lillet;3 oz prosecco;1 oz jus de pamplemousse;1 oz eau gazeuse|Remplir de glace;Verser l’apéritif, le prosecco et le jus;Compléter d’eau gazeuse|
+Spritz Lillet au concombre|1|Grand verre à vin|lillet,concombre,prosecco,soda|2 oz Lillet;3 oz prosecco;4 tranches de concombre;1 oz eau gazeuse|Froisser le fruit au fond du verre;Ajouter de la glace, l’apéritif et le prosecco;Compléter d’eau gazeuse|
+Spritz au Chambord|1|Grand verre à vin|chambord,prosecco,soda|1 ½ oz Chambord;3 oz prosecco;1 oz eau gazeuse|Remplir de glace;Verser la liqueur et le prosecco;Compléter d’eau gazeuse|
+Spritz à la crème de cassis|1|Grand verre à vin|creme_cassis,prosecco,soda|1 ½ oz crème de cassis;3 oz prosecco;1 oz eau gazeuse|Remplir de glace;Verser la liqueur et le prosecco;Compléter d’eau gazeuse|
+Spritz à la liqueur de pêche|1|Grand verre à vin|liqueur_peche,prosecco,soda|1 ½ oz liqueur de pêche;3 oz prosecco;1 oz eau gazeuse|Remplir de glace;Verser la liqueur et le prosecco;Compléter d’eau gazeuse|
+Spritz à la crème de violette|1|Grand verre à vin|creme_violette,prosecco,soda|1 ½ oz crème de violette;3 oz prosecco;1 oz eau gazeuse|Remplir de glace;Verser la liqueur et le prosecco;Compléter d’eau gazeuse|
+Spritz au triple sec|1|Grand verre à vin|triple_sec,prosecco,soda|1 ½ oz triple sec;3 oz prosecco;1 oz eau gazeuse|Remplir de glace;Verser la liqueur et le prosecco;Compléter d’eau gazeuse|
+Spritz au vin blanc au St-Germain|1|Grand verre à vin|vin_blanc,st_germain,soda|4 oz vin blanc;½ oz St-Germain;2 oz eau gazeuse|Remplir de glace;Verser le vin et la liqueur;Compléter d’eau gazeuse|
+Spritz au vin blanc à la crème de cassis|1|Grand verre à vin|vin_blanc,creme_cassis,soda|4 oz vin blanc;½ oz crème de cassis;2 oz eau gazeuse|Remplir de glace;Verser le vin et la liqueur;Compléter d’eau gazeuse|
+Spritz au vin blanc au Chambord|1|Grand verre à vin|vin_blanc,chambord,soda|4 oz vin blanc;½ oz Chambord;2 oz eau gazeuse|Remplir de glace;Verser le vin et la liqueur;Compléter d’eau gazeuse|
+Spritz au vin blanc à la liqueur de pêche|1|Grand verre à vin|vin_blanc,liqueur_peche,soda|4 oz vin blanc;½ oz liqueur de pêche;2 oz eau gazeuse|Remplir de glace;Verser le vin et la liqueur;Compléter d’eau gazeuse|
+Spritz au vin blanc à la crème de violette|1|Grand verre à vin|vin_blanc,creme_violette,soda|4 oz vin blanc;½ oz crème de violette;2 oz eau gazeuse|Remplir de glace;Verser le vin et la liqueur;Compléter d’eau gazeuse|
+Spritz au vin blanc au limoncello|1|Grand verre à vin|vin_blanc,limoncello,soda|4 oz vin blanc;½ oz limoncello;2 oz eau gazeuse|Remplir de glace;Verser le vin et la liqueur;Compléter d’eau gazeuse|
+Spritz au vin blanc à la fraise|1|Grand verre à vin|vin_blanc,fraise,sirop,soda|4 oz vin blanc;4 fraises;¼ oz sirop simple;2 oz eau gazeuse|Écraser le fruit avec le sirop;Ajouter de la glace et le vin;Compléter d’eau gazeuse|
+Spritz au vin blanc à la framboise|1|Grand verre à vin|vin_blanc,framboise,sirop,soda|4 oz vin blanc;8 framboises;¼ oz sirop simple;2 oz eau gazeuse|Écraser le fruit avec le sirop;Ajouter de la glace et le vin;Compléter d’eau gazeuse|
+Spritz au vin blanc à la pêche|1|Grand verre à vin|vin_blanc,peche,sirop,soda|4 oz vin blanc;1 oz purée de pêche;¼ oz sirop simple;2 oz eau gazeuse|Verser la purée et le sirop dans le verre;Ajouter de la glace et le vin;Compléter d’eau gazeuse|
+Spritz au vin blanc aux bleuets|1|Grand verre à vin|vin_blanc,bleuet,sirop,soda|4 oz vin blanc;¼ tasse de bleuets;¼ oz sirop simple;2 oz eau gazeuse|Écraser le fruit avec le sirop;Ajouter de la glace et le vin;Compléter d’eau gazeuse|
+Shandy au pamplemousse|1|Verre à bière|biere,pamplemousse|6 oz bière blonde;3 oz jus de pamplemousse|Verser la bière dans un verre froid;Ajouter le jus|
+Shandy à l’orange|1|Verre à bière|biere,orange|6 oz bière blonde;3 oz jus d’orange|Verser la bière dans un verre froid;Ajouter le jus|
+Shandy à la canneberge|1|Verre à bière|biere,canneberge|6 oz bière blonde;3 oz jus de canneberge|Verser la bière dans un verre froid;Ajouter le jus|
+Bière et cidre|1|Verre à bière|biere,cidre|4 oz bière blonde;4 oz cidre|Verser la bière dans un verre froid;Compléter de cidre|À servir bien froid.
+Cidre au Chambord|1|Verre à pied|chambord,cidre|½ oz Chambord;5 oz cidre|Verser la liqueur sur glace;Compléter de cidre|
+Cidre au St-Germain|1|Verre à pied|st_germain,cidre|½ oz St-Germain;5 oz cidre|Verser la liqueur sur glace;Compléter de cidre|
+Cidre à la liqueur de pêche|1|Verre à pied|liqueur_peche,cidre|½ oz liqueur de pêche;5 oz cidre|Verser la liqueur sur glace;Compléter de cidre|
+Cidre au limoncello|1|Verre à pied|limoncello,cidre|½ oz limoncello;5 oz cidre|Verser la liqueur sur glace;Compléter de cidre|
+Cidre au triple sec|1|Verre à pied|triple_sec,cidre|½ oz triple sec;5 oz cidre|Verser la liqueur sur glace;Compléter de cidre|
+Vermouth doux et orange|1|Highball|vermouth_doux,orange,soda|2 oz vermouth doux;2 oz jus d’orange;2 oz eau gazeuse|Remplir de glace;Verser l’apéritif et le jus;Compléter d’eau gazeuse|
+Vermouth doux et pamplemousse|1|Highball|vermouth_doux,pamplemousse,soda|2 oz vermouth doux;2 oz jus de pamplemousse;2 oz eau gazeuse|Remplir de glace;Verser l’apéritif et le jus;Compléter d’eau gazeuse|
+Vermouth doux et canneberge|1|Highball|vermouth_doux,canneberge,soda|2 oz vermouth doux;2 oz jus de canneberge;2 oz eau gazeuse|Remplir de glace;Verser l’apéritif et le jus;Compléter d’eau gazeuse|
+Vermouth sec et orange|1|Highball|vermouth_sec,orange,soda|2 oz vermouth sec;2 oz jus d’orange;2 oz eau gazeuse|Remplir de glace;Verser l’apéritif et le jus;Compléter d’eau gazeuse|
+Vermouth sec et pamplemousse|1|Highball|vermouth_sec,pamplemousse,soda|2 oz vermouth sec;2 oz jus de pamplemousse;2 oz eau gazeuse|Remplir de glace;Verser l’apéritif et le jus;Compléter d’eau gazeuse|
+Vermouth sec et canneberge|1|Highball|vermouth_sec,canneberge,soda|2 oz vermouth sec;2 oz jus de canneberge;2 oz eau gazeuse|Remplir de glace;Verser l’apéritif et le jus;Compléter d’eau gazeuse|
+Lillet et orange|1|Highball|lillet,orange,soda|2 oz Lillet;2 oz jus d’orange;2 oz eau gazeuse|Remplir de glace;Verser l’apéritif et le jus;Compléter d’eau gazeuse|
+Lillet et pamplemousse|1|Highball|lillet,pamplemousse,soda|2 oz Lillet;2 oz jus de pamplemousse;2 oz eau gazeuse|Remplir de glace;Verser l’apéritif et le jus;Compléter d’eau gazeuse|
+Lillet et canneberge|1|Highball|lillet,canneberge,soda|2 oz Lillet;2 oz jus de canneberge;2 oz eau gazeuse|Remplir de glace;Verser l’apéritif et le jus;Compléter d’eau gazeuse|
+Xérès et orange|1|Highball|sherry,orange,soda|2 oz xérès;2 oz jus d’orange;2 oz eau gazeuse|Remplir de glace;Verser l’apéritif et le jus;Compléter d’eau gazeuse|
+Xérès et pamplemousse|1|Highball|sherry,pamplemousse,soda|2 oz xérès;2 oz jus de pamplemousse;2 oz eau gazeuse|Remplir de glace;Verser l’apéritif et le jus;Compléter d’eau gazeuse|
+Xérès et canneberge|1|Highball|sherry,canneberge,soda|2 oz xérès;2 oz jus de canneberge;2 oz eau gazeuse|Remplir de glace;Verser l’apéritif et le jus;Compléter d’eau gazeuse|
+Porto et orange|1|Highball|porto,orange,soda|2 oz porto;2 oz jus d’orange;2 oz eau gazeuse|Remplir de glace;Verser l’apéritif et le jus;Compléter d’eau gazeuse|
+Porto et pamplemousse|1|Highball|porto,pamplemousse,soda|2 oz porto;2 oz jus de pamplemousse;2 oz eau gazeuse|Remplir de glace;Verser l’apéritif et le jus;Compléter d’eau gazeuse|
+Porto et canneberge|1|Highball|porto,canneberge,soda|2 oz porto;2 oz jus de canneberge;2 oz eau gazeuse|Remplir de glace;Verser l’apéritif et le jus;Compléter d’eau gazeuse|
+Campari et pamplemousse|1|Highball|campari,pamplemousse,soda|1 ½ oz Campari;3 oz jus de pamplemousse;1 oz eau gazeuse|Remplir de glace;Verser l’apéritif et le jus;Compléter d’eau gazeuse|
+Aperol et pamplemousse|1|Highball|aperol,pamplemousse,soda|1 ½ oz Aperol;3 oz jus de pamplemousse;1 oz eau gazeuse|Remplir de glace;Verser l’apéritif et le jus;Compléter d’eau gazeuse|
+Campari et orange|1|Highball|campari,orange,soda|1 ½ oz Campari;3 oz jus d’orange;1 oz eau gazeuse|Remplir de glace;Verser l’apéritif et le jus;Compléter d’eau gazeuse|
+Aperol et orange|1|Highball|aperol,orange,soda|1 ½ oz Aperol;3 oz jus d’orange;1 oz eau gazeuse|Remplir de glace;Verser l’apéritif et le jus;Compléter d’eau gazeuse|
 `;
   EXTRA.split("\n").forEach(function (ln) {
     if (!ln.trim()) return;
@@ -628,11 +1208,55 @@ Armagnac sur glace|1|Verre à whisky|armagnac|2 oz armagnac|Verser sur un gros g
     var needs = p[3].split(",").map(function (r) { return r === "W" ? W : r === "A" ? A : r.replace(/\//g, "|"); });
     C.push([p[0], +p[1], p[2], needs, p[4].split(";"), p[5].split(";"), p[6] || ""]);
   });
+  (function () { var seen = {}; C = C.filter(function (c) { var k = c[0].toLowerCase(); if (seen[k]) return false; seen[k] = 1; return true; }); })();
+
+  /* Force estimée : alcool pur divisé par le volume final, dilution comprise. */
+  var ABV = [
+    [/absinthe/i, 0.55], [/pastis|ouzo|sambuca/i, 0.42], [/chartreuse/i, 0.55], [/fernet/i, 0.39], [/jäger|jager/i, 0.35],
+    [/amaro/i, 0.28], [/campari|pimm/i, 0.25], [/aperol/i, 0.11], [/limoncello/i, 0.28], [/sortilège|sortilege/i, 0.30],
+    [/baileys/i, 0.17], [/frangelico|midori|st-germain|kahl/i, 0.20], [/chambord|cassis/i, 0.16],
+    [/southern comfort|fireball/i, 0.33],
+    [/drambuie|galliano|bénédictine|benedictine|triple sec|marasquin|liqueur|crème de (?:cacao|menthe|cassis|banane|violette)|amaretto|curaçao/i, 0.30],
+    [/vermouth/i, 0.16], [/lillet/i, 0.17], [/xérès|porto/i, 0.19],
+    [/prosecco|mousseux|champagne|\bvin\b|cidre de glace/i, 0.11], [/cidre/i, 0.05], [/bière/i, 0.05],
+    [/\bgin\b|vodka|rhum|tequila|mezcal|whisky|bourbon|\brye\b|scotch|cognac|armagnac|brandy|calvados|pisco|cachaça|single malt/i, 0.40]
+  ];
+  var SOLID = /fraise|framboise|bleuet|concombre|menthe|basilic|gingembre|tranche|feuille|zeste|quartier|lime coupé|banane|oignon|olive|branche|bâton|morceau|lime pressé|citron en/i;
+  var NOVOL = /trait|goutte|rinçage|pincée|quelques|un peu|muscade|\bsel\b|sucre|cannelle|girofle|sauce|worcester|tabasco|piquante|fouettée|fruits|garnir|glace/i;
+  function lineOz(s) {
+    var m = s.match(/^(\d+)?\s*([¼½¾])?\s*/), n = (m[1] ? +m[1] : 0) + (m[2] ? { "¼": 0.25, "½": 0.5, "¾": 0.75 }[m[2]] : 0), rest = s.slice(m[0].length);
+    if (!m[1] && !m[2]) return /^(eau|cola|tonic|ginger|soda|limonade|café|lait|thé|jus|cidre|champagne|prosecco)/i.test(rest) && !NOVOL.test(rest) ? 3 : 0.1;
+    if (/^oz\b/i.test(rest)) return n;
+    if (/^c\. à soupe/i.test(rest)) return n * 0.5;
+    if (/^c\. à thé/i.test(rest)) return n * 0.17;
+    if (/^bouteille/i.test(rest)) return n * 25;
+    if (/^bière/i.test(rest)) return n * 12;
+    if (/^tasse de (?:bleuet|framboise|fraise)/i.test(rest)) return 1;
+    if (/^tasse/i.test(rest)) return n * 8;
+    if (/^(trait|goutte)/i.test(rest)) return 0.03 * n;
+    if (/œuf/i.test(rest)) return 1;
+    if (SOLID.test(rest)) return 0.3;
+    return 0;
+  }
+  function strengthOf(c) {
+    var liquid = 0, eth = 0, steps = c[5].join(" "), hot = /chaud/i.test(c[0] + " " + c[4].join(" ")) || /café|chocolat|toddy|grog|irish/i.test(c[0]);
+    c[4].forEach(function (line) {
+      var v = lineOz(line); if (!v) return;
+      liquid += v;
+      var rest = line.replace(/^(\d+)?\s*[¼½¾]?\s*(oz|c\. à soupe|c\. à thé|tasse|bouteille)?\s*(de |d’)?/i, "");
+      for (var i = 0; i < ABV.length; i++) { if (ABV[i][0].test(rest)) { eth += v * ABV[i][1]; break; } }
+    });
+    var dil = hot ? 0 : liquid * (/agiter|remuer|mélangeur|mélanger au/i.test(steps) ? 0.22 : 0.1);
+    var pct = liquid + dil > 0 ? Math.round(100 * eth / (liquid + dil)) : 0;
+    return { k: pct < 9 ? "f" : pct < 18 ? "m" : "x", pct: pct, std: Math.round(10 * eth / 0.57) / 10 };
+  }
+  var STRL = { f: "Faible", m: "Moyen", x: "Fort" };
+  C.forEach(function (c) { var r = strengthOf(c); c[7] = r.k; c[8] = r.pct; c[9] = String(r.std).replace(".", ","); });
   var have = new Set();
   var brands = [];
   var ratings = {};
-  var ui = { tab: "bar", level: 0, avail: "ok", mine: "all", q: "", limit: 40 };
-  var env = { base: "", level: 1, newOnly: false, allowOne: false, queue: [], pos: 0, wrapped: false };
+  var ui = { tab: "bar", level: 0, avail: "ok", mine: "all", str: "all", q: "", limit: 40 };
+  var env = { base: "", level: 1, str: "all", newOnly: false, allowOne: false, queue: [], pos: 0, wrapped: false };
   var STORE_KEY = "bar-cocktails-v1";
   var dbDoc = null, saveTimer = null, saving = false, dirty = false;
 
@@ -656,7 +1280,7 @@ Armagnac sur glace|1|Verre à whisky|armagnac|2 oz armagnac|Verser sur un gros g
 
   /* Marques connues : le nom tapé choisit la catégorie */
   var BRANDS = [
-    ["Kepler", "gin_aromatise"], ["Fireball", "fireball"], ["Kraken", "rhum_epice"], ["Captain Morgan épicé", "rhum_epice"],
+    ["Kepler", "gin_aromatise"], ["Sortilège", "sortilege"], ["Southern Comfort", "southern_comfort"], ["Galliano", "galliano"], ["Sambuca", "sambuca"], ["Jägermeister", "jagermeister"], ["Pastis 51", "pastis"], ["Ricard", "pastis"], ["Cherry Heering", "liqueur_cerise"], ["Cidre de glace", "cidre_glace"], ["Domaine Pinnacle", "cidre_glace"], ["Cassis de l’Île d’Orléans", "creme_cassis"], ["Fireball", "fireball"], ["Kraken", "rhum_epice"], ["Captain Morgan épicé", "rhum_epice"],
     ["Captain Morgan blanc", "rhum_blanc"], ["Sailor Jerry", "rhum_epice"], ["Bumbu", "rhum_ambre"], ["Bacardi", "rhum_blanc"],
     ["Malibu", "rhum_coco"], ["Appleton Estate", "rhum_brun"], ["Diplomático", "rhum_brun"], ["Mount Gay", "rhum_brun"],
     ["Lamb’s Navy", "rhum_noir"], ["Gosling’s Black Seal", "rhum_noir"], ["Clément", "rhum_agricole"], ["JM", "rhum_agricole"],
@@ -769,6 +1393,7 @@ Armagnac sur glace|1|Verre à whisky|armagnac|2 oz armagnac|Verser sur un gros g
     var q = norm(ui.q);
     var list = C.map(function (c, i) { return { c: c, i: i, m: missing(c) }; }).filter(function (x) {
       if (ui.level && x.c[1] !== ui.level) return false;
+      if (ui.str !== "all" && x.c[7] !== ui.str) return false;
       if (ui.avail === "ok" && x.m.length !== 0) return false;
       if (ui.avail === "one" && x.m.length > 1) return false;
       if (q && norm(x.c[0] + " " + x.c[4].join(" ")).indexOf(q) === -1) return false;
@@ -834,9 +1459,9 @@ Armagnac sur glace|1|Verre à whisky|armagnac|2 oz armagnac|Verser sur un gros g
     var rate = '<h3>Mon avis</h3><div class="rate"><div class="stars">' + stars + '</div><div class="rrow"><button class="pill" data-made="1" data-i="' + x.i + '">Je l’ai fait</button><span class="madecount">' + (r.m ? "Fait " + r.m + " fois" : "") + '</span></div>' +
       '<textarea class="note" data-note="1" data-i="' + x.i + '" rows="2" maxlength="500" placeholder="Ma note : plus de lime, moins sucré…">' + esc(r.n) + '</textarea></div>';
     return '<details class="card"' + (open ? " open" : "") + '><summary><span class="name">' + esc(c[0]) + '</span>' + tag +
-      '<span class="meta">' + pips(c[1]) + '<span>' + LV[c[1]] + '</span><span>' + esc(c[2]) + '</span><span class="mine">' + esc(mineText(r)) + '</span></span></summary>' +
+      '<span class="meta">' + pips(c[1]) + '<span>' + LV[c[1]] + '</span><span class="str s-' + c[7] + '">' + STRL[c[7]] + ' · ≈ ' + c[8] + ' %</span><span>' + esc(c[2]) + '</span><span class="mine">' + esc(mineText(r)) + '</span></span></summary>' +
       '<div class="body">' + miss + '<h3>Ingrédients</h3><ul class="ing">' + ing + '</ul><h3>Préparation</h3><ol class="steps">' + steps + '</ol>' +
-      (c[6] ? '<p class="tip">' + esc(c[6]) + '</p>' : "") + rate + '</div></details>';
+      '<p class="stdline">≈ ' + c[8] + ' % vol. · environ ' + c[9] + ' consommation(s) standard(s)</p>' + (c[6] ? '<p class="tip">' + esc(c[6]) + '</p>' : "") + rate + '</div></details>';
   }
 
   function fillList(openName) {
@@ -865,7 +1490,11 @@ Armagnac sur glace|1|Verre à whisky|armagnac|2 oz armagnac|Verser sur un gros g
     ["Tous", "Simple", "Normal", "Compliqué"].forEach(function (l, i) {
       html += '<button class="pill" data-lv="' + i + '" aria-pressed="' + (ui.level === i) + '">' + l + '</button>';
     });
-    html += '</div><div class="row" id="av">';
+    html += '</div><div class="row" id="st">';
+    [["all", "Toutes forces"], ["f", "Faible"], ["m", "Moyen"], ["x", "Fort"]].forEach(function (a) {
+      html += '<button class="pill" data-st="' + a[0] + '" aria-pressed="' + (ui.str === a[0]) + '">' + a[1] + '</button>';
+    });
+    html += '</div>' + '<p class="hint2">Faible : moins de 9 % (plus léger qu’un vin). Moyen : 9 à 18 %. Fort : 18 % et plus. Estimation avec la dilution de la glace.</p>' + '<div class="row" id="av">';
     [["ok", "Je peux les faire (" + cnt.ok + ")"], ["one", "Il manque 1 article (" + (cnt.ok + cnt.one) + ")"], ["all", "Tous (" + C.length + ")"]].forEach(function (a) {
       html += '<button class="pill" data-av="' + a[0] + '" aria-pressed="' + (ui.avail === a[0]) + '">' + a[1] + '</button>';
     });
@@ -888,6 +1517,7 @@ Armagnac sur glace|1|Verre à whisky|armagnac|2 oz armagnac|Verser sur un gros g
   function envPool() {
     return C.map(function (c, i) { return { c: c, i: i, m: missing(c) }; }).filter(function (x) {
       if (env.level && x.c[1] !== env.level) return false;
+      if (env.str !== "all" && x.c[7] !== env.str) return false;
       if (x.m.length > (env.allowOne ? 1 : 0)) return false;
       if (env.base && !usesBase(x.c, env.base)) return false;
       if (env.newOnly) { var r = ratings[x.c[0]]; if (r && (r.m > 0 || r.s > 0)) return false; }
@@ -920,7 +1550,11 @@ Armagnac sur glace|1|Verre à whisky|armagnac|2 oz armagnac|Verser sur un gros g
     [[1, "Rapide"], [2, "Normal"], [3, "Élaboré"], [0, "Peu importe"]].forEach(function (l) {
       html += '<button class="pill" data-el="' + l[0] + '" aria-pressed="' + (env.level === l[0]) + '">' + l[1] + '</button>';
     });
-    html += '</div></div><div class="grp"><div class="row">' +
+    html += '</div></div><div class="grp"><h2>Force</h2><div class="row">';
+    [["all", "Peu importe"], ["f", "Faible"], ["m", "Moyen"], ["x", "Fort"]].forEach(function (a) {
+      html += '<button class="pill" data-es="' + a[0] + '" aria-pressed="' + (env.str === a[0]) + '">' + a[1] + '</button>';
+    });
+    html += '</div>' + '<p class="hint2">Faible : moins de 9 % (plus léger qu’un vin). Moyen : 9 à 18 %. Fort : 18 % et plus. Estimation avec la dilution de la glace.</p>' + '</div><div class="grp"><div class="row">' +
       '<button class="pill" id="envNew" aria-pressed="' + env.newOnly + '">Seulement des nouveautés</button>' +
       '<button class="pill" id="envOne" aria-pressed="' + env.allowOne + '">Accepter 1 article manquant</button></div></div>' +
       '<div id="envRes"></div>';
@@ -1026,8 +1660,9 @@ Armagnac sur glace|1|Verre à whisky|armagnac|2 oz armagnac|Verser sur un gros g
   });
   elRec.addEventListener("click", function (e) {
     if (handleRate(e)) return;
-    var lv = e.target.closest("[data-lv]"), av = e.target.closest("[data-av]"), mn = e.target.closest("[data-mn]");
-    if (mn) { ui.mine = mn.getAttribute("data-mn"); ui.limit = 40; renderRec(); }
+    var lv = e.target.closest("[data-lv]"), av = e.target.closest("[data-av]"), mn = e.target.closest("[data-mn]"), st = e.target.closest("[data-st]");
+    if (st) { ui.str = st.getAttribute("data-st"); ui.limit = 40; renderRec(); }
+    else if (mn) { ui.mine = mn.getAttribute("data-mn"); ui.limit = 40; renderRec(); }
     else if (lv) { ui.level = +lv.getAttribute("data-lv"); ui.limit = 40; renderRec(); }
     else if (av) { ui.avail = av.getAttribute("data-av"); ui.limit = 40; renderRec(); }
     else if (e.target.id === "goBar") setTab("bar");
@@ -1047,8 +1682,9 @@ Armagnac sur glace|1|Verre à whisky|armagnac|2 oz armagnac|Verser sur un gros g
   elEnv.addEventListener("change", handleNote);
   elEnv.addEventListener("click", function (e) {
     if (handleRate(e)) return;
-    var eb = e.target.closest("[data-eb]"), el = e.target.closest("[data-el]");
-    if (eb) { env.base = eb.getAttribute("data-eb"); rebuildQueue(); renderEnv(); }
+    var eb = e.target.closest("[data-eb]"), el = e.target.closest("[data-el]"), es = e.target.closest("[data-es]");
+    if (es) { env.str = es.getAttribute("data-es"); rebuildQueue(); renderEnv(); }
+    else if (eb) { env.base = eb.getAttribute("data-eb"); rebuildQueue(); renderEnv(); }
     else if (el) { env.level = +el.getAttribute("data-el"); rebuildQueue(); renderEnv(); }
     else if (e.target.id === "envNew") { env.newOnly = !env.newOnly; rebuildQueue(); renderEnv(); }
     else if (e.target.id === "envOne") { env.allowOne = !env.allowOne; rebuildQueue(); renderEnv(); }
